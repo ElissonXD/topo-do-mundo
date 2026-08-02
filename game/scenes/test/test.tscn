@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://cvuwnekt1g7s6"]
+
+[ext_resource type="PackedScene" uid="uid://d2sfe4fdgut63" path="res://game/scenes/player/player_model.tscn" id="1_64la1"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_e6i8i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_64la1"]
+size = Vector2(1158, 87)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h7c7b"]
+size = Vector2(87, 555)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x1k3w"]
+size = Vector2(81.125, 433)
+
+[node name="test" type="Node2D" unique_id=866233104]
+
+[node name="1" type="StaticBody2D" parent="." unique_id=1875221178]
+physics_material_override = SubResource("PhysicsMaterial_e6i8i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="1" unique_id=1928078175]
+position = Vector2(582, 603.5)
+shape = SubResource("RectangleShape2D_64la1")
+
+[node name="PlayerModel" parent="." unique_id=1305856846 instance=ExtResource("1_64la1")]
+position = Vector2(505, 316)
+MAX_SPEED = 100.0
+ACEL = 200
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=563824624]
+position = Vector2(585, 319)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1693796154]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2028229618]
+position = Vector2(45, 282)
+shape = SubResource("RectangleShape2D_h7c7b")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=313663964]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=841083756]
+position = Vector2(199, 223)
+shape = SubResource("RectangleShape2D_x1k3w")
