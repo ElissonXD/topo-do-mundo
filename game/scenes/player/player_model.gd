@@ -220,3 +220,6 @@ func detect_left_collision(body: Node2D):
 
 func detect_right_collision(body: Node2D):
 	wall_slide_direction = 1
+
+func is_alive():
+	return true #mudar dps com as condicoes futuras
