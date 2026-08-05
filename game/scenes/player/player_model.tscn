@@ -79,7 +79,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ve743")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 20.0
 }]
@@ -92,6 +92,14 @@ size = Vector2(6, 33)
 
 [node name="PlayerModel" type="CharacterBody2D" unique_id=1305856846]
 script = ExtResource("1_mm1n1")
+MAX_SPEED = 250.0
+ACEL = 1000.0
+JUMP_VELOCITY = -300.0
+GRAVITY = 900.0
+WALL_DETACH = 0.1
+COYOTE_TIME = 0.1
+DASH_TIME = 0.1
+DASH_POWER = 400.0
 
 [node name="Colission" type="CollisionShape2D" parent="." unique_id=2035951123]
 position = Vector2(0, -0.5)
