@@ -18,6 +18,10 @@ config/features=PackedStringArray("4.7", "Forward Plus")
 
 project/assembly_name="topo"
 
+[gui]
+
+theme/custom_font="uid://chr4aoo66xs3n"
+
 [physics]
 
 3d/physics_engine="Jolt Physics"
