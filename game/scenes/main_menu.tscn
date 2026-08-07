@@ -5,6 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://bamn45ysxp4u5" path="res://assets/temp_assets/Main menu/Butao.png" id="1_kcla8"]
 [ext_resource type="Shader" uid="uid://qsgq1hsxb3jf" path="res://game/scenes/main_menu.gdshader" id="3_7u77p"]
 [ext_resource type="AudioStream" uid="uid://bjg767ekoexor" path="res://assets/temp_assets/Main menu/Three Red Hearts Sanctuary.ogg" id="4_68dpi"]
+[ext_resource type="PackedScene" uid="uid://c6oysvu1lbpog" path="res://assets/temp_assets/Transicao.tscn" id="6_68dpi"]
 
 [sub_resource type="Gradient" id="Gradient_7u77p"]
 
@@ -18,6 +19,8 @@ specular_texture = SubResource("GradientTexture2D_7u77p")
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_68dpi"]
 gradient = SubResource("Gradient_68dpi")
+fill_from = Vector2(0.46703297, 0)
+fill_to = Vector2(0.496337, 0.9432234)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bhunq"]
 shader = ExtResource("3_7u77p")
@@ -82,11 +85,57 @@ text = "TOPO DO MUNDO"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="RichTextLabel2" type="RichTextLabel" parent="." unique_id=371098878]
+material = SubResource("ShaderMaterial_bhunq")
+offset_left = 178.0
+offset_top = 444.0
+offset_right = 322.0
+offset_bottom = 544.0
+theme_override_colors/default_color = Color(1, 1, 0.14901961, 1)
+theme_override_constants/outline_size = 11
+theme_override_font_sizes/normal_font_size = 48
+text = "JOGAR"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="." unique_id=1821646835]
+material = SubResource("ShaderMaterial_bhunq")
+offset_left = 503.0
+offset_top = 444.0
+offset_right = 647.0
+offset_bottom = 544.0
+theme_override_colors/default_color = Color(1, 1, 0.14901961, 1)
+theme_override_constants/outline_size = 11
+theme_override_font_sizes/normal_font_size = 41
+text = "OPCOES"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="." unique_id=33883423]
+material = SubResource("ShaderMaterial_bhunq")
+offset_left = 854.0
+offset_top = 444.0
+offset_right = 1005.0
+offset_bottom = 544.0
+theme_override_colors/default_color = Color(1, 1, 0.14901961, 1)
+theme_override_constants/outline_size = 11
+theme_override_font_sizes/normal_font_size = 52
+text = "CRED"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=754776398]
 stream = ExtResource("4_68dpi")
 volume_db = -20.567
 autoplay = true
 
+[node name="ColorRect" parent="." unique_id=1489075585 instance=ExtResource("6_68dpi")]
+visible = false
+
+[node name="Timer" type="Timer" parent="ColorRect" unique_id=786389196]
+wait_time = 2.0
+
 [connection signal="pressed" from="Gerenciador/Start" to="." method="_on_start_pressed"]
 [connection signal="pressed" from="Gerenciador/Opcoes" to="." method="_on_opcoes_pressed"]
 [connection signal="pressed" from="Gerenciador/creditos" to="." method="_on_creditos_pressed"]
+[connection signal="timeout" from="ColorRect/Timer" to="." method="_on_timer_timeout"]

@@ -13,6 +13,7 @@ config_version=5
 config/name="topo"
 run/main_scene="uid://cn4lfhun38cab"
 config/features=PackedStringArray("4.7", "Forward Plus")
+config/icon="uid://rhbyg4aryyo2"
 
 [dotnet]
 
