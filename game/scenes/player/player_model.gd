@@ -4,19 +4,29 @@ extends CharacterBody2D
 
 # variáveis
 @export_category("Movimentação")
-@export var MAX_SPEED = 300.0
-@export var ACEL = 800
-@export var JUMP_VELOCITY = -400.0
+@export var MAX_SPEED : float = 300.0
+@export var ACEL : float = 800
+@export var FRICTION : float = 800
+@export var MOMENTUM_CONSERVATION : float = 300
+@export var JUMP_VELOCITY : float = -400.0
+@export var GRAVITY : float = 500
+@export var MAX_FALL_SPEED : float = 400
+@export var MAX_WALL_SLIDE_SPEED : float = 200
 @onready var animation: AnimatedSprite2D = $AnimatedSprite2D
-@export_enum("double_jump", "glide", "climb") var ability
-
+@export_enum("dash", "float", "climb", "slide") var ability
+# 0 = dash, 1 = float, 2 = climb, 3 = slide
 # colisores
 @onready var left: Area2D = $left
 @onready var right: Area2D = $right
 
 # timers
-
-var WALL_DETACH = 2
+@export_category("Timers")
+@export var WALL_DETACH : float
+var wall_timer : float
+@export var COYOTE_TIME : float
+var coyote_timer : float
+@export var DASH_TIME : float = 0.5
+var dash_timer : float
 
 # estados
 
@@ -25,17 +35,26 @@ enum PlayerState {
 	walk,
 	jump,
 	falling,
-	wall_slide
+	wall_slide,
+	dash
 }
 
 var state: PlayerState
 
-# movimentação
+# wall jump
 var wall_slide_direction = 0 # -1 esquerda 1 direita
 
 # habilidades
 
+# dash 
+@export_category("Dash")
+@export var DASH_POWER : float = 200
+var has_dash : bool = true
+var dash_direction : Vector2
 
+
+var can_slide : bool = true
+var can_float : bool = true
 
 # Funções de física
 
@@ -44,13 +63,19 @@ func _ready():
 
 func _physics_process(delta: float) -> void:
 
-	if not is_on_floor():
-		var max_fall = 400
+	if affected_by_gravity():
+		var max_fall = MAX_FALL_SPEED
 		if state == PlayerState.wall_slide:
-			max_fall = 200
-		velocity.y = move_toward(velocity.y, max_fall, get_gravity().y*delta)
+			max_fall = MAX_WALL_SLIDE_SPEED
+		velocity.y = move_toward(velocity.y, max_fall, GRAVITY*delta)
+	if is_on_floor():
+		coyote_timer = COYOTE_TIME
+		has_dash = true
 	
-	var direction := Input.get_axis("ui_left", "ui_right")
+	var direction := Input.get_axis("left", "right")
+	
+	if use_dash(): #o dash pode ser utilizado em qualquer estado
+		go_to_dash_state()
 	
 	match state:
 		PlayerState.idle:
@@ -63,7 +88,9 @@ func _physics_process(delta: float) -> void:
 			falling_state(delta, direction)
 		PlayerState.wall_slide:
 			wall_slide_state(delta, direction)
-
+		PlayerState.dash:
+			dash_state(delta, direction)
+	
 	move_and_slide()
 
 # Funções de estado
@@ -93,8 +120,24 @@ func go_to_falling_state():
 func go_to_wall_slide_state():
 	state = PlayerState.wall_slide
 	velocity.y = 0
-	WALL_DETACH = 0.2
+	wall_timer = WALL_DETACH
 	animation.play("wall_jump")
+	return
+
+func go_to_dash_state():
+	state = PlayerState.dash
+	animation.play('dash')
+	has_dash = false
+	dash_timer = DASH_TIME
+	dash_direction = Input.get_vector("left", "right", "up", "down")
+	dash_direction = dash_direction.normalized()
+	if dash_direction == Vector2.ZERO:
+		dash_direction = Vector2.UP
+	velocity = DASH_POWER * dash_direction
+	if dash_direction == Vector2.UP: 
+		# não é a forma ideial de resolver mas é oq tem
+		velocity *= 0.7
+	
 	return
 
 # funções de PERMANÊNCIA
@@ -108,9 +151,13 @@ func idle_state(delta: float, direction: int):
 	if velocity.x != 0:
 		go_to_walk_state()
 		return
-	if velocity.y > 10:
-		go_to_falling_state()
-		return
+	if not is_on_floor():
+		if coyote_timer > 0:
+			coyote_timer -= delta
+			
+			if coyote_timer < 0:
+				go_to_falling_state()
+				return
 
 func walk_state(delta: float, direction: int):
 	
@@ -123,11 +170,14 @@ func walk_state(delta: float, direction: int):
 	if velocity.x == 0:
 		go_to_idle_state()
 		return
-	if velocity.y > 10:
-		go_to_falling_state()
-		return
+	if not is_on_floor():
+		if coyote_timer > 0:
+			coyote_timer -= delta
+			
+			if coyote_timer < 0:
+				go_to_falling_state()
+				return
 	
-
 func jump_state(delta: float, direction: int):
 	
 	get_movement(delta, direction)
@@ -156,7 +206,6 @@ func falling_state(delta: float, direction: int):
 			go_to_idle_state()
 			return
 
-
 func wall_slide_state(delta:float, direction: int):
 	if Input.is_action_just_pressed("ui_accept"):
 		wall_jump(delta, wall_slide_direction)
@@ -164,14 +213,14 @@ func wall_slide_state(delta:float, direction: int):
 		return
 	
 	if not is_on_wall() or (direction != 0 and wall_slide_direction != direction): # direção oposta
-		WALL_DETACH -= delta
+		wall_timer -= delta
 		
-		if WALL_DETACH <= 0:
+		if wall_timer <= 0:
 			velocity.x = MAX_SPEED * direction
 			go_to_falling_state()
 			return
 	else:
-		WALL_DETACH = 0.2
+		wall_timer = WALL_DETACH
 	
 	if is_on_floor():
 		if velocity.x != 0:
@@ -180,6 +229,29 @@ func wall_slide_state(delta:float, direction: int):
 		else:
 			go_to_idle_state()
 			return
+
+func dash_state(delta:float, direction: int):
+	dash_timer -= delta
+	
+	if want_to_wall_slide(direction):
+		go_to_wall_slide_state()
+		return
+	
+	if dash_timer < 0:
+		
+		if is_on_floor():
+			if velocity.x != 0:
+				go_to_walk_state()
+				return
+			else:
+				go_to_idle_state()
+				return
+		
+		go_to_falling_state()
+		return
+	else:
+		velocity += DASH_POWER * dash_direction * delta
+	
 
 # funções de SAÍDA
 
@@ -190,7 +262,7 @@ func get_movement(delta: float, direction: int):
 	if direction:
 		velocity.x = move_toward(velocity.x, MAX_SPEED*direction, delta*ACEL)
 	else:
-		velocity.x = move_toward(velocity.x, 0, delta*ACEL)
+		velocity.x = move_toward(velocity.x, 0, delta*FRICTION)
 
 func flip_sprite(direction: int):
 	if direction > 0:
@@ -211,9 +283,21 @@ func want_to_wall_slide(direction: int):
 
 func can_jump():
 	# alterar depois
-	if is_on_floor():
+	if is_on_floor() or coyote_timer > 0:
 		return true
 	return false
+
+func use_dash() -> bool:
+	if ability == 0 and has_dash and Input.is_action_just_pressed('use_ability'):
+		return true
+	return false
+			
+
+func affected_by_gravity() -> bool:
+	if not is_on_floor() and state != PlayerState.dash:
+		return true
+	return false
+
 
 func detect_left_collision(body: Node2D):
 	wall_slide_direction = -1
