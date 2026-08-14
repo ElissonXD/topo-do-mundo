@@ -98,8 +98,9 @@ JUMP_VELOCITY = -300.0
 GRAVITY = 900.0
 WALL_DETACH = 0.1
 COYOTE_TIME = 0.1
-DASH_TIME = 0.1
 DASH_POWER = 400.0
+DASH_TIME = 0.1
+SLIDE_POWER = 400.0
 
 [node name="Colission" type="CollisionShape2D" parent="." unique_id=2035951123]
 position = Vector2(0, -0.5)
@@ -113,17 +114,20 @@ frame_progress = 0.90738714
 
 [node name="left" type="Area2D" parent="." unique_id=1233443420]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="left" unique_id=1552382799]
+[node name="leftcollision" type="CollisionShape2D" parent="left" unique_id=1552382799]
 position = Vector2(-6, -0.5)
 shape = SubResource("RectangleShape2D_hi634")
 debug_color = Color(0.978612, 0, 0.39857033, 0.41960785)
 
 [node name="right" type="Area2D" parent="." unique_id=726048532]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="right" unique_id=1890823536]
+[node name="rightcollision" type="CollisionShape2D" parent="right" unique_id=1890823536]
 position = Vector2(6, -0.5)
 shape = SubResource("RectangleShape2D_mm2v0")
 debug_color = Color(0.7097094, 0.48675317, 0, 0.41960785)
+
+[node name="up" type="RayCast2D" parent="." unique_id=63560471]
+target_position = Vector2(0, -24)
 
 [connection signal="body_entered" from="left" to="." method="detect_left_collision"]
 [connection signal="body_entered" from="right" to="." method="detect_right_collision"]

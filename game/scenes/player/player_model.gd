@@ -18,15 +18,18 @@ extends CharacterBody2D
 # colisores
 @onready var left: Area2D = $left
 @onready var right: Area2D = $right
+@onready var up: RayCast2D = $up
+@onready var colission: CollisionShape2D = $Colission
+@onready var rightcollision: CollisionShape2D = $right/rightcollision
+@onready var leftcollision: CollisionShape2D = $left/leftcollision
+
 
 # timers
-@export_category("Timers")
+@export_category("General Timers")
 @export var WALL_DETACH : float
 var wall_timer : float
 @export var COYOTE_TIME : float
 var coyote_timer : float
-@export var DASH_TIME : float = 0.5
-var dash_timer : float
 
 # estados
 
@@ -36,7 +39,8 @@ enum PlayerState {
 	jump,
 	falling,
 	wall_slide,
-	dash
+	dash,
+	slide
 }
 
 var state: PlayerState
@@ -49,10 +53,17 @@ var wall_slide_direction = 0 # -1 esquerda 1 direita
 # dash 
 @export_category("Dash")
 @export var DASH_POWER : float = 200
+@export var DASH_TIME : float = 0.5
+var dash_timer : float
 var has_dash : bool = true
 var dash_direction : Vector2
 
-
+# slide
+@export_category("Slide")
+@export var SLIDE_POWER : float = 300
+@export var SLIDE_TIME : float = 0.2
+var slide_timer : float
+var slide_direction : int
 var can_slide : bool = true
 var can_float : bool = true
 
@@ -90,6 +101,8 @@ func _physics_process(delta: float) -> void:
 			wall_slide_state(delta, direction)
 		PlayerState.dash:
 			dash_state(delta, direction)
+		PlayerState.slide:
+			slide_state(delta, direction)
 	
 	move_and_slide()
 
@@ -140,6 +153,15 @@ func go_to_dash_state():
 	
 	return
 
+func go_to_slide_state(direction: int):
+	state = PlayerState.slide
+	animation.play("slide")
+	low_hitbox()
+	slide_direction = direction
+	velocity.x = SLIDE_POWER*direction
+	slide_timer = SLIDE_TIME
+	return
+
 # funções de PERMANÊNCIA
 func idle_state(delta: float, direction: int):
 	get_movement(delta, direction)
@@ -169,6 +191,9 @@ func walk_state(delta: float, direction: int):
 		return
 	if velocity.x == 0:
 		go_to_idle_state()
+		return
+	if use_slide():
+		go_to_slide_state(direction)
 		return
 	if not is_on_floor():
 		if coyote_timer > 0:
@@ -251,7 +276,31 @@ func dash_state(delta:float, direction: int):
 		return
 	else:
 		velocity += DASH_POWER * dash_direction * delta
+
+func slide_state(delta:float, direction: int):
+	slide_timer -= delta
 	
+	if slide_timer < 0 and not up.is_colliding():
+		normal_hitbox()
+		if is_on_floor():
+			if velocity.x != 0:
+				go_to_walk_state()
+				return
+			else:
+				go_to_idle_state()
+				return
+		
+		go_to_falling_state()
+		return
+	else:
+		if slide_timer > 0:
+			velocity.x += delta * slide_direction * SLIDE_POWER
+		if Input.is_action_just_pressed("jump") and not up.is_colliding():
+			velocity.x += slide_direction * 50 # impulso para momentum
+			normal_hitbox()
+			go_to_jump_state()
+			return
+		
 
 # funções de SAÍDA
 
@@ -259,10 +308,17 @@ func dash_state(delta:float, direction: int):
 # Funções úteis
 
 func get_movement(delta: float, direction: int):
-	if direction:
-		velocity.x = move_toward(velocity.x, MAX_SPEED*direction, delta*ACEL)
-	else:
-		velocity.x = move_toward(velocity.x, 0, delta*FRICTION)
+	var target_speed = MAX_SPEED * direction
+	var current_accel = ACEL 
+	
+	if not is_on_floor():
+		if direction == 0:
+			current_accel = MOMENTUM_CONSERVATION
+		
+		elif sign(velocity.x) == direction and abs(velocity.x) > MAX_SPEED:
+			current_accel = MOMENTUM_CONSERVATION
+		
+	velocity.x = move_toward(velocity.x, target_speed, delta * current_accel)
 
 func flip_sprite(direction: int):
 	if direction > 0:
@@ -293,11 +349,34 @@ func use_dash() -> bool:
 	return false
 			
 
+func use_slide() -> bool:
+	if ability == 3 and Input.is_action_just_pressed('use_ability'):
+		return true
+	return false
+
 func affected_by_gravity() -> bool:
 	if not is_on_floor() and state != PlayerState.dash:
 		return true
 	return false
 
+func low_hitbox() -> void:
+	leftcollision.shape.size.y = 13
+	leftcollision.position.y = 8
+	rightcollision.shape.size.y = 13
+	rightcollision.position.y = 8
+	colission.shape.size.y = 13
+	colission.position.y = 8
+	return
+
+func normal_hitbox() -> void:
+	leftcollision.shape.size.y = 33.5
+	leftcollision.position.y = -0.5
+	rightcollision.shape.size.y = 33.5
+	rightcollision.position.y = -0.5
+	colission.shape.size.y = 33.5
+	colission.position.y = -0.5
+	return
+	
 
 func detect_left_collision(body: Node2D):
 	wall_slide_direction = -1
