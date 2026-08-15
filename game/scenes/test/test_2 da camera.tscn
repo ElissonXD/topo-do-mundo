@@ -338,7 +338,7 @@ texture = ExtResource("5_ii72q")
 
 [node name="PlayerModel" parent="Jogadores" unique_id=1305856846 instance=ExtResource("1_anv3l")]
 position = Vector2(252, 543)
-ability = 0
+ability = 2
 
 [node name="PlayerModel2" parent="Jogadores" unique_id=531827392 instance=ExtResource("1_anv3l")]
 position = Vector2(211, 550)

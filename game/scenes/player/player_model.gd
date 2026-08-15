@@ -36,7 +36,8 @@ enum PlayerState {
 	jump,
 	falling,
 	wall_slide,
-	dash
+	dash,
+	climb #adicionei esse
 }
 
 var state: PlayerState
@@ -45,6 +46,14 @@ var state: PlayerState
 var wall_slide_direction = 0 # -1 esquerda 1 direita
 
 # habilidades
+
+# climb
+@export_category("climb")
+@export var Climb_Power : float = 200
+var has_climb : bool = true
+var climb_direction : Vector2
+
+
 
 # dash 
 @export_category("Dash")
@@ -90,6 +99,8 @@ func _physics_process(delta: float) -> void:
 			wall_slide_state(delta, direction)
 		PlayerState.dash:
 			dash_state(delta, direction)
+		PlayerState.climb:
+			climb_state(delta,direction)
 	
 	move_and_slide()
 
@@ -139,7 +150,13 @@ func go_to_dash_state():
 		velocity *= 0.7
 	
 	return
-
+func go_to_climb_state():
+	state = PlayerState.climb
+	animation.play('climb')
+	has_climb = false
+	velocity.y=0
+	#climb_direction = Input.get_vector("up","down")
+	return
 # funções de PERMANÊNCIA
 func idle_state(delta: float, direction: int):
 	get_movement(delta, direction)
@@ -195,9 +212,17 @@ func falling_state(delta: float, direction: int):
 	get_movement(delta, direction)
 	flip_sprite(direction)	
 	
-	if want_to_wall_slide(direction):
-		go_to_wall_slide_state()
-		return
+	#if want_to_wall_slide(direction):
+		#go_to_wall_slide_state()
+		#return
+	if is_on_wall() and direction !=0:
+		if Input.is_action_pressed("up") and has_climb:
+			go_to_climb_state()
+			return
+		else:
+			go_to_wall_slide_state()
+			return
+			
 	if is_on_floor():
 		if velocity.x != 0:
 			go_to_walk_state()
@@ -207,6 +232,9 @@ func falling_state(delta: float, direction: int):
 			return
 
 func wall_slide_state(delta:float, direction: int):
+	if is_on_wall() and Input.is_action_pressed("up") and has_climb:
+		go_to_climb_state()
+		return
 	if Input.is_action_just_pressed("ui_accept"):
 		wall_jump(delta, wall_slide_direction)
 		go_to_jump_state()
@@ -252,7 +280,36 @@ func dash_state(delta:float, direction: int):
 	else:
 		velocity += DASH_POWER * dash_direction * delta
 	
-
+func climb_state(delta: float,direction: int):
+	var climb_speed: float = 200.0
+	var wall_normal: Vector2 = Vector2.ZERO
+	var vertical_input = Input.get_axis("up","down")
+	if vertical_input != 0:
+		velocity.y = vertical_input * Climb_Power
+	else:
+		# Pequena inércia para dar um "grude" na parede
+		velocity.y = move_toward(velocity.y, 0, Climb_Power * 2 * delta)
+	velocity.x=0 #nao se move pros lados
+	move_and_slide()
+	if wall_slide_direction != 0:
+		animation.flip_h = (wall_slide_direction < 0) # flip para o lado da parede
+	
+	if not is_on_wall():
+		go_to_falling_state() #weeee
+		return
+	
+	if Input.is_action_just_pressed("ui_accept"):
+		wall_jump(delta,wall_slide_direction)
+		go_to_jump_state()
+		return
+		
+	if is_on_floor():
+		if velocity.x != 0:
+			go_to_walk_state()
+		else:
+			go_to_idle_state()
+		return
+	
 # funções de SAÍDA
 
 
@@ -292,6 +349,11 @@ func use_dash() -> bool:
 		return true
 	return false
 			
+
+func use_climb() -> bool:
+	if ability == 0 and has_climb and Input.is_action_just_pressed('use_ability'):
+		return true
+	return false
 
 func affected_by_gravity() -> bool:
 	if not is_on_floor() and state != PlayerState.dash:

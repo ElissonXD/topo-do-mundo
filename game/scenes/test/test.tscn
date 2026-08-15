@@ -25,7 +25,7 @@ shape = SubResource("RectangleShape2D_64la1")
 [node name="PlayerModel" parent="." unique_id=1305856846 instance=ExtResource("1_64la1")]
 position = Vector2(505, 316)
 MAX_FALL_SPEED = 500.0
-ability = 0
+ability = 2
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=563824624]
 position = Vector2(585, 319)
