@@ -22,6 +22,7 @@ project/assembly_name="topo"
 [global_group]
 
 Player=""
+Spawn=""
 
 [gui]
 
