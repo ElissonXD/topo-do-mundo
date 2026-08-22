@@ -394,4 +394,5 @@ position = Vector2(737, 482)
 [node name="SpawnPoint4" type="Marker2D" parent="SpawnPoints" unique_id=866814604 groups=["Spawn"]]
 position = Vector2(803, 546)
 
+[connection signal="timeout" from="RoundManager/Timer" to="RoundManager" method="_on_timer_timeout"]
 [connection signal="timeout" from="RoundManager/Timer2" to="RoundManager" method="_on_timer_2_timeout"]

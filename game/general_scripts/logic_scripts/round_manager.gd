@@ -1,5 +1,6 @@
 extends Node
 
+# configurações
 
 @export_category('Configurações gerais')
 @export var general_timer : Timer
@@ -8,7 +9,17 @@ extends Node
 @export var players : Array[PlayerModel]
 @export var players_points : Array[int] = [0,0,0,0]
 @export var game_started : bool = false
+@export var game_ended : bool = false
 
+# sinais
+
+signal get_players_points(player_points : Array[int]);
+# pega as pontuações dos 4 players
+signal get_start_timer(timer : Timer)
+# pega o timer inicial
+signal get_game_timer(timer: Timer)
+# pega o timer do jogo
+signal game_end() 
 
 
 func _ready() -> void:
@@ -23,13 +34,14 @@ func _ready() -> void:
 		players[x].global_position = spawn_points[x].global_position
 	
 	start_timer.start(3)
+	get_start_timer.emit(start_timer)
 	
 	return
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if game_started:
+	if game_started and not game_ended:
 		var menor_y: int = 9999999999 
 		var player_vencedor: Node2D = null
 		var empate: bool = false
@@ -52,12 +64,22 @@ func _process(delta: float) -> void:
 					players_points[3] += delta * 100
 		
 		print(players_points)
-		# adicionar logica de coroa
 		
+		get_players_points.emit(players_points)
+		# adicionar logica de coroa	
 	
+	if game_ended:
+		get_tree().paused = true
 		
 
 
 func _on_timer_2_timeout() -> void:
 	game_started = true
 	get_tree().paused = false
+	general_timer.start()
+	get_game_timer.emit(general_timer)
+
+
+func _on_timer_timeout() -> void:
+	game_end.emit()
+	game_ended = true
