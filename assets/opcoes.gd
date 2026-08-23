@@ -71,3 +71,11 @@ func load_settings() -> void:
 	var master_idx = AudioServer.get_bus_index("Master")
 	if master_idx != -1:
 		AudioServer.set_bus_mute(master_idx, mute)
+
+
+func _on_texture_button_pressed():
+	$ColorRect.show()
+	$ColorRect/Timer.start()
+	$ColorRect/AnimationPlayer.play("Transicao")
+	get_tree().change_scene_to_file("res://game/scenes/main_menu.tscn")
+	

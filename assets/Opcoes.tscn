@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://tj15vqqalfsy" path="res://assets/temp_assets/Opcoes/8.png" id="9_2rd2v"]
 [ext_resource type="Texture2D" uid="uid://bamn45ysxp4u5" path="res://assets/temp_assets/Main menu/Butao.png" id="11_meuyl"]
 [ext_resource type="AudioStream" uid="uid://mdecjpwg5mqm" path="res://assets/temp_assets/Opcoes/Three Red Hearts Puzzle Pieces.ogg" id="12_16y30"]
+[ext_resource type="PackedScene" uid="uid://c6oysvu1lbpog" path="res://assets/temp_assets/Transicao.tscn" id="12_imxkn"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_bhunq"]
 shader = ExtResource("4_16y30")
@@ -178,8 +179,41 @@ layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 8
 
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/VBoxContainer" unique_id=214790656]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+texture_normal = ExtResource("11_meuyl")
+texture_pressed = ExtResource("11_meuyl")
+stretch_mode = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TextureButton" unique_id=733247926]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.0050000004
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/normal_font_size = 32
+text = "Voltar"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" parent="." unique_id=1610285260 instance=ExtResource("12_imxkn")]
+visible = false
+layout_mode = 0
+
+[node name="Timer" type="Timer" parent="ColorRect" unique_id=1811451457]
+
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2023390205]
 stream = ExtResource("12_16y30")
 volume_db = 0.005
 autoplay = true
 bus = &"Music"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TextureButton" to="." method="_on_texture_button_pressed"]

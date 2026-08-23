@@ -1,9 +1,12 @@
 [gd_scene format=3 uid="uid://dderdaro8uedb"]
 
+[ext_resource type="Script" uid="uid://bbsnnuekf1eg6" path="res://game/scenes/Selecao de personagem/sel.gd" id="1_lb04w"]
 [ext_resource type="Texture2D" uid="uid://erofm1ybxcbt" path="res://game/scenes/Selecao de personagem/origbig.png" id="1_x2bni"]
 [ext_resource type="Texture2D" uid="uid://bamn45ysxp4u5" path="res://assets/temp_assets/Main menu/Butao.png" id="2_nsu3w"]
 [ext_resource type="Texture2D" uid="uid://dqlsorrl1xkou" path="res://assets/temp_assets/player_template/male_hero_template-design.png" id="3_ececn"]
 [ext_resource type="AudioStream" uid="uid://cmd1aie2ybuu1" path="res://game/scenes/Selecao de personagem/Three Red Hearts Penguins vs Rabbits.ogg" id="4_lb04w"]
+[ext_resource type="Texture2D" uid="uid://cwe8yh4dj2f2i" path="res://game/scenes/Selecao de personagem/Pointer topo do mundo.png" id="5_ececn"]
+[ext_resource type="Script" uid="uid://bjwg7cxlnbcmp" path="res://game/scenes/Selecao de personagem/p_1.gd" id="6_lb04w"]
 
 [node name="Control" type="Control" unique_id=1983910046]
 layout_mode = 3
@@ -12,6 +15,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+script = ExtResource("1_lb04w")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1348468283]
 position = Vector2(509, 183)
@@ -97,14 +101,24 @@ offset_right = 0.5359802
 grow_vertical = 2
 
 [node name="Label" type="Label" parent="CanvasLayer/P1" unique_id=1911226498]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 14.0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.88900006
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.036010742
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="Label2" type="Label" parent="CanvasLayer/P1" unique_id=1336583916]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 14.0
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+grow_horizontal = 2
+grow_vertical = 0
 
 [node name="P2" type="Panel" parent="CanvasLayer" unique_id=1107862224]
 layout_mode = 1
@@ -170,3 +184,26 @@ offset_bottom = 14.0
 stream = ExtResource("4_lb04w")
 volume_db = -19.015
 autoplay = true
+
+[node name="Cursores" type="Node2D" parent="." unique_id=9020926]
+
+[node name="P1" type="Sprite2D" parent="Cursores" unique_id=434016651]
+modulate = Color(0, 0.95000005, 1, 1)
+position = Vector2(339, 128)
+texture = ExtResource("5_ececn")
+script = ExtResource("6_lb04w")
+
+[node name="P2" type="Sprite2D" parent="Cursores" unique_id=542064586]
+modulate = Color(1, 0, 0, 1)
+position = Vector2(808, 128)
+texture = ExtResource("5_ececn")
+
+[node name="P3" type="Sprite2D" parent="Cursores" unique_id=1434679627]
+modulate = Color(0.64373946, 0.75195247, 0.26839355, 1)
+position = Vector2(355, 452)
+texture = ExtResource("5_ececn")
+
+[node name="P4" type="Sprite2D" parent="Cursores" unique_id=400243299]
+modulate = Color(1, 0.96933335, 0.07999998, 1)
+position = Vector2(808, 452)
+texture = ExtResource("5_ececn")
