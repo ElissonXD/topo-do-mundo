@@ -1,6 +1,5 @@
 [gd_scene format=4 uid="uid://bmafvc3sob5o6"]
 
-[ext_resource type="PackedScene" uid="uid://d2sfe4fdgut63" path="res://game/scenes/player/player_model.tscn" id="1_anv3l"]
 [ext_resource type="Texture2D" uid="uid://bbf3xp0f75t2m" path="res://assets/NV_NEVE/Parallac/2.png" id="2_gn03m"]
 [ext_resource type="Script" uid="uid://8msp505ubm61" path="res://game/scenes/test/Camera somadora.gd" id="2_qs0h8"]
 [ext_resource type="Texture2D" uid="uid://b5vfmwixwymqy" path="res://assets/NV_NEVE/winter_.png" id="3_o7as8"]
@@ -336,23 +335,6 @@ texture = ExtResource("5_ii72q")
 
 [node name="Jogadores" type="Node2D" parent="." unique_id=575433225]
 
-[node name="PlayerModel" parent="Jogadores" unique_id=68535454 instance=ExtResource("1_anv3l")]
-position = Vector2(252, 543)
-
-[node name="PlayerModel2" parent="Jogadores" unique_id=531827392 instance=ExtResource("1_anv3l")]
-position = Vector2(406, 481)
-control_schema = "2"
-
-[node name="PlayerModel3" parent="Jogadores" unique_id=1564233948 instance=ExtResource("1_anv3l")]
-position = Vector2(804, 564)
-control_schema = "3"
-ability = null
-
-[node name="PlayerModel4" parent="Jogadores" unique_id=1790025513 instance=ExtResource("1_anv3l")]
-position = Vector2(735, 480)
-control_schema = "4"
-ability = null
-
 [node name="Camera2D" type="Camera2D" parent="." unique_id=563824624]
 position = Vector2(616, 393)
 ignore_rotation = false
@@ -369,11 +351,10 @@ tile_map_data = PackedByteArray("AAABACQAAAAAABEAAAACACQAAAABABEAAAADACQAAAABABE
 tile_set = SubResource("TileSet_qr0ht")
 use_kinematic_bodies = true
 
-[node name="RoundManager" type="Node" parent="." unique_id=1886654352 node_paths=PackedStringArray("general_timer", "start_timer", "players")]
+[node name="RoundManager" type="Node" parent="." unique_id=1886654352 node_paths=PackedStringArray("general_timer", "start_timer")]
 script = ExtResource("9_gn03m")
 general_timer = NodePath("Timer")
 start_timer = NodePath("Timer2")
-players = [NodePath("../Jogadores/PlayerModel"), NodePath("../Jogadores/PlayerModel2"), NodePath("../Jogadores/PlayerModel3"), NodePath("../Jogadores/PlayerModel4")]
 
 [node name="Timer" type="Timer" parent="RoundManager" unique_id=1617015737]
 wait_time = 180.0

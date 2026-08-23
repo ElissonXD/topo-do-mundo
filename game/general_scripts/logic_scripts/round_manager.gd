@@ -6,7 +6,7 @@ extends Node
 @export var general_timer : Timer
 @export var start_timer : Timer
 @export var spawn_points : Array[Node]
-@export var players : Array[PlayerModel]
+@export var players : Array[Dictionary]
 @export var players_points : Array[int] = [0,0,0,0]
 @export var game_started : bool = false
 @export var game_ended : bool = false
@@ -23,15 +23,15 @@ signal game_end()
 
 
 func _ready() -> void:
-	# aqui deve exisir uma conexão com um sinal que recebe os players
+	players = GameLogic.get_players()
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	start_timer.process_mode = Node.PROCESS_MODE_ALWAYS
 	spawn_points = get_tree().get_nodes_in_group('Spawn')
 	get_tree().paused = true
 	
 	for x in range(4):
-		# atualizar para instanciar
-		players[x].global_position = spawn_points[x].global_position
+		$"../Jogadores".add_child(players[x]['model'])
+		players[x]["model"].global_position = spawn_points[x].global_position
 	
 	start_timer.start(3)
 	get_start_timer.emit(start_timer)
@@ -43,24 +43,24 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if game_started and not game_ended:
 		var menor_y: int = 9999999999 
-		var player_vencedor: Node2D = null
+		var player_vencedor: Dictionary
 		var empate: bool = false
 		for player in players:
-			if int(player.global_position.y) < menor_y:
-				menor_y = int(player.global_position.y)
+			if int(player['model'].global_position.y) < menor_y:
+				menor_y = int(player['model'].global_position.y)
 				player_vencedor = player
 				empate = false
-			elif int(player.global_position.y) == menor_y:
+			elif int(player['model'].global_position.y) == menor_y:
 				empate = true
 		if player_vencedor != null and not empate:
-			match player_vencedor.name:
-				'PlayerModel':
+			match player_vencedor['id']:
+				1:
 					players_points[0] += delta * 100
-				'PlayerModel2':
+				2:
 					players_points[1] += delta * 100
-				'PlayerModel3':
+				3:
 					players_points[2] += delta*100
-				'PlayerModel4':
+				4:
 					players_points[3] += delta * 100
 		
 		print(players_points)

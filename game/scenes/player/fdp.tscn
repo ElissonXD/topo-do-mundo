@@ -316,7 +316,7 @@ animations = [{
 }],
 "loop": 1,
 "name": &"Jump",
-"speed": 10.0
+"speed": 20.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -422,8 +422,8 @@ shape = SubResource("RectangleShape2D_mm1n1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1879678150]
 texture_filter = 1
 sprite_frames = SubResource("SpriteFrames_3grme")
-animation = &"Walk"
-offset = Vector2(12, 0)
+animation = &"Jump"
+frame_progress = 0.736009
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": false,
 "layer_section": false,
@@ -469,7 +469,6 @@ target_position = Vector2(0, -24)
 libraries/ = SubResource("AnimationLibrary_mm2v0")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=349119826]
-bus = &"Sfx"
 
 [connection signal="body_entered" from="left" to="." method="detect_left_collision"]
 [connection signal="body_entered" from="right" to="." method="detect_right_collision"]

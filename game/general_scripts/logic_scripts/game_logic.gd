@@ -66,6 +66,18 @@ Funções para controle do jogo
 
 
 func get_players():
+	#mock temporarário
+	for x in range(4):
+		var object = load("res://game/scenes/player/fdp.tscn").instantiate()
+		object.ability = x
+		object.vivo = true
+		object.control_schema = str(x+1)
+		var player = {
+			"id": x+1,
+			"model": object
+		}
+		players_data.append(player)
+
 	return players_data
 
 func update_game_points(total_points : Array[int]):

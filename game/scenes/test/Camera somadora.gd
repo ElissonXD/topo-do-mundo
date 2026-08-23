@@ -6,6 +6,7 @@ extends Camera2D
 @export var max_zoom: float = 2.0   # zoom mínimo (muito aproximado)
 @export var smooth_factor: float = 5.0  # suavidade (mais alto = mais rápido)
 @export var lookahead_factor: float = 0.3  # influência da velocidade
+@export var maximum_margin: float = 30
 
 var players: Array = []
 var target_zoom: float = 1.0
@@ -26,6 +27,12 @@ func _ready():
 	make_current()
 
 func _process(delta):
+	if players.is_empty() and players_parent:
+		var parent = get_node_or_null(players_parent)
+		if parent:
+			for child in parent.get_children():
+				if child.has_method("is_alive"):
+					players.append(child)
 	update_camera(delta)
 
 func update_camera(delta):
@@ -82,3 +89,17 @@ func update_camera(delta):
 	zoom = zoom.lerp(Vector2.ONE * target_zoom, smooth_factor * delta)
 	
 	# 4. A câmara já respeita os limites definidos com set_limit()
+	
+	#5. Verificar se o jogador caiu o suficiente para morrer
+	player_is_onbound(alive, viewport_size)
+	
+func player_is_onbound(alive: Array, viewport: Vector2) -> void:
+	if is_equal_approx(zoom.x, min_zoom) or zoom.x <= min_zoom + 0.05:
+		var canvas_transform = get_canvas_transform()
+		
+		for p in alive:
+			var screen_pos = canvas_transform * p.global_position
+			
+			if screen_pos.y > viewport.y + maximum_margin:
+				p.die()
+				

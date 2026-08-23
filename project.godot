@@ -15,6 +15,10 @@ run/main_scene="uid://bbap3yh2fu66o"
 config/features=PackedStringArray("4.7", "Forward Plus")
 config/icon="uid://rhbyg4aryyo2"
 
+[autoload]
+
+GameLogic="*uid://crius0fiewgx6"
+
 [dotnet]
 
 project/assembly_name="topo"
