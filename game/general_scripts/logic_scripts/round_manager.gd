@@ -30,8 +30,8 @@ func _ready() -> void:
 	get_tree().paused = true
 	
 	for x in range(4):
-		# atualizar para instanciar
-		players[x].global_position = spawn_points[x].global_position
+		$"../Jogadores".add_child(players[x]['model'])
+		players[x]["model"].global_position = spawn_points[x].global_position
 	
 	start_timer.start(3)
 	get_start_timer.emit(start_timer)
@@ -43,24 +43,24 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if game_started and not game_ended:
 		var menor_y: int = 9999999999 
-		var player_vencedor: Node2D = null
+		var player_vencedor: Dictionary
 		var empate: bool = false
 		for player in players:
-			if int(player.global_position.y) < menor_y:
-				menor_y = int(player.model.global_position.y)
-				player_vencedor = player.model
+			if int(player['model'].global_position.y) < menor_y:
+				menor_y = int(player['model'].global_position.y)
+				player_vencedor = player
 				empate = false
-			elif int(player.model.global_position.y) == menor_y:
+			elif int(player['model'].global_position.y) == menor_y:
 				empate = true
 		if player_vencedor != null and not empate:
-			match player_vencedor.id:
-				'1':
+			match player_vencedor['id']:
+				1:
 					players_points[0] += delta * 100
-				'2':
+				2:
 					players_points[1] += delta * 100
-				'3':
+				3:
 					players_points[2] += delta*100
-				'4':
+				4:
 					players_points[3] += delta * 100
 		
 		print(players_points)

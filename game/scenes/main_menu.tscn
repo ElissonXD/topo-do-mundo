@@ -119,6 +119,7 @@ vertical_alignment = 1
 
 [node name="Origbig2" type="Sprite2D" parent="." unique_id=1074726103]
 show_behind_parent = true
+z_index = -1
 position = Vector2(647, 647)
 texture = ExtResource("1_fybxi")
 

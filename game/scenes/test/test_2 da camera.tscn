@@ -1,6 +1,5 @@
 [gd_scene format=4 uid="uid://bmafvc3sob5o6"]
 
-[ext_resource type="PackedScene" uid="uid://d2sfe4fdgut63" path="res://game/scenes/player/player_model.tscn" id="1_anv3l"]
 [ext_resource type="Texture2D" uid="uid://bbf3xp0f75t2m" path="res://assets/NV_NEVE/Parallac/2.png" id="2_gn03m"]
 [ext_resource type="Script" uid="uid://8msp505ubm61" path="res://game/scenes/test/Camera somadora.gd" id="2_qs0h8"]
 [ext_resource type="Texture2D" uid="uid://b5vfmwixwymqy" path="res://assets/NV_NEVE/winter_.png" id="3_o7as8"]
@@ -9,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://bbiy88f1knmul" path="res://assets/NV_NEVE/Parallac/1.png" id="5_83ies"]
 [ext_resource type="Texture2D" uid="uid://bdp83h3b6d3xe" path="res://assets/NV_NEVE/Parallac/5.png" id="5_ii72q"]
 [ext_resource type="Script" uid="uid://d1mgwxqf3grvn" path="res://game/general_scripts/logic_scripts/round_manager.gd" id="9_gn03m"]
-[ext_resource type="Script" uid="uid://bumovlmjcbvnx" path="res://game/scenes/player/player_model.gd" id="10_pcf16"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bhunq"]
 
@@ -337,24 +335,6 @@ texture = ExtResource("5_ii72q")
 
 [node name="Jogadores" type="Node2D" parent="." unique_id=575433225]
 
-[node name="PlayerModel" parent="Jogadores" unique_id=68535454 instance=ExtResource("1_anv3l")]
-position = Vector2(252, 543)
-ability = 1
-
-[node name="PlayerModel2" parent="Jogadores" unique_id=531827392 instance=ExtResource("1_anv3l")]
-position = Vector2(406, 481)
-control_schema = "2"
-
-[node name="PlayerModel3" parent="Jogadores" unique_id=1564233948 instance=ExtResource("1_anv3l")]
-position = Vector2(804, 564)
-control_schema = "3"
-ability = null
-
-[node name="PlayerModel4" parent="Jogadores" unique_id=1790025513 instance=ExtResource("1_anv3l")]
-position = Vector2(735, 480)
-control_schema = "4"
-ability = null
-
 [node name="Camera2D" type="Camera2D" parent="." unique_id=563824624]
 position = Vector2(616, 393)
 ignore_rotation = false
@@ -375,11 +355,6 @@ use_kinematic_bodies = true
 script = ExtResource("9_gn03m")
 general_timer = NodePath("Timer")
 start_timer = NodePath("Timer2")
-players = Array[ExtResource("10_pcf16")]([Object(CharacterBody2D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"oversampling_with_scale":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(252, 543),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"disable_mode":0,"collision_layer":2,"collision_mask":1,"collision_priority":1.0,"input_pickable":false,"motion_mode":0,"up_direction":Vector2(0, -1),"velocity":Vector2(0, 0),"slide_on_ceiling":true,"max_slides":4,"wall_min_slide_angle":0.2617994,"floor_stop_on_slope":true,"floor_constant_speed":false,"floor_block_on_wall":true,"floor_max_angle":0.7853982,"floor_snap_length":1.0,"platform_on_leave":0,"platform_floor_layers":4294967295,"platform_wall_layers":0,"safe_margin":0.08,"script":ExtResource("10_pcf16"),"control_schema":"1","MAX_SPEED":250.0,"ACEL":1000.0,"FRICTION":800.0,"MOMENTUM_CONSERVATION":300.0,"JUMP_VELOCITY":-250.0,"GRAVITY":1000.0,"MAX_FALL_SPEED":600.0,"MAX_WALL_SLIDE_SPEED":300.0,"ability":1,"WALL_DETACH":0.1,"COYOTE_TIME":0.1,"HURT_TIME":0.3,"IFRAMES":1.5,"DASH_POWER":350.0,"DASH_TIME":0.1,"SLIDE_POWER":400.0,"SLIDE_TIME":0.2,"GLIDE_TIME":0.5)
-, Object(CharacterBody2D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"oversampling_with_scale":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(406, 481),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"disable_mode":0,"collision_layer":2,"collision_mask":1,"collision_priority":1.0,"input_pickable":false,"motion_mode":0,"up_direction":Vector2(0, -1),"velocity":Vector2(0, 0),"slide_on_ceiling":true,"max_slides":4,"wall_min_slide_angle":0.2617994,"floor_stop_on_slope":true,"floor_constant_speed":false,"floor_block_on_wall":true,"floor_max_angle":0.7853982,"floor_snap_length":1.0,"platform_on_leave":0,"platform_floor_layers":4294967295,"platform_wall_layers":0,"safe_margin":0.08,"script":ExtResource("10_pcf16"),"control_schema":"2","MAX_SPEED":250.0,"ACEL":1000.0,"FRICTION":800.0,"MOMENTUM_CONSERVATION":300.0,"JUMP_VELOCITY":-250.0,"GRAVITY":1000.0,"MAX_FALL_SPEED":600.0,"MAX_WALL_SLIDE_SPEED":300.0,"ability":3,"WALL_DETACH":0.1,"COYOTE_TIME":0.1,"HURT_TIME":0.3,"IFRAMES":1.5,"DASH_POWER":350.0,"DASH_TIME":0.1,"SLIDE_POWER":400.0,"SLIDE_TIME":0.2,"GLIDE_TIME":0.5)
-, Object(CharacterBody2D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"oversampling_with_scale":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(804, 564),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"disable_mode":0,"collision_layer":2,"collision_mask":1,"collision_priority":1.0,"input_pickable":false,"motion_mode":0,"up_direction":Vector2(0, -1),"velocity":Vector2(0, 0),"slide_on_ceiling":true,"max_slides":4,"wall_min_slide_angle":0.2617994,"floor_stop_on_slope":true,"floor_constant_speed":false,"floor_block_on_wall":true,"floor_max_angle":0.7853982,"floor_snap_length":1.0,"platform_on_leave":0,"platform_floor_layers":4294967295,"platform_wall_layers":0,"safe_margin":0.08,"script":ExtResource("10_pcf16"),"control_schema":"3","MAX_SPEED":250.0,"ACEL":1000.0,"FRICTION":800.0,"MOMENTUM_CONSERVATION":300.0,"JUMP_VELOCITY":-250.0,"GRAVITY":1000.0,"MAX_FALL_SPEED":600.0,"MAX_WALL_SLIDE_SPEED":300.0,"ability":null,"WALL_DETACH":0.1,"COYOTE_TIME":0.1,"HURT_TIME":0.3,"IFRAMES":1.5,"DASH_POWER":350.0,"DASH_TIME":0.1,"SLIDE_POWER":400.0,"SLIDE_TIME":0.2,"GLIDE_TIME":0.5)
-, Object(CharacterBody2D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","visible":true,"modulate":Color(1, 1, 1, 1),"self_modulate":Color(1, 1, 1, 1),"show_behind_parent":false,"top_level":false,"oversampling_with_scale":0,"light_mask":1,"visibility_layer":1,"z_index":0,"z_as_relative":true,"y_sort_enabled":false,"texture_filter":0,"texture_repeat":0,"material":null,"use_parent_material":false,"position":Vector2(735, 480),"rotation":0.0,"scale":Vector2(1, 1),"skew":0.0,"disable_mode":0,"collision_layer":2,"collision_mask":1,"collision_priority":1.0,"input_pickable":false,"motion_mode":0,"up_direction":Vector2(0, -1),"velocity":Vector2(0, 0),"slide_on_ceiling":true,"max_slides":4,"wall_min_slide_angle":0.2617994,"floor_stop_on_slope":true,"floor_constant_speed":false,"floor_block_on_wall":true,"floor_max_angle":0.7853982,"floor_snap_length":1.0,"platform_on_leave":0,"platform_floor_layers":4294967295,"platform_wall_layers":0,"safe_margin":0.08,"script":ExtResource("10_pcf16"),"control_schema":"4","MAX_SPEED":250.0,"ACEL":1000.0,"FRICTION":800.0,"MOMENTUM_CONSERVATION":300.0,"JUMP_VELOCITY":-250.0,"GRAVITY":1000.0,"MAX_FALL_SPEED":600.0,"MAX_WALL_SLIDE_SPEED":300.0,"ability":null,"WALL_DETACH":0.1,"COYOTE_TIME":0.1,"HURT_TIME":0.3,"IFRAMES":1.5,"DASH_POWER":350.0,"DASH_TIME":0.1,"SLIDE_POWER":400.0,"SLIDE_TIME":0.2,"GLIDE_TIME":0.5)
-])
 
 [node name="Timer" type="Timer" parent="RoundManager" unique_id=1617015737]
 wait_time = 180.0

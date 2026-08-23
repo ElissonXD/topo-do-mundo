@@ -2,6 +2,9 @@ class_name PlayerModel extends CharacterBody2D
 
 # Configurações do player
 
+@export_category('Vivo')
+@export var vivo : bool = true
+
 # inicialização dos controles
 @export_category("Controles")
 @export_enum("1", "2", "3", "4") var control_schema = '1';
@@ -154,23 +157,23 @@ func _physics_process(delta: float) -> void:
 
 func go_to_idle_state():
 	state = PlayerState.idle
-	animation.play("idle")
+	animation.play("Idle")
 	return
 
 func go_to_walk_state():
 	state = PlayerState.walk
-	animation.play("walk")
+	animation.play("Run")
 	return
 
 func go_to_jump_state():
 	state = PlayerState.jump
-	animation.play("jump")
+	animation.play("Jump")
 	velocity.y = JUMP_VELOCITY
 	return
 
 func go_to_falling_state():
 	state = PlayerState.falling
-	animation.play("fall")
+	animation.play("Fall")
 	return
 
 func go_to_wall_slide_state():
@@ -189,7 +192,7 @@ func go_to_hurt_state():
 
 func go_to_dash_state():
 	state = PlayerState.dash
-	animation.play('dash')
+	animation.play('Jump')
 	has_dash = false
 	dash_timer = DASH_TIME
 	dash_direction = Input.get_vector(left_control, right_control, 
@@ -509,5 +512,9 @@ func detect_right_collision(body: Node2D):
 				apply_knockback(body)
 				body.go_to_hurt_state();
 
+func die():
+	vivo = false
+	PROCESS_MODE_DISABLED
+
 func is_alive():
-	return true #mudar dps com as condicoes futuras
+	return vivo #mudar dps com as condicoes futuras
