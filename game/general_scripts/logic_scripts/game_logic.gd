@@ -63,7 +63,7 @@ Funções para controle do jogo
  - Controlar mudança de mapa
  
 """
-
+# botar um mock para os players
 
 func get_players():
 	return players_data

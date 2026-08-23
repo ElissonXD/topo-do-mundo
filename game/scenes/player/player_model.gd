@@ -24,7 +24,7 @@ var ability_control : String;
 @export var MAX_WALL_SLIDE_SPEED : float = 300
 @onready var animation: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
-@export_enum("dash", "float", "climb", "slide") var ability
+@export_enum("dash", "glide", "climb", "slide") var ability
 # 0 = dash, 1 = float, 2 = climb, 3 = slide
 # colisores
 @onready var left: Area2D = $left
@@ -56,7 +56,8 @@ enum PlayerState {
 	wall_slide,
 	hurt,
 	dash,
-	slide
+	slide,
+	glide
 }
 
 var state: PlayerState
@@ -81,7 +82,14 @@ var dash_direction : Vector2
 var slide_timer : float
 var slide_direction : int
 var can_slide : bool = true
-var can_float : bool = true
+
+
+
+# float
+@export_category("Glide")
+@export var GLIDE_TIME : float = 0.5
+var glide_timer : float
+var can_glide : bool = true
 
 # Funções de física
 
@@ -103,6 +111,7 @@ func _physics_process(delta: float) -> void:
 	if is_on_floor():
 		coyote_timer = COYOTE_TIME
 		has_dash = true
+		can_glide = true
 	
 	var direction := Input.get_axis(left_control, right_control)
 	
@@ -114,6 +123,9 @@ func _physics_process(delta: float) -> void:
 	
 	if use_dash(): #o dash pode ser utilizado em qualquer estado
 		go_to_dash_state()
+	
+	if use_glide(): # o glide pode ser usado em qualquer estado
+		go_to_glide_state()
 	
 	match state:
 		PlayerState.idle:
@@ -132,6 +144,8 @@ func _physics_process(delta: float) -> void:
 			dash_state(delta, direction)
 		PlayerState.slide:
 			slide_state(delta, direction)
+		PlayerState.glide:
+			glide_state(delta, direction)
 	
 	move_and_slide()
 
@@ -197,6 +211,14 @@ func go_to_slide_state(direction: int):
 	slide_direction = direction
 	velocity.x = SLIDE_POWER*direction
 	slide_timer = SLIDE_TIME
+	return
+
+func go_to_glide_state():
+	state = PlayerState.glide
+	animation.play('glide')
+	glide_timer = GLIDE_TIME
+	can_glide = false
+	velocity.y = 0
 	return
 
 # funções de PERMANÊNCIA
@@ -357,6 +379,24 @@ func slide_state(delta:float, direction: int):
 			go_to_jump_state()
 			return
 		
+func glide_state(delta: float, direction: int):
+	get_movement(delta, direction)
+	flip_sprite(direction)
+	
+	glide_timer -= delta
+	
+	var released : bool = Input.is_action_just_released(ability_control)
+	
+	if glide_timer <= 0 or released:
+		
+		if want_to_wall_slide(direction):
+			go_to_wall_slide_state()
+			return
+		
+		
+		go_to_falling_state()
+		return
+
 
 # funções de SAÍDA
 
@@ -367,7 +407,7 @@ func get_movement(delta: float, direction: int):
 	var target_speed = MAX_SPEED * direction
 	var current_accel = ACEL 
 	
-	if not is_on_floor():
+	if not is_on_floor() and state != PlayerState.glide:
 		if direction == 0:
 			current_accel = MOMENTUM_CONSERVATION
 		
@@ -404,14 +444,19 @@ func use_dash() -> bool:
 		return true
 	return false
 			
-
 func use_slide() -> bool:
 	if ability == 3 and Input.is_action_just_pressed(ability_control):
 		return true
 	return false
 
+func use_glide() -> bool:
+	if not is_on_floor() and ability == 1:
+		if Input.is_action_pressed(ability_control) and can_glide:
+			return true
+	return false
+
 func affected_by_gravity() -> bool:
-	if not is_on_floor() and state != PlayerState.dash:
+	if not is_on_floor() and state != PlayerState.dash and state != PlayerState.glide:
 		return true
 	return false
 
