@@ -5,8 +5,15 @@
 [ext_resource type="Texture2D" uid="uid://bamn45ysxp4u5" path="res://assets/temp_assets/Main menu/Butao.png" id="2_nsu3w"]
 [ext_resource type="Texture2D" uid="uid://dqlsorrl1xkou" path="res://assets/temp_assets/player_template/male_hero_template-design.png" id="3_ececn"]
 [ext_resource type="AudioStream" uid="uid://cmd1aie2ybuu1" path="res://game/scenes/Selecao de personagem/Three Red Hearts Penguins vs Rabbits.ogg" id="4_lb04w"]
+[ext_resource type="Texture2D" uid="uid://b8t5fqm0trugg" path="res://addons/at-icons/node2d/paw_print.svg" id="5_dhnql"]
 [ext_resource type="Texture2D" uid="uid://cwe8yh4dj2f2i" path="res://game/scenes/Selecao de personagem/Pointer topo do mundo.png" id="5_ececn"]
+[ext_resource type="Texture2D" uid="uid://ktdckcvcmv0i" path="res://addons/at-icons/node2d/lightning_bolt.svg" id="6_b0tvh"]
 [ext_resource type="Script" uid="uid://bjwg7cxlnbcmp" path="res://game/scenes/Selecao de personagem/p_1.gd" id="6_lb04w"]
+[ext_resource type="Texture2D" uid="uid://pfuf8nwoftmk" path="res://addons/at-icons/node2d/wing.svg" id="7_2grn0"]
+[ext_resource type="Texture2D" uid="uid://djdvprbkfgopj" path="res://addons/at-icons/node2d/grass.svg" id="8_mxwhb"]
+
+[sub_resource type="AnimatedTexture" id="AnimatedTexture_ogwj7"]
+frame_0/texture = ExtResource("3_ececn")
 
 [node name="Control" type="Control" unique_id=1983910046]
 layout_mode = 3
@@ -42,20 +49,23 @@ offset_right = -0.3840332
 offset_bottom = -310.0
 grow_horizontal = 2
 grow_vertical = 2
-columns = 4
+columns = 2
 
 [node name="Feldspato" type="TextureRect" parent="Personagens" unique_id=136308863]
 layout_mode = 2
-texture = ExtResource("3_ececn")
+texture = SubResource("AnimatedTexture_ogwj7")
 
 [node name="Pero" type="TextureRect" parent="Personagens" unique_id=1698197738]
 layout_mode = 2
+texture = ExtResource("3_ececn")
 
 [node name="TextureRect3" type="TextureRect" parent="Personagens" unique_id=322934330]
 layout_mode = 2
+texture = ExtResource("3_ececn")
 
 [node name="TextureRect4" type="TextureRect" parent="Personagens" unique_id=1420130571]
 layout_mode = 2
+texture = ExtResource("3_ececn")
 
 [node name="Skills" type="GridContainer" parent="." unique_id=764455256]
 layout_mode = 1
@@ -71,18 +81,74 @@ grow_horizontal = 2
 grow_vertical = 2
 columns = 2
 
-[node name="TextureRect" type="TextureRect" parent="Skills" unique_id=254494265]
+[node name="Climb" type="TextureRect" parent="Skills" unique_id=254494265]
+custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
-texture = ExtResource("3_ececn")
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("5_dhnql")
 
-[node name="TextureRect2" type="TextureRect" parent="Skills" unique_id=1224704259]
-layout_mode = 2
+[node name="Label" type="Label" parent="Skills/Climb" unique_id=1131822193]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Climb"
+horizontal_alignment = 1
 
-[node name="TextureRect3" type="TextureRect" parent="Skills" unique_id=1414146170]
+[node name="Dash" type="TextureRect" parent="Skills" unique_id=1224704259]
+custom_minimum_size = Vector2(96, 0)
 layout_mode = 2
+texture = ExtResource("6_b0tvh")
 
-[node name="TextureRect4" type="TextureRect" parent="Skills" unique_id=1164408264]
+[node name="dash" type="Label" parent="Skills/Dash" unique_id=2050884917]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Dash"
+horizontal_alignment = 1
+
+[node name="glide" type="TextureRect" parent="Skills" unique_id=1414146170]
 layout_mode = 2
+texture = ExtResource("7_2grn0")
+expand_mode = 5
+
+[node name="Label3" type="Label" parent="Skills/glide" unique_id=1665634312]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Glide"
+horizontal_alignment = 1
+
+[node name="Slide" type="TextureRect" parent="Skills" unique_id=1164408264]
+layout_mode = 2
+texture = ExtResource("8_mxwhb")
+
+[node name="Label4" type="Label" parent="Skills/Slide" unique_id=541258473]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Slide"
+horizontal_alignment = 1
 
 [node name="CanvasLayer" type="Control" parent="." unique_id=621906159]
 layout_mode = 1

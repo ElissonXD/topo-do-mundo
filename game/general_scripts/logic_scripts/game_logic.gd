@@ -31,13 +31,29 @@ Funções para controle de menu
 
 signal update_player;
 
-func add_player(player: PlayerModel):
+func add_player(player_model: PlayerModel, costume_index: int, control_schema: String):
 	if players_data.size() < 4:
 		players_data.append({
-			"score": 0.0,
-			"model": player
+			"model": player_model,
+			"costume_index": costume_index,
+			"control_schema": control_schema,
+			"score": 0,
+			"ready": false
 		})
-		update_player.emit(players_data.size())
+		update_player.emit()
+
+func set_player_ready(player_index: int, ready: bool):
+	if player_index < players_data.size():
+		players_data[player_index]["ready"] = ready
+		update_player.emit()
+
+func all_players_ready() -> bool:
+	for p in players_data:
+		if not p["ready"]:
+			return false
+	return players_data.size() > 0
+
+
 
 func remove_player(id: int):
 	if total_players > 1:
@@ -49,8 +65,10 @@ func change_player(id: int, player:PlayerModel):
 	update_player.emit(total_players)
 
 func go_to_main_game():
-	get_tree().change_scene_to_file("opa") # placeholder
-	return
+	if all_players_ready():
+		get_tree().change_scene_to_file("res://game/scenes/main_game.tscn")
+	else:
+		print("Nem todos os jogadores estão prontos!")
 
 # Controle do jogo
 

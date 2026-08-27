@@ -77,5 +77,10 @@ func _on_texture_button_pressed():
 	$ColorRect.show()
 	$ColorRect/Timer.start()
 	$ColorRect/AnimationPlayer.play("Transicao")
+	
+	
+
+
+func _on_timer_timeout():
 	get_tree().change_scene_to_file("res://game/scenes/main_menu.tscn")
 	
