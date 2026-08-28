@@ -1,0 +1,85 @@
+extends Node
+
+# configurações
+
+@export_category('Configurações gerais')
+@export var general_timer : Timer
+@export var start_timer : Timer
+@export var spawn_points : Array[Node]
+@export var players : Array[Dictionary]
+@export var players_points : Array[int] = [0,0,0,0]
+@export var game_started : bool = false
+@export var game_ended : bool = false
+
+# sinais
+
+signal get_players_points(player_points : Array[int]);
+# pega as pontuações dos 4 players
+signal get_start_timer(timer : Timer)
+# pega o timer inicial
+signal get_game_timer(timer: Timer)
+# pega o timer do jogo
+signal game_end() 
+
+
+func _ready() -> void:
+	players = GameLogic.get_players()
+	process_mode = Node.PROCESS_MODE_ALWAYS
+	start_timer.process_mode = Node.PROCESS_MODE_ALWAYS
+	spawn_points = get_tree().get_nodes_in_group('Spawn')
+	get_tree().paused = true
+	
+	for x in range(4):
+		$"../Jogadores".add_child(players[x]['model'])
+		players[x]["model"].global_position = spawn_points[x].global_position
+	
+	start_timer.start(3)
+	get_start_timer.emit(start_timer)
+	
+	return
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	if game_started and not game_ended:
+		var menor_y: int = 9999999999 
+		var player_vencedor: Dictionary
+		var empate: bool = false
+		for player in players:
+			if int(player['model'].global_position.y) < menor_y:
+				menor_y = int(player['model'].global_position.y)
+				player_vencedor = player
+				empate = false
+			elif int(player['model'].global_position.y) == menor_y:
+				empate = true
+		if player_vencedor != null and not empate:
+			match player_vencedor['id']:
+				1:
+					players_points[0] += delta * 100
+				2:
+					players_points[1] += delta * 100
+				3:
+					players_points[2] += delta*100
+				4:
+					players_points[3] += delta * 100
+		
+		print(players_points)
+		
+		get_players_points.emit(players_points)
+		# adicionar logica de coroa	
+	
+	if game_ended:
+		get_tree().paused = true
+		
+
+
+func _on_timer_2_timeout() -> void:
+	game_started = true
+	get_tree().paused = false
+	general_timer.start()
+	get_game_timer.emit(general_timer)
+
+
+func _on_timer_timeout() -> void:
+	game_end.emit()
+	game_ended = true
