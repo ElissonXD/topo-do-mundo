@@ -292,6 +292,22 @@ physics_layer_0/collision_layer = 1
 physics_layer_0/physics_material = SubResource("PhysicsMaterial_bhunq")
 sources/0 = SubResource("TileSetAtlasSource_83ies")
 
+[sub_resource type="GDScript" id="GDScript_ovyys"]
+script/source = "extends CanvasLayer
+
+
+# Called when the node enters the scene tree for the first time.
+func _ready() -> void:
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(delta: float) -> void:
+	pass
+"
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gn03m"]
+
 [node name="test" type="Node2D" unique_id=866233104]
 
 [node name="Fundo" type="Node2D" parent="." unique_id=381131237]
@@ -334,6 +350,7 @@ scroll_offset = Vector2(616, 395.5)
 texture = ExtResource("5_ii72q")
 
 [node name="Jogadores" type="Node2D" parent="." unique_id=575433225]
+position = Vector2(-82, 220)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=563824624]
 position = Vector2(616, 393)
@@ -374,6 +391,34 @@ position = Vector2(737, 482)
 
 [node name="SpawnPoint4" type="Marker2D" parent="SpawnPoints" unique_id=866814604 groups=["Spawn"]]
 position = Vector2(803, 546)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2039428875]
+script = SubResource("GDScript_ovyys")
+
+[node name="items" type="HBoxContainer" parent="CanvasLayer" unique_id=1390492214]
+offset_left = 608.0
+offset_top = 646.0
+offset_right = 608.0
+offset_bottom = 646.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="players" type="HBoxContainer" parent="CanvasLayer" unique_id=758889202]
+offset_left = 115.0
+offset_top = 536.0
+offset_right = 865.0
+offset_bottom = 536.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 250
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer" unique_id=471229881]
+offset_left = 134.0
+offset_top = 509.0
+offset_right = 884.0
+offset_bottom = 564.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_gn03m")
+accessibility_region = true
 
 [connection signal="timeout" from="RoundManager/Timer" to="RoundManager" method="_on_timer_timeout"]
 [connection signal="timeout" from="RoundManager/Timer2" to="RoundManager" method="_on_timer_2_timeout"]

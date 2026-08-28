@@ -63,11 +63,11 @@ func _on_confirm_pressed(player_index: int):
 		GameLogic.players_data[player_index]["control_schema"] = str(player_index+1)
 		GameLogic.set_player_ready(player_index, true)
 		# Atualizar painel para mostrar "Pronto"
-	update_ui()
+	# update_ui()
 
 func _on_cancel_pressed(player_index: int):
 	var cursor = cursors[player_index]
 	cursor.is_locked = false
 	if player_index < GameLogic.players_data.size():
 		GameLogic.set_player_ready(player_index, false)
-	update_ui()
+	# update_ui()
