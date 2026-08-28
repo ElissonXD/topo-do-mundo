@@ -1,0 +1,220 @@
+[gd_scene format=3 uid="uid://tnva6fekg3ue"]
+
+[ext_resource type="Script" uid="uid://f6eg57wg7w2" path="res://assets/opcoes.gd" id="1_ikhvn"]
+[ext_resource type="Texture2D" uid="uid://deyemt8e7eicd" path="res://assets/temp_assets/Opcoes/1.png" id="1_yedur"]
+[ext_resource type="Texture2D" uid="uid://beidrugx6afsm" path="res://assets/temp_assets/Opcoes/2.png" id="2_ikhvn"]
+[ext_resource type="Texture2D" uid="uid://cls78lidw1j1n" path="res://assets/temp_assets/Opcoes/3.png" id="3_meuyl"]
+[ext_resource type="Shader" uid="uid://qsgq1hsxb3jf" path="res://game/scenes/main_menu.gdshader" id="4_16y30"]
+[ext_resource type="Texture2D" uid="uid://df52k7j3fs0jv" path="res://assets/temp_assets/Opcoes/6.png" id="5_imxkn"]
+[ext_resource type="Texture2D" uid="uid://5yd64158cp0y" path="res://assets/temp_assets/Opcoes/10.png" id="6_0vyl3"]
+[ext_resource type="Texture2D" uid="uid://du64r033sk1jb" path="res://assets/temp_assets/Opcoes/5.png" id="7_jipli"]
+[ext_resource type="Texture2D" uid="uid://dlt40k4reo7bh" path="res://assets/temp_assets/Opcoes/7.png" id="8_g0dvr"]
+[ext_resource type="Texture2D" uid="uid://tj15vqqalfsy" path="res://assets/temp_assets/Opcoes/8.png" id="9_2rd2v"]
+[ext_resource type="Texture2D" uid="uid://bamn45ysxp4u5" path="res://assets/temp_assets/Main menu/Butao.png" id="11_meuyl"]
+[ext_resource type="AudioStream" uid="uid://mdecjpwg5mqm" path="res://assets/temp_assets/Opcoes/Three Red Hearts Puzzle Pieces.ogg" id="12_16y30"]
+[ext_resource type="PackedScene" uid="uid://c6oysvu1lbpog" path="res://assets/temp_assets/Transicao.tscn" id="12_imxkn"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bhunq"]
+shader = ExtResource("4_16y30")
+shader_parameter/wave_speed = 5.0
+shader_parameter/wave_frequency = 5.0
+shader_parameter/wave_height = 1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tcw12"]
+shader = ExtResource("4_16y30")
+shader_parameter/wave_speed = 6.0
+shader_parameter/wave_frequency = 5.0
+shader_parameter/wave_height = -1.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xrcq3"]
+shader = ExtResource("4_16y30")
+shader_parameter/wave_speed = 2.0
+shader_parameter/wave_frequency = 3.0
+shader_parameter/wave_height = 1.0
+
+[node name="Opcoes" type="Control" unique_id=267500360 node_paths=PackedStringArray("master_slider", "music_slider", "sfx_slider", "mute_button")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+pivot_offset = Vector2(600, 300)
+script = ExtResource("1_ikhvn")
+master_slider = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Master")
+music_slider = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/Musica")
+sfx_slider = NodePath("MarginContainer/VBoxContainer/HBoxContainer3/SFX")
+mute_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer4/CheckButton")
+
+[node name="Bg desnecessario" type="Node2D" parent="." unique_id=433553083]
+position = Vector2(604, 307)
+scale = Vector2(2.5983737, 2.732643)
+
+[node name="Sprite2D" type="Sprite2D" parent="Bg desnecessario" unique_id=780365742]
+texture = ExtResource("1_yedur")
+
+[node name="Sprite2D2" type="Sprite2D" parent="Bg desnecessario" unique_id=2141709100]
+texture = ExtResource("2_ikhvn")
+
+[node name="Sprite2D3" type="Sprite2D" parent="Bg desnecessario" unique_id=1691243905]
+texture = ExtResource("3_meuyl")
+
+[node name="Sprite2D5" type="Sprite2D" parent="Bg desnecessario" unique_id=1387294114]
+material = SubResource("ShaderMaterial_bhunq")
+position = Vector2(0, -0.81152487)
+texture = ExtResource("5_imxkn")
+
+[node name="Sprite2D9" type="Sprite2D" parent="Bg desnecessario" unique_id=405762046]
+texture = ExtResource("6_0vyl3")
+
+[node name="Sprite2D4" type="Sprite2D" parent="Bg desnecessario" unique_id=793049593]
+material = SubResource("ShaderMaterial_tcw12")
+position = Vector2(0, -1.0978384)
+texture = ExtResource("7_jipli")
+
+[node name="Sprite2D7" type="Sprite2D" parent="Bg desnecessario" unique_id=1863335275]
+material = SubResource("ShaderMaterial_xrcq3")
+position = Vector2(0, -1.0978384)
+texture = ExtResource("8_g0dvr")
+
+[node name="Sprite2D8" type="Sprite2D" parent="Bg desnecessario" unique_id=1298693777]
+texture = ExtResource("9_2rd2v")
+
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=693781588]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.22000001
+anchor_top = 0.231
+anchor_right = 0.731
+anchor_bottom = 0.731
+offset_left = 12.559982
+offset_top = 0.31199646
+offset_right = -0.11199951
+offset_bottom = 0.3119812
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+
+[node name="TextureRect" type="TextureRect" parent="MarginContainer" unique_id=1933181820]
+modulate = Color(0.16209671, 0.16209671, 0.16209671, 0.5294118)
+layout_mode = 2
+texture = ExtResource("11_meuyl")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=209481589]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=697894827]
+custom_minimum_size = Vector2(0, 145)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1725287710]
+layout_mode = 2
+size_flags_horizontal = 6
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 32
+text = "MASTER"
+
+[node name="Master" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=682672954]
+custom_minimum_size = Vector2(269, 32)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=896168006]
+custom_minimum_size = Vector2(0, 145)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1325479612]
+custom_minimum_size = Vector2(269, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 32
+text = "Musica"
+horizontal_alignment = 1
+
+[node name="Musica" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer2" unique_id=1030500529]
+custom_minimum_size = Vector2(269, 32)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1349883011]
+custom_minimum_size = Vector2(0, 145)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=2044876184]
+custom_minimum_size = Vector2(269, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/font_size = 32
+text = "SFX"
+horizontal_alignment = 1
+
+[node name="SFX" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer3" unique_id=1667831042]
+custom_minimum_size = Vector2(269, 32)
+layout_mode = 2
+size_flags_vertical = 4
+max_value = 1.0
+step = 0.01
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1697883754]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer4" unique_id=591091754]
+layout_mode = 2
+text = "MUDO"
+
+[node name="CheckButton" type="CheckButton" parent="MarginContainer/VBoxContainer/HBoxContainer4" unique_id=1980012194]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="TextureButton" type="TextureButton" parent="MarginContainer/VBoxContainer" unique_id=214790656]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+texture_normal = ExtResource("11_meuyl")
+texture_pressed = ExtResource("11_meuyl")
+stretch_mode = 0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="MarginContainer/VBoxContainer/TextureButton" unique_id=733247926]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.0050000004
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/outline_size = 12
+theme_override_font_sizes/normal_font_size = 32
+text = "Voltar"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ColorRect" parent="." unique_id=1610285260 instance=ExtResource("12_imxkn")]
+visible = false
+layout_mode = 0
+
+[node name="Timer" type="Timer" parent="ColorRect" unique_id=1811451457]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2023390205]
+stream = ExtResource("12_16y30")
+volume_db = 0.005
+autoplay = true
+bus = &"Music"
+
+[connection signal="pressed" from="MarginContainer/VBoxContainer/TextureButton" to="." method="_on_texture_button_pressed"]
+[connection signal="timeout" from="ColorRect/Timer" to="." method="_on_timer_timeout"]

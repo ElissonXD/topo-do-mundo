@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://bumovlmjcbvnx" path="res://game/scenes/player/player_model.gd" id="1_mm1n1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mm1n1"]
+resource_local_to_scene = true
 size = Vector2(14, 33)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hi634"]
@@ -47,6 +48,7 @@ atlas = ExtResource("1_c4qjb")
 region = Rect2(1152, 0, 128, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l1v5l"]
+resource_local_to_scene = true
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -79,19 +81,60 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_ve743")
 }],
-"loop": true,
+"loop": 1,
 "name": &"idle",
 "speed": 20.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hi634"]
+resource_local_to_scene = true
 size = Vector2(6, 33.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mm2v0"]
+resource_local_to_scene = true
 size = Vector2(6, 33)
 
-[node name="PlayerModel" type="CharacterBody2D" unique_id=1305856846]
+[sub_resource type="Animation" id="Animation_mm1n1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_hi634"]
+resource_name = "invencible"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0.0, 1.0, 0.0, 1.0, 0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_mm2v0"]
+_data = {
+&"RESET": SubResource("Animation_mm1n1"),
+&"invencible": SubResource("Animation_hi634")
+}
+
+[node name="PlayerModel" type="CharacterBody2D" unique_id=1305856846 groups=["Player"]]
+collision_layer = 2
 script = ExtResource("1_mm1n1")
+ability = 3
 
 [node name="Colission" type="CollisionShape2D" parent="." unique_id=2035951123]
 position = Vector2(0, -0.5)
@@ -104,18 +147,28 @@ autoplay = "idle"
 frame_progress = 0.90738714
 
 [node name="left" type="Area2D" parent="." unique_id=1233443420]
+collision_layer = 2
+collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="left" unique_id=1552382799]
+[node name="leftcollision" type="CollisionShape2D" parent="left" unique_id=1552382799]
 position = Vector2(-6, -0.5)
 shape = SubResource("RectangleShape2D_hi634")
 debug_color = Color(0.978612, 0, 0.39857033, 0.41960785)
 
 [node name="right" type="Area2D" parent="." unique_id=726048532]
+collision_layer = 2
+collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="right" unique_id=1890823536]
+[node name="rightcollision" type="CollisionShape2D" parent="right" unique_id=1890823536]
 position = Vector2(6, -0.5)
 shape = SubResource("RectangleShape2D_mm2v0")
 debug_color = Color(0.7097094, 0.48675317, 0, 0.41960785)
+
+[node name="up" type="RayCast2D" parent="." unique_id=63560471]
+target_position = Vector2(0, -24)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1938358586]
+libraries/ = SubResource("AnimationLibrary_mm2v0")
 
 [connection signal="body_entered" from="left" to="." method="detect_left_collision"]
 [connection signal="body_entered" from="right" to="." method="detect_right_collision"]
