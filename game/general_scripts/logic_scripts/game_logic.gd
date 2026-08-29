@@ -86,7 +86,7 @@ Funções para controle do jogo
 func get_players():
 	#mock temporarário
 	for x in range(4):
-		var object = load("res://game/scenes/player/fdp.tscn").instantiate()
+		var object = load("res://game/scenes/player/Pero.tscn").instantiate()
 		object.ability = x
 		object.vivo = true
 		object.control_schema = str(x+1)

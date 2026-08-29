@@ -60,6 +60,7 @@ enum PlayerState {
 	hurt,
 	dash,
 	slide,
+	climb,
 	glide
 }
 
@@ -86,7 +87,9 @@ var slide_timer : float
 var slide_direction : int
 var can_slide : bool = true
 
-
+# climb
+@export_category("Climb")
+@export var CLIMB_POWER : float = 300
 
 # float
 @export_category("Glide")
@@ -130,6 +133,8 @@ func _physics_process(delta: float) -> void:
 	if use_glide(): # o glide pode ser usado em qualquer estado
 		go_to_glide_state()
 	
+	print(wall_slide_direction)
+	
 	match state:
 		PlayerState.idle:
 			idle_state(delta, direction)
@@ -147,6 +152,8 @@ func _physics_process(delta: float) -> void:
 			dash_state(delta, direction)
 		PlayerState.slide:
 			slide_state(delta, direction)
+		PlayerState.climb:
+			climb_state(delta, direction)
 		PlayerState.glide:
 			glide_state(delta, direction)
 	
@@ -216,6 +223,13 @@ func go_to_slide_state(direction: int):
 	slide_timer = SLIDE_TIME
 	return
 
+func go_to_climb_state():
+	state = PlayerState.climb
+	animation.play('Climb')
+	velocity.y = 0
+	velocity.x = 0
+	return
+
 func go_to_glide_state():
 	state = PlayerState.glide
 	animation.play('glide')
@@ -283,6 +297,12 @@ func falling_state(delta: float, direction: int):
 	flip_sprite(direction)	
 	
 	if want_to_wall_slide(direction):
+		if use_climb():
+			go_to_climb_state()
+			return
+		else:
+			go_to_wall_slide_state()
+			return
 		go_to_wall_slide_state()
 		return
 	if is_on_floor():
@@ -297,6 +317,10 @@ func wall_slide_state(delta:float, direction: int):
 	if Input.is_action_just_pressed(jump_control):
 		wall_jump(delta, wall_slide_direction)
 		go_to_jump_state()
+		return
+	
+	if use_climb():
+		go_to_climb_state()
 		return
 	
 	if not is_on_wall() or (direction != 0 and wall_slide_direction != direction): # direção oposta
@@ -400,6 +424,35 @@ func glide_state(delta: float, direction: int):
 		go_to_falling_state()
 		return
 
+func climb_state(delta: float, direction: int):
+	var vertical_input = Input.get_axis(up_control, down_control)
+	
+	if vertical_input != 0:
+		velocity.y = vertical_input * CLIMB_POWER
+	else:
+		velocity.y = 0
+	
+	velocity.x = 0  # fixo na parede
+	
+	# Flip do sprite
+	if wall_slide_direction != 0:
+		animation.flip_h = (wall_slide_direction < 0)
+	
+	if not is_on_wall() or Input.is_action_just_pressed(ability_control):
+		go_to_falling_state()
+		return
+	
+	if Input.is_action_just_pressed(jump_control):
+		wall_jump(delta, wall_slide_direction)
+		go_to_jump_state()
+		return
+	
+	if is_on_floor():
+		if velocity.x != 0:
+			go_to_walk_state()
+		else:
+			go_to_idle_state()
+		return
 
 # funções de SAÍDA
 
@@ -452,6 +505,11 @@ func use_slide() -> bool:
 		return true
 	return false
 
+func use_climb() -> bool:
+	if ability == 2 and Input.is_action_just_pressed(ability_control):
+		return true
+	return false
+
 func use_glide() -> bool:
 	if not is_on_floor() and ability == 1:
 		if Input.is_action_pressed(ability_control) and can_glide:
@@ -492,7 +550,9 @@ func apply_knockback(body: Node2D) -> void:
 	return
 	
 func detect_left_collision(body: Node2D):
-	wall_slide_direction = -1
+	
+	if body != self:
+		wall_slide_direction = -1
 	
 	# certo, vou utilizar isso como um detector de ataque do slide
 	# aproveito e já armazeno a direção do chute
@@ -504,7 +564,8 @@ func detect_left_collision(body: Node2D):
 				body.go_to_hurt_state();
 
 func detect_right_collision(body: Node2D):
-	wall_slide_direction = 1
+	if body != self:
+		wall_slide_direction = 1
 	
 	if state == PlayerState.slide and not up.is_colliding():
 		if body.is_in_group("Player") and body != self: # será player

@@ -29,9 +29,11 @@ func _ready() -> void:
 	spawn_points = get_tree().get_nodes_in_group('Spawn')
 	get_tree().paused = true
 	
-	for x in range(4):
+	for x in range(len(players)):
 		$"../Jogadores".add_child(players[x]['model'])
 		players[x]["model"].global_position = spawn_points[x].global_position
+	
+	create_ui_points(len(players))
 	
 	start_timer.start(3)
 	get_start_timer.emit(start_timer)
@@ -71,6 +73,19 @@ func _process(delta: float) -> void:
 	if game_ended:
 		get_tree().paused = true
 		
+
+func create_ui_points(length):
+	
+	var object = load("res://game/scenes/ui_principal/player_bar.tscn")
+	for i in range(length):
+		var player_ui_score = object.instantiate()
+		$"../CanvasLayer/players".add_child(player_ui_score)
+		player_ui_score.change_player(i)
+		get_players_points.connect(player_ui_score.change_score)
+		
+	
+	return
+	
 
 
 func _on_timer_2_timeout() -> void:

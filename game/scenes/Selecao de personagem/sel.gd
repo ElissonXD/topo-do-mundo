@@ -103,44 +103,12 @@ func _on_confirm_pressed(player_index: int):
 	else:
 		GameLogic.players_data[player_index]["model"] = char_data.model
 		GameLogic.players_data[player_index]["costume_index"] = costume_index
-		GameLogic.players_data[player_index]["control_schema"] = str(player_index + 1)
-	GameLogic.set_player_ready(player_index, true)
-	update_ui()
+		GameLogic.players_data[player_index]["control_schema"] = str(player_index+1)
+		GameLogic.set_player_ready(player_index, true)
+		# Atualizar painel para mostrar "Pronto"
+	# update_ui()
 
 func _on_cancel_pressed(player_index: int):
 	if player_index < GameLogic.players_data.size():
 		GameLogic.set_player_ready(player_index, false)
-	update_ui()
-
-# ----- Atualização da interface -----
-func update_ui():
-	for i in range(cursors.size()):
-		update_player_panel(i)
-	# Verificar se todos os jogadores confirmaram e iniciar partida
-	if GameLogic.all_players_ready():
-		# Pequeno atraso para mostrar "Pronto" antes de trocar de cena
-		await get_tree().create_timer(1.0).timeout
-		GameLogic.go_to_main_game()
-
-func update_player_panel(player_index: int):
-	var cursor = cursors[player_index]
-	var panel = get_node_or_null("UI/PlayerPanel%d" % (player_index + 1))
-	if not panel:
-		return
-	# Nome do personagem
-	var name_label = panel.get_node_or_null("NameLabel")
-	if name_label:
-		if cursor.selected_character < characters.size():
-			name_label.text = characters[cursor.selected_character].display_name
-		else:
-			name_label.text = "Nenhum"
-	# Estado (Pronto / Escolhendo)
-	var status_label = panel.get_node_or_null("StatusLabel")
-	if status_label:
-		var is_ready = GameLogic.players_data.size() > player_index and GameLogic.players_data[player_index].get("ready", false)
-		status_label.text = "Pronto!" if is_ready else "Escolhendo..."
-		status_label.modulate = Color.GREEN if is_ready else Color.WHITE
-	# Número da cor/costume
-	var costume_label = panel.get_node_or_null("CostumeLabel")
-	if costume_label:
-		costume_label.text = "Cor: %d/%d" % [cursor.current_costume_index + 1, cursor.costumes_per_character]
+	# update_ui()
