@@ -41,3 +41,6 @@ shape = SubResource("RectangleShape2D_h7c7b")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=841083756]
 position = Vector2(199, 223)
 shape = SubResource("RectangleShape2D_x1k3w")
+
+[node name="ItemSpawn1" type="Marker2D" parent="." unique_id=1101458223 groups=["ItemSpawn"]]
+position = Vector2(521, 547)

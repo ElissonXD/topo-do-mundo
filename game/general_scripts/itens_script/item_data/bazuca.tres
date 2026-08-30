@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="ItemSpawnData" format=3 uid="uid://bihkooapk4f3l"]
+
+[ext_resource type="Script" uid="uid://d2nvjq6svo6dr" path="res://game/general_scripts/itens_script/item_spawn_data.gd" id="1_bqsj7"]
+
+[resource]
+script = ExtResource("1_bqsj7")
+metadata/_custom_type_script = "uid://d2nvjq6svo6dr"
