@@ -1,0 +1,383 @@
+[gd_scene format=4 uid="uid://dderdaro8uedb"]
+
+[ext_resource type="Script" uid="uid://bbsnnuekf1eg6" path="res://game/scenes/Selecao de personagem/sel.gd" id="1_lb04w"]
+[ext_resource type="Texture2D" uid="uid://erofm1ybxcbt" path="res://game/scenes/Selecao de personagem/origbig.png" id="1_x2bni"]
+[ext_resource type="PackedScene" uid="uid://bvue80epc713t" path="res://game/scenes/Selecao de personagem/Cursor.tscn" id="2_dhnql"]
+[ext_resource type="Texture2D" uid="uid://bamn45ysxp4u5" path="res://assets/temp_assets/Main menu/Butao.png" id="2_nsu3w"]
+[ext_resource type="Texture2D" uid="uid://dqlsorrl1xkou" path="res://assets/temp_assets/player_template/male_hero_template-design.png" id="3_ececn"]
+[ext_resource type="AudioStream" uid="uid://cmd1aie2ybuu1" path="res://game/scenes/Selecao de personagem/Three Red Hearts Penguins vs Rabbits.ogg" id="4_lb04w"]
+[ext_resource type="Texture2D" uid="uid://b8t5fqm0trugg" path="res://addons/at-icons/node2d/paw_print.svg" id="5_dhnql"]
+[ext_resource type="Texture2D" uid="uid://cwe8yh4dj2f2i" path="res://game/scenes/Selecao de personagem/Pointer topo do mundo.png" id="5_ececn"]
+[ext_resource type="Texture2D" uid="uid://ktdckcvcmv0i" path="res://addons/at-icons/node2d/lightning_bolt.svg" id="6_b0tvh"]
+[ext_resource type="Texture2D" uid="uid://pfuf8nwoftmk" path="res://addons/at-icons/node2d/wing.svg" id="7_2grn0"]
+[ext_resource type="Texture2D" uid="uid://djdvprbkfgopj" path="res://addons/at-icons/node2d/grass.svg" id="8_mxwhb"]
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_dhnql"]
+_data = PackedByteArray("AAADAAUAAAABAAAAXAAAAD8AAAAEAQAAUklGRvwAAABXRUJQVlA4TPAAAAAvW4APEDdAEEBSDvNOvMMaCgIQQPjnm8NFJmCx9XLqHwmBAOHRp0UBAPB/pEZp6fUEHNm22zafqceljAUo9c51AntCg7//xQhweM6uIvo/Afa3/ZAmraJlMqHy4DKYdSEJYYRVxqhGMaZOCxMNtU7nBBxljO0JZoR2vp3pRALs2O06EwW2u+2sEmiKmHkEOpPdZIcrmUvOswy1QSQ0JhGaancaAOEsSwTgqjap3G/E0Lr6rJLRvrP3TyVZIy+jwjJeVGKc7P3dvUSgW3Nexvcr7l4pMSqkhpWcFYr7AvBQortC8RHobHX36f2WkkzpXzU=")
+size_override = Vector2(92, 63)
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_b0tvh"]
+_data = PackedByteArray("AAADAAUAAAABAAAAXAAAAD8AAAD6AAAAUklGRvIAAABXRUJQVlA4TOUAAAAvW4APEC9AEECSR8tPtskcBNk2ExnPgC91DDJpm1JdO+dfz64hICjyf7QASI/3tK8uA3JDvXkbEvAAZGMtkJ8BUkJ3ZwRCePsPY5++9pRTRP8nwL6/I0IosrtdpwGGTFQBuNZd5l3FnXu6RlQt7vD6keF8v/s/ZMl5PX5FrGHOOW8m+l5QVa4SsyDTVBtgmGoiFVxOF+krhFooYcRpSATgF9NFhqm1FP4nhoQlDM5uioc1l/OzSWw7MHotN8m9AY85P5vEe532tURiwbB9TpGjYRz7qpvG1uAWVeUKh2WmW2SmxBc1AA==")
+size_override = Vector2(92, 63)
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_2grn0"]
+_data = PackedByteArray("AAADAAUAAAABAAAAXAAAAD8AAACeAAAAUklGRpYAAABXRUJQVlA4TIoAAAAvW4APEB8gEEgS2h9vDYFAkuj+GAsEkhD3l3n+A/BXgeNGkhRp2Ycda9qEhWMP2BbG91CXpXV8z4j+T0Dyr2+GJIuUo6gogjfhSkqiLIuKlVJESVugoliWAoajqBkC0nZhMX8iu7DwKUWfa0PazoA7Q05ws4S5XThDscZylCSonmqL1C5YSJ/nPw0=")
+size_override = Vector2(92, 63)
+
+[node name="Control" type="Control" unique_id=1983910046 node_paths=PackedStringArray("grid")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_lb04w")
+grid = NodePath("GridContainer")
+cursor_scene = ExtResource("2_dhnql")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1348468283]
+position = Vector2(509, 183)
+texture = ExtResource("1_x2bni")
+
+[node name="TextureRect5" type="TextureRect" parent="." unique_id=1472388111]
+modulate = Color(0.16209671, 0.16209671, 0.16209671, 0.5294118)
+layout_mode = 0
+offset_left = 384.0
+offset_right = 768.0
+offset_bottom = 648.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+texture = ExtResource("2_nsu3w")
+
+[node name="GridContainer" type="GridContainer" parent="." unique_id=1759661779]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.333
+anchor_right = 0.66700006
+anchor_bottom = 1.0
+offset_left = 0.3840027
+offset_right = -0.3840332
+offset_bottom = -310.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="Feldspato" type="TextureRect" parent="GridContainer" unique_id=136308863]
+texture_filter = 1
+layout_mode = 2
+texture = SubResource("PortableCompressedTexture2D_dhnql")
+expand_mode = 5
+metadata/_aseprite_wizard_interface_config_ = {
+"layer_section": false,
+"output_section": true,
+"pending_changes": {},
+"slice_section": false
+}
+metadata/_aseprite_wizard_config_ = {
+"convert_fps_field": 60.0,
+"convert_ms_field": 16.0,
+"convert_to_fps": false,
+"embed_tex": true,
+"i_mode": 1,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"scale": "1.0",
+"slice": "",
+"source": "res://game/scenes/player/laje openday gamejam.aseprite",
+"source_uid": 538010054710886044
+}
+metadata/_aseprite_wizard_source_file_hash_ = "daa58964eb47be16c13e720ceb85ce55"
+
+[node name="Pero" type="TextureRect" parent="GridContainer" unique_id=1698197738]
+texture_filter = 1
+layout_mode = 2
+size_flags_horizontal = 3
+texture = SubResource("PortableCompressedTexture2D_b0tvh")
+expand_mode = 5
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"convert_fps_field": 60.0,
+"convert_ms_field": 16.0,
+"convert_to_fps": false,
+"embed_tex": true,
+"i_mode": 1,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"scale": "1.0",
+"slice": "",
+"source": "res://game/scenes/player/Pero openday gamejam.aseprite",
+"source_uid": 5048885603755616348
+}
+metadata/_aseprite_wizard_source_file_hash_ = "b71587ceefb0295321d689973ea25049"
+
+[node name="Dave" type="TextureRect" parent="GridContainer" unique_id=322934330]
+texture_filter = 1
+layout_mode = 2
+texture = SubResource("PortableCompressedTexture2D_2grn0")
+expand_mode = 3
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"convert_fps_field": 60.0,
+"convert_ms_field": 16.0,
+"convert_to_fps": false,
+"embed_tex": true,
+"i_mode": 1,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"scale": "1.0",
+"slice": "",
+"source": "res://game/scenes/player/Dave openday gamejam.aseprite",
+"source_uid": 3372909628182008083
+}
+metadata/_aseprite_wizard_source_file_hash_ = "6367dcf03b29d7696c06a050f1fc76e2"
+
+[node name="TextureRect4" type="TextureRect" parent="GridContainer" unique_id=1420130571]
+layout_mode = 2
+texture = ExtResource("3_ececn")
+
+[node name="Skills" type="GridContainer" parent="." unique_id=764455256]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.333
+anchor_right = 0.66700006
+anchor_bottom = 1.0
+offset_left = 0.3840027
+offset_top = 324.0
+offset_right = -0.3840332
+offset_bottom = 14.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="Climb" type="TextureRect" parent="Skills" unique_id=254494265]
+custom_minimum_size = Vector2(192, 192)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture = ExtResource("5_dhnql")
+
+[node name="Label" type="Label" parent="Skills/Climb" unique_id=1131822193]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Climb"
+horizontal_alignment = 1
+
+[node name="Dash" type="TextureRect" parent="Skills" unique_id=1224704259]
+custom_minimum_size = Vector2(96, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+texture = ExtResource("6_b0tvh")
+
+[node name="dash" type="Label" parent="Skills/Dash" unique_id=2050884917]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Dash"
+horizontal_alignment = 1
+
+[node name="glide" type="TextureRect" parent="Skills" unique_id=1414146170]
+layout_mode = 2
+texture = ExtResource("7_2grn0")
+expand_mode = 5
+
+[node name="Label3" type="Label" parent="Skills/glide" unique_id=1665634312]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Glide"
+horizontal_alignment = 1
+
+[node name="Slide" type="TextureRect" parent="Skills" unique_id=1164408264]
+layout_mode = 2
+texture = ExtResource("8_mxwhb")
+
+[node name="Label4" type="Label" parent="Skills/Slide" unique_id=541258473]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Slide"
+horizontal_alignment = 1
+
+[node name="CanvasLayer" type="Control" parent="." unique_id=621906159]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="P1" type="Panel" parent="CanvasLayer" unique_id=1025815742]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.33200002
+anchor_bottom = 0.5
+offset_right = 0.5359802
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/P1" unique_id=1911226498]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.88900006
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -0.036010742
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label2" type="Label" parent="CanvasLayer/P1" unique_id=1336583916]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="P2" type="Panel" parent="CanvasLayer" unique_id=1107862224]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.33200002
+anchor_bottom = 0.5
+offset_left = 768.0
+offset_right = 768.536
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/P2" unique_id=1367780983]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="Label2" type="Label" parent="CanvasLayer/P2" unique_id=957375647]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="P3" type="Panel" parent="CanvasLayer" unique_id=1755110241]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.33200002
+anchor_bottom = 0.5
+offset_top = 324.0
+offset_right = 0.5359802
+offset_bottom = 324.0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/P3" unique_id=304760440]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="Label2" type="Label" parent="CanvasLayer/P3" unique_id=165882428]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="P4" type="Panel" parent="CanvasLayer" unique_id=1588399765]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.33200002
+anchor_bottom = 0.5
+offset_left = 768.0
+offset_top = 324.0
+offset_right = 768.536
+offset_bottom = 324.0
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/P4" unique_id=1524764906]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="Label2" type="Label" parent="CanvasLayer/P4" unique_id=165668785]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=202475490]
+stream = ExtResource("4_lb04w")
+volume_db = -19.015
+autoplay = true
+
+[node name="Cursores" type="Control" parent="." unique_id=1743355691]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="P1" parent="Cursores" unique_id=1021154722 node_paths=PackedStringArray("grid") instance=ExtResource("2_dhnql")]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+grid = NodePath("../../Skills")
+
+[node name="P2" type="TextureRect" parent="Cursores" unique_id=58646526]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 0
+offset_left = 808.0
+offset_top = 128.0
+offset_right = 808.0
+offset_bottom = 128.0
+texture = ExtResource("5_ececn")
+
+[node name="P3" type="TextureRect" parent="Cursores" unique_id=1839311737]
+modulate = Color(0.64373946, 0.75195247, 0.26839355, 1)
+layout_mode = 0
+offset_left = 355.0
+offset_top = 452.0
+offset_right = 355.0
+offset_bottom = 452.0
+texture = ExtResource("5_ececn")
+
+[node name="P4" type="TextureRect" parent="Cursores" unique_id=759637157]
+modulate = Color(1, 0.96933335, 0.07999998, 1)
+layout_mode = 0
+offset_left = 808.0
+offset_top = 452.0
+offset_right = 808.0
+offset_bottom = 452.0
+texture = ExtResource("5_ececn")
