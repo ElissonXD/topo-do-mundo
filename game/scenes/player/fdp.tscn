@@ -418,7 +418,6 @@ _data = {
 [node name="PlayerModel" type="CharacterBody2D" unique_id=1305856846 groups=["Player"]]
 collision_layer = 2
 script = ExtResource("1_buh7r")
-ability = 3
 
 [node name="Colission" type="CollisionShape2D" parent="." unique_id=2035951123]
 position = Vector2(0, -0.5)
@@ -427,10 +426,10 @@ shape = SubResource("RectangleShape2D_mm1n1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1879678150]
 texture_filter = 1
 material = SubResource("ShaderMaterial_7met1")
+position = Vector2(-1, 16)
 sprite_frames = SubResource("SpriteFrames_3grme")
-animation = &"Jump"
-frame_progress = 0.736009
-offset = Vector2(12, 0)
+animation = &"Idle"
+offset = Vector2(14, -16)
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": false,
 "layer_section": false,

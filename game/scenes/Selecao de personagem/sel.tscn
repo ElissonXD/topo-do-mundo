@@ -32,8 +32,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_lb04w")
-grid = NodePath("GridContainer")
 cursor_scene = ExtResource("2_dhnql")
+grid = NodePath("GridContainer")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1348468283]
 position = Vector2(509, 183)
