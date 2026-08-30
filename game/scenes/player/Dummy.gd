@@ -9,6 +9,8 @@ func _physics_process(delta):
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
+	
+	velocity.x = move_toward(velocity.x, 0, delta * 1000)
 
 	
 
