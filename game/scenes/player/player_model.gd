@@ -564,7 +564,7 @@ func detect_left_collision(body: Node2D):
 				body.go_to_hurt_state();
 
 func detect_right_collision(body: Node2D):
-	if body != self:
+	if not body.is_in_group("Player"):
 		wall_slide_direction = 1
 	
 	if state == PlayerState.slide and not up.is_colliding():
