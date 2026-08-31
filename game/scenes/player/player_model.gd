@@ -137,7 +137,7 @@ func _physics_process(delta: float) -> void:
 		go_to_glide_state()
 	if current_item != null and Input.is_action_just_pressed(interact_control): 
 		use_current_item()
-	print(wall_slide_direction)
+	#print(wall_slide_direction)
 	
 	match state:
 		PlayerState.idle:
@@ -542,10 +542,11 @@ func normal_hitbox() -> void:
 	colission.shape.size.y = 33.5
 	colission.position.y = -0.5
 	return
-func use_current_item() -> void: 
-	if current_item == null: 
-		return print('usou o item: ', current_item.display_name) 
-		current_item = null
+func use_current_item() -> void:
+	if current_item == null:
+		return
+	print('usou o item: ', current_item.display_name)
+	current_item = null
 
 func apply_knockback(body: Node2D) -> void:
 	
