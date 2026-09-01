@@ -4,9 +4,10 @@ class_name PlayerModel extends CharacterBody2D
 
 @export_category('Vivo')
 @export var vivo : bool = true
-
 # inicialização dos controles
 @export_category("Controles")
+@export_category('Inventário') 
+var current_item: ItemSpawnData = null
 @export_enum("1", "2", "3", "4") var control_schema = '1';
 var left_control : String;
 var right_control : String;
@@ -14,6 +15,7 @@ var down_control : String;
 var up_control : String;
 var jump_control : String;
 var ability_control : String;
+var interact_control : String;
 
 # variáveis
 @export_category("Movimentação")
@@ -106,6 +108,7 @@ func _ready():
 	up_control = 'up_' + control_schema;
 	jump_control = 'jump_' + control_schema;
 	ability_control = 'use_ability_' + control_schema;
+	interact_control = 'interact_' + control_schema;
 	go_to_idle_state()
 
 func _physics_process(delta: float) -> void:
@@ -132,8 +135,9 @@ func _physics_process(delta: float) -> void:
 	
 	if use_glide(): # o glide pode ser usado em qualquer estado
 		go_to_glide_state()
-	
-	print(wall_slide_direction)
+	if current_item != null and Input.is_action_just_pressed(interact_control): 
+		use_current_item()
+	#print(wall_slide_direction)
 	
 	match state:
 		PlayerState.idle:
@@ -540,6 +544,11 @@ func normal_hitbox() -> void:
 	colission.shape.size.y = 33.5
 	colission.position.y = -0.5
 	return
+func use_current_item() -> void:
+	if current_item == null:
+		return
+	print('usou o item: ', current_item.display_name)
+	current_item = null
 
 func apply_knockback(body: Node2D) -> void:
 	
