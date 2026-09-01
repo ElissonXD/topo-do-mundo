@@ -85,6 +85,7 @@ Funções para controle do jogo
 
 func get_players():
 	#mock temporarário
+	var players : Array[Dictionary] = []
 	for x in range(4):
 		var object = load("res://game/scenes/player/fdp.tscn").instantiate()
 		object.ability = 3
@@ -94,9 +95,9 @@ func get_players():
 			"id": x+1,
 			"model": object
 		}
-		players_data.append(player)
+		players.append(player)
 
-	return players_data
+	return players
 
 func update_game_points(total_points : Array[int]):
 	var player_rank: Array[int] = range(total_points.size())

@@ -133,7 +133,6 @@ func _physics_process(delta: float) -> void:
 	if use_glide(): # o glide pode ser usado em qualquer estado
 		go_to_glide_state()
 	
-	print(wall_slide_direction)
 	
 	match state:
 		PlayerState.idle:
