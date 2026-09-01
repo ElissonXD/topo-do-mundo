@@ -65,7 +65,6 @@ func _process(delta: float) -> void:
 				4:
 					players_points[3] += delta * 100
 		
-		print(players_points)
 		
 		get_players_points.emit(players_points)
 		# adicionar logica de coroa	

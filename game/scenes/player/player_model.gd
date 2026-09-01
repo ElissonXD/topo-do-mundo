@@ -91,7 +91,7 @@ var can_slide : bool = true
 
 # climb
 @export_category("Climb")
-@export var CLIMB_POWER : float = 300
+@export var CLIMB_POWER : float = 150
 
 # float
 @export_category("Glide")
@@ -479,8 +479,10 @@ func get_movement(delta: float, direction: int):
 func flip_sprite(direction: int):
 	if direction > 0:
 		animation.flip_h = false
+		animation.offset.x = 12
 	elif direction < 0:
 		animation.flip_h = true
+		animation.offset.x = -12
 	return
 
 func wall_jump(delta: float, direction: int):
@@ -560,7 +562,7 @@ func apply_knockback(body: Node2D) -> void:
 	
 func detect_left_collision(body: Node2D):
 	
-	if body != self:
+	if not body.is_in_group("Player"):
 		wall_slide_direction = -1
 	
 	# certo, vou utilizar isso como um detector de ataque do slide
@@ -573,7 +575,7 @@ func detect_left_collision(body: Node2D):
 				body.go_to_hurt_state();
 
 func detect_right_collision(body: Node2D):
-	if body != self:
+	if not body.is_in_group("Player"):
 		wall_slide_direction = 1
 	
 	if state == PlayerState.slide and not up.is_colliding():

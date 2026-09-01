@@ -148,6 +148,7 @@ frame_progress = 0.90738714
 
 [node name="left" type="Area2D" parent="." unique_id=1233443420]
 collision_layer = 2
+collision_mask = 3
 
 [node name="leftcollision" type="CollisionShape2D" parent="left" unique_id=1552382799]
 position = Vector2(-6, -0.5)
@@ -156,6 +157,7 @@ debug_color = Color(0.978612, 0, 0.39857033, 0.41960785)
 
 [node name="right" type="Area2D" parent="." unique_id=726048532]
 collision_layer = 2
+collision_mask = 3
 
 [node name="rightcollision" type="CollisionShape2D" parent="right" unique_id=1890823536]
 position = Vector2(6, -0.5)

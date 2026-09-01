@@ -25,11 +25,6 @@ physics_material_override = SubResource("PhysicsMaterial_e6i8i")
 position = Vector2(582, 603.5)
 shape = SubResource("RectangleShape2D_64la1")
 
-[node name="PlayerModel" parent="." unique_id=1305856846 instance=ExtResource("1_64la1")]
-position = Vector2(505, 316)
-ability = 2
-CLIMB_POWER = 100.0
-
 [node name="Camera2D" type="Camera2D" parent="." unique_id=563824624]
 position = Vector2(585, 319)
 
