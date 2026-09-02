@@ -1,6 +1,6 @@
 extends Node
 
-# configurações
+# Configurações
 
 @export_category('Configurações gerais')
 @export var general_timer : Timer
@@ -8,28 +8,56 @@ extends Node
 @export var spawn_points : Array[Node]
 @export var players : Array[Dictionary]
 @export var players_points : Array[int] = [0,0,0,0]
-@export var game_started : bool = false
-@export var game_ended : bool = false
 @export var roundResults : Control
 
-# sinais
+enum GameState {
+	SETUP,
+	PLAYING,
+	GAME_OVER
+}
 
-signal get_players_points(player_points : Array[int]);
-# pega as pontuações dos 4 players
+var current_state: GameState
+
+# Sinais
+
+signal get_players_points(player_points : Array[int])
 signal get_start_timer(timer : Timer)
-# pega o timer inicial
 signal get_game_timer(timer: Timer)
-# pega o timer do jogo
 signal game_end(dados: Array) 
 
-
 func _ready() -> void:
+	change_state(GameState.SETUP)
+
+func _process(delta: float) -> void:
+	match current_state:
+		GameState.PLAYING:
+			_process_playing_state(delta)
+		GameState.GAME_OVER:
+			pass
+		GameState.SETUP:
+			pass
+
+# Transição de Estados
+func change_state(new_state: GameState) -> void:
+	current_state = new_state
+	
+	match current_state:
+		GameState.SETUP:
+			_enter_setup_state()
+		GameState.PLAYING:
+			_enter_playing_state()
+		GameState.GAME_OVER:
+			_enter_game_over_state()
+
+func _enter_setup_state() -> void:
+	get_tree().paused = true
+	
 	players = GameLogic.get_players()
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	start_timer.process_mode = Node.PROCESS_MODE_ALWAYS
 	general_timer.process_mode = Node.PROCESS_MODE_ALWAYS
+	
 	spawn_points = get_tree().get_nodes_in_group('Spawn')
-	get_tree().paused = true
 	
 	for x in range(len(players)):
 		$"../Jogadores".add_child(players[x]['model'])
@@ -39,99 +67,93 @@ func _ready() -> void:
 	
 	start_timer.start(3)
 	get_start_timer.emit(start_timer)
+
+func _on_timer_2_timeout() -> void:
+	change_state(GameState.PLAYING)
+
+func _enter_playing_state() -> void:
+	get_tree().paused = false
+	general_timer.start(1)
+	get_game_timer.emit(general_timer)
+
+func _process_playing_state(delta: float) -> void:
+	var menor_y: int = 9999999999 
+	var player_vencedor: Dictionary = {}
+	var empate: bool = false
 	
-	return
+	for player in players:
+		if int(player['model'].global_position.y) < menor_y:
+			menor_y = int(player['model'].global_position.y)
+			player_vencedor = player
+			empate = false
+		elif int(player['model'].global_position.y) == menor_y:
+			empate = true
+			
+	if not player_vencedor.is_empty() and not empate:
+		match player_vencedor['id']:
+			1:
+				players_points[0] += delta * 100
+			2:
+				players_points[1] += delta * 100
+			3:
+				players_points[2] += delta * 100
+			4:
+				players_points[3] += delta * 100
+		
+	get_players_points.emit(players_points)
+
+func _on_timer_timeout() -> void:
+	change_state(GameState.GAME_OVER)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	if game_started and not game_ended:
-		var menor_y: int = 9999999999 
-		var player_vencedor: Dictionary
-		var empate: bool = false
-		for player in players:
-			if int(player['model'].global_position.y) < menor_y:
-				menor_y = int(player['model'].global_position.y)
-				player_vencedor = player
-				empate = false
-			elif int(player['model'].global_position.y) == menor_y:
-				empate = true
-		if player_vencedor != null and not empate:
-			match player_vencedor['id']:
-				1:
-					players_points[0] += delta * 100
-				2:
-					players_points[1] += delta * 100
-				3:
-					players_points[2] += delta*100
-				4:
-					players_points[3] += delta * 100
-		
-		
-		get_players_points.emit(players_points)
-		# adicionar logica de coroa	
+func _enter_game_over_state() -> void:
+	get_tree().paused = true
 	
-	if game_ended:
-		get_tree().paused = true
-		
+	await get_tree().create_timer(1.5, true, false, true).timeout
+	
+	var placar = calculate_score()
+	
+	roundResults.go_to_score_state(placar)
+	hide_ui_points()
+	game_end.emit(placar as Array)
 
-func create_ui_points(length):
-	
+
+# utils
+
+func create_ui_points(length: int) -> void:
 	var object = load("res://game/scenes/ui_principal/player_bar.tscn")
 	for i in range(length):
 		var player_ui_score = object.instantiate()
 		$"../CanvasLayer/players".add_child(player_ui_score)
 		player_ui_score.change_player(i)
 		get_players_points.connect(player_ui_score.change_score)
-		
+
+func calculate_score() -> Array[Dictionary]:
+	var players_dict: Array[Dictionary] = []
+	for i in range(players.size()):
+		players_dict.append({
+			"id": i + 1,
+			"score": players_points[i],
+			"show": 0,
+			"pos": 0,
+			"scored": 0,
+			"total_score": 0
+		})
 	
+	players_dict.sort_custom(func (a, b): return a['score'] > b['score'])
+	
+	var points : int = 7
+	for i in range(players_dict.size()):
+		players_dict[i]['scored'] = points
+		players_dict[i]["pos"] = i + 1
+		players_dict[i]["total_score"] = points + players[i]["score"]
+		GameLogic.update_player_total_points(i, points)
+		points -= 2
+	
+	players_dict.sort_custom(func (a, b): return a['id'] < b['id'])
+	
+	return players_dict
+
+func hide_ui_points() -> void:
+	$"../CanvasLayer/players".visible = false
 	return
-	
-
-
-func _on_timer_2_timeout() -> void:
-	game_started = true
-	get_tree().paused = false
-	general_timer.start(1)
-	get_game_timer.emit(general_timer)
-
-
-func _on_timer_timeout() -> void:
-	var mock_placar = [
-		{
-			"id": 1,
-			"score": 15000,
-			"show": 0,
-			"pos": 1,
-			"scored": 100,
-			"total_score": 450
-		},
-		{
-			"id": 2,
-			"score": 12000,
-			"show": 0,
-			"pos": 2,
-			"scored": 75,
-			"total_score": 380
-		},
-		{
-			"id": 3,
-			"score": 8000,
-			"show": 0,
-			"pos": 3,
-			"scored": 50,
-			"total_score": 290
-		},
-		{
-			"id": 4,
-			"score": 1000,
-			"show": 0,
-			"pos": 4,
-			"scored": 25,
-			"total_score": 150
-		}
-	]
-	
-	roundResults.go_to_score_state(mock_placar)
-	game_end.emit(mock_placar as Array)
-	game_ended = true

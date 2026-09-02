@@ -126,5 +126,5 @@ func verify_all_scores():
 	return total == number_players
 
 func next_scene():
-	pass
-	# aqui chamaria do gamemanager a proxima fase
+	GameLogic.go_to_next_map()
+	return
