@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://bumovlmjcbvnx" path="res://game/scenes/player/player_model.gd" id="1_buh7r"]
 [ext_resource type="Shader" uid="uid://cr2wx16b0818h" path="res://game/scenes/player/Colorswt.gdshader" id="1_c8lnc"]
+[ext_resource type="AudioStream" uid="uid://ds75occ6ypqbw" path="res://assets/SFX/jump1.wav" id="3_stxbl"]
+[ext_resource type="AudioStream" uid="uid://bi2f8qydu2ygl" path="res://assets/SFX/Throw1.wav" id="4_iihnl"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mm1n1"]
 resource_local_to_scene = true
@@ -415,6 +417,12 @@ _data = {
 &"invencible": SubResource("Animation_hi634")
 }
 
+[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_gag16"]
+loop = false
+stream_count = 2
+stream_0 = ExtResource("3_stxbl")
+stream_1 = ExtResource("4_iihnl")
+
 [node name="PlayerModel" type="CharacterBody2D" unique_id=1305856846 groups=["Player"]]
 collision_layer = 2
 script = ExtResource("1_buh7r")
@@ -475,6 +483,9 @@ target_position = Vector2(0, -24)
 libraries/ = SubResource("AnimationLibrary_mm2v0")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=349119826]
+stream = SubResource("AudioStreamPlaylist_gag16")
+autoplay = true
+bus = &"Sfx"
 
 [connection signal="body_entered" from="left" to="." method="detect_left_collision"]
 [connection signal="body_entered" from="right" to="." method="detect_right_collision"]

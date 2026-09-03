@@ -1,0 +1,431 @@
+[gd_scene format=3 uid="uid://brsnpiucyyqgh"]
+
+[ext_resource type="Texture2D" uid="uid://erofm1ybxcbt" path="res://game/scenes/Selecao de personagem/origbig.png" id="1_3tw78"]
+[ext_resource type="Script" uid="uid://bbsnnuekf1eg6" path="res://game/scenes/Selecao de personagem/sel.gd" id="1_4r5ue"]
+[ext_resource type="Texture2D" uid="uid://bamn45ysxp4u5" path="res://assets/temp_assets/Main menu/Butao.png" id="2_1n431"]
+[ext_resource type="PackedScene" uid="uid://bvue80epc713t" path="res://game/scenes/Selecao de personagem/Cursor.tscn" id="2_rkbnb"]
+[ext_resource type="Texture2D" uid="uid://dbjltv7dckxeg" path="res://game/scenes/Selecao de personagem/Purgatorio.png" id="3_5m4o0"]
+[ext_resource type="Texture2D" uid="uid://ssjoabxvgopu" path="res://game/scenes/Selecao de personagem/Pero.png" id="4_4r5ue"]
+[ext_resource type="Texture2D" uid="uid://b8t5fqm0trugg" path="res://addons/at-icons/node2d/paw_print.svg" id="4_76gfl"]
+[ext_resource type="PackedScene" uid="uid://c6oysvu1lbpog" path="res://assets/temp_assets/Transicao.tscn" id="4_j6rjp"]
+[ext_resource type="Texture2D" uid="uid://ktdckcvcmv0i" path="res://addons/at-icons/node2d/lightning_bolt.svg" id="5_kdr7r"]
+[ext_resource type="Texture2D" uid="uid://c4ejtivwkhsix" path="res://game/scenes/Selecao de personagem/Dave.png" id="5_rkbnb"]
+[ext_resource type="Texture2D" uid="uid://pfuf8nwoftmk" path="res://addons/at-icons/node2d/wing.svg" id="6_5m4o0"]
+[ext_resource type="Texture2D" uid="uid://djdvprbkfgopj" path="res://addons/at-icons/node2d/grass.svg" id="7_4r5ue"]
+[ext_resource type="Texture2D" uid="uid://cwe8yh4dj2f2i" path="res://game/scenes/Selecao de personagem/Pointer topo do mundo.png" id="12_xet0l"]
+[ext_resource type="AudioStream" uid="uid://cmd1aie2ybuu1" path="res://game/scenes/Selecao de personagem/Three Red Hearts Penguins vs Rabbits.ogg" id="13_hkdv0"]
+
+[node name="Selecao de personagem" type="Control" unique_id=863954326 node_paths=PackedStringArray("grid")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_4r5ue")
+grid = NodePath("Container/GridContainer")
+cursor_scene = ExtResource("2_rkbnb")
+cursor_positions = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1)])
+
+[node name="Fundo" type="Sprite2D" parent="." unique_id=1203374127]
+position = Vector2(509, 183)
+texture = ExtResource("1_3tw78")
+metadata/_edit_lock_ = true
+
+[node name="Container" type="Control" parent="." unique_id=1201010084]
+layout_mode = 1
+anchor_right = 1.0
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="fundo menu" type="TextureRect" parent="Container" unique_id=1860528871]
+modulate = Color(0.16209671, 0.16209671, 0.16209671, 0.5294118)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+offset_transform_enabled = true
+texture = ExtResource("2_1n431")
+expand_mode = 3
+metadata/_edit_lock_ = true
+
+[node name="GridContainer" type="GridContainer" parent="Container" unique_id=404643922]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.5
+anchor_bottom = 0.98800004
+offset_left = 4.0
+offset_bottom = 7.8880005
+grow_vertical = 2
+size_flags_vertical = 8
+columns = 2
+
+[node name="Feldspato" type="TextureRect" parent="Container/GridContainer" unique_id=2002617282]
+texture_filter = 1
+layout_mode = 2
+texture = ExtResource("3_5m4o0")
+metadata/_aseprite_wizard_interface_config_ = {
+"layer_section": false,
+"output_section": true,
+"pending_changes": {},
+"slice_section": false
+}
+metadata/_aseprite_wizard_config_ = {
+"convert_fps_field": 60.0,
+"convert_ms_field": 16.0,
+"convert_to_fps": false,
+"embed_tex": true,
+"i_mode": 1,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"scale": "1.0",
+"slice": "",
+"source": "res://game/scenes/player/laje openday gamejam.aseprite",
+"source_uid": 538010054710886044
+}
+metadata/_aseprite_wizard_source_file_hash_ = "daa58964eb47be16c13e720ceb85ce55"
+
+[node name="Label" type="Label" parent="Container/GridContainer/Feldspato" unique_id=1330247678]
+layout_mode = 0
+offset_left = 89.0
+offset_top = 135.0
+offset_right = 161.0
+offset_bottom = 149.0
+text = "Feldspato"
+horizontal_alignment = 1
+
+[node name="Pero" type="TextureRect" parent="Container/GridContainer" unique_id=805582131]
+texture_filter = 1
+custom_minimum_size = Vector2(288, 162)
+layout_mode = 2
+texture = ExtResource("4_4r5ue")
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"convert_fps_field": 60.0,
+"convert_ms_field": 16.0,
+"convert_to_fps": false,
+"embed_tex": true,
+"i_mode": 1,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"scale": "1.0",
+"slice": "",
+"source": "res://game/scenes/player/Pero openday gamejam.aseprite",
+"source_uid": 5048885603755616348
+}
+metadata/_aseprite_wizard_source_file_hash_ = "b71587ceefb0295321d689973ea25049"
+
+[node name="Label2" type="Label" parent="Container/GridContainer/Pero" unique_id=402083783]
+layout_mode = 0
+offset_left = 113.0
+offset_top = 135.0
+offset_right = 185.0
+offset_bottom = 149.0
+text = "Pero"
+horizontal_alignment = 1
+
+[node name="Dave" type="TextureRect" parent="Container/GridContainer" unique_id=161467740]
+texture_filter = 1
+custom_minimum_size = Vector2(0, 162)
+layout_mode = 2
+texture = ExtResource("5_rkbnb")
+expand_mode = 3
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"convert_fps_field": 60.0,
+"convert_ms_field": 16.0,
+"convert_to_fps": false,
+"embed_tex": true,
+"i_mode": 1,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "",
+"scale": "1.0",
+"slice": "",
+"source": "res://game/scenes/player/Dave openday gamejam.aseprite",
+"source_uid": 3372909628182008083
+}
+metadata/_aseprite_wizard_source_file_hash_ = "6367dcf03b29d7696c06a050f1fc76e2"
+
+[node name="Label3" type="Label" parent="Container/GridContainer/Dave" unique_id=71454361]
+layout_mode = 0
+offset_left = 89.0
+offset_top = 136.0
+offset_right = 161.0
+offset_bottom = 156.0
+text = "Dave"
+horizontal_alignment = 1
+
+[node name="TextureRect4" type="TextureRect" parent="Container/GridContainer" unique_id=2108667534]
+custom_minimum_size = Vector2(0, 162)
+layout_mode = 2
+texture = ExtResource("5_rkbnb")
+expand_mode = 3
+
+[node name="Label4" type="Label" parent="Container/GridContainer/TextureRect4" unique_id=1327760389]
+layout_mode = 0
+offset_left = 113.0
+offset_top = 136.0
+offset_right = 185.0
+offset_bottom = 156.0
+text = "Lajetixa"
+horizontal_alignment = 1
+
+[node name="Skills" type="HBoxContainer" parent="Container" unique_id=287017688]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="Climb" type="TextureRect" parent="Container/Skills" unique_id=651700820]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("4_76gfl")
+
+[node name="Label" type="Label" parent="Container/Skills/Climb" unique_id=973391757]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Climb"
+horizontal_alignment = 1
+
+[node name="Dash" type="TextureRect" parent="Container/Skills" unique_id=594459720]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+texture = ExtResource("5_kdr7r")
+
+[node name="dash" type="Label" parent="Container/Skills/Dash" unique_id=1874568605]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -4.0
+offset_top = -14.0
+offset_right = -4.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Dash"
+horizontal_alignment = 1
+
+[node name="glide" type="TextureRect" parent="Container/Skills" unique_id=207875053]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("6_5m4o0")
+
+[node name="Label3" type="Label" parent="Container/Skills/glide" unique_id=956704728]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Glide"
+horizontal_alignment = 1
+
+[node name="Slide" type="TextureRect" parent="Container/Skills" unique_id=1487975610]
+custom_minimum_size = Vector2(96, 96)
+layout_mode = 2
+size_flags_vertical = 4
+texture = ExtResource("7_4r5ue")
+
+[node name="Label4" type="Label" parent="Container/Skills/Slide" unique_id=1927164571]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Slide"
+horizontal_alignment = 1
+
+[node name="PlayerPanels" type="HBoxContainer" parent="." unique_id=1109121200]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Player1" type="Panel" parent="PlayerPanels" unique_id=1444844560]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="PlayerPanels/Player1" unique_id=832153258]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="CostumeLabel" type="Label" parent="PlayerPanels/Player1" unique_id=967612174]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="ReadyIndicator" type="TextureRect" parent="PlayerPanels/Player1" unique_id=119958819]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="Player2" type="Panel" parent="PlayerPanels" unique_id=78377805]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="PlayerPanels/Player2" unique_id=1875574553]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="Skin" type="Label" parent="PlayerPanels/Player2" unique_id=894205509]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="ReadyIndicator" type="TextureRect" parent="PlayerPanels/Player2" unique_id=1781570618]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="Player3" type="Panel" parent="PlayerPanels" unique_id=1177832153]
+layout_mode = 2
+
+[node name="Nome" type="Label" parent="PlayerPanels/Player3" unique_id=930204832]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="CostumeLabel" type="Label" parent="PlayerPanels/Player3" unique_id=658737823]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="ReadyIndicator" type="Label" parent="PlayerPanels/Player3" unique_id=909249234]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="Player4" type="Panel" parent="PlayerPanels" unique_id=2145872336]
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="PlayerPanels/Player4" unique_id=685471488]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="CostumeLabel" type="Label" parent="PlayerPanels/Player4" unique_id=633151036]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="ReadyIndicator" type="Label" parent="PlayerPanels/Player4" unique_id=1080255594]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="Cursores" type="CanvasLayer" parent="." unique_id=696467033]
+
+[node name="Node2D" type="Control" parent="Cursores" unique_id=757373559]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -648.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="P1" parent="Cursores/Node2D" unique_id=1021154722 instance=ExtResource("2_rkbnb")]
+layout_mode = 0
+offset_left = 0.0
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = 0.0
+
+[node name="P2" type="TextureRect" parent="Cursores/Node2D" unique_id=688318584]
+modulate = Color(1, 0, 0, 1)
+layout_mode = 0
+offset_left = 808.0
+offset_top = 128.0
+offset_right = 808.0
+offset_bottom = 128.0
+texture = ExtResource("12_xet0l")
+
+[node name="P3" type="TextureRect" parent="Cursores/Node2D" unique_id=1466685817]
+modulate = Color(0.64373946, 0.75195247, 0.26839355, 1)
+layout_mode = 0
+offset_left = 355.0
+offset_top = 452.0
+offset_right = 355.0
+offset_bottom = 452.0
+texture = ExtResource("12_xet0l")
+
+[node name="P4" type="TextureRect" parent="Cursores/Node2D" unique_id=1611040926]
+modulate = Color(1, 0.96933335, 0.07999998, 1)
+layout_mode = 0
+offset_left = 808.0
+offset_top = 452.0
+offset_right = 808.0
+offset_bottom = 452.0
+texture = ExtResource("12_xet0l")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1105233415]
+stream = ExtResource("13_hkdv0")
+volume_db = -14.641
+autoplay = true
+
+[node name="Control" parent="." unique_id=1610285260 instance=ExtResource("4_j6rjp")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Timer" type="Timer" parent="Control" unique_id=970521403]
+wait_time = 3.0

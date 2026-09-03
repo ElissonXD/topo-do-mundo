@@ -1,69 +1,80 @@
+# cursor.gd
 class_name CharacterCursor
-extends TextureRect
+extends Control
 
-signal cursor_moved(character_index)
-signal costume_changed(costume_index)
-signal confirm_pressed
-signal cancel_pressed
-
-@export var player_id: int = 1
-@export var grid: GridContainer
-@export var columns: int = 4
-@export var rows: int = 3
-@export var costumes_per_character: int = 8  # número de paletas
-
+var player_id: int = 1
+var grid: GridContainer
+var columns: int = 4
+var rows: int = 3
 var current_grid_pos: Vector2i = Vector2i.ZERO
-var selected_character: int = 0
 var current_costume_index: int = 0
-var is_locked: bool = false
+var selected_character: int = 0
 
-func _ready():
-	set_anchors_preset(Control.PRESET_TOP_LEFT)
-	update_cursor_position()
+signal cursor_moved(player_index: int, character_index: int)
+signal confirm_pressed(player_index: int)
+signal cancel_pressed(player_index: int)
+signal costume_changed(player_index: int, costume_index: int)
 
 func _process(delta):
-	if is_locked:
-		return
-	var prefix = "p%d_" % player_id
-	if Input.is_action_just_pressed(prefix + "left"):
-		move_cursor(Vector2i.LEFT)
-	elif Input.is_action_just_pressed(prefix + "right"):
-		move_cursor(Vector2i.RIGHT)
-	elif Input.is_action_just_pressed(prefix + "up"):
-		move_cursor(Vector2i.UP)
-	elif Input.is_action_just_pressed(prefix + "down"):
-		move_cursor(Vector2i.DOWN)
-	elif Input.is_action_just_pressed(prefix + "costume_next"):
-		change_costume(1)
-	elif Input.is_action_just_pressed(prefix + "costume_prev"):
-		change_costume(-1)
-	elif Input.is_action_just_pressed(prefix + "accept"):
-		is_locked = true
-		emit_signal("confirm_pressed")
-	elif Input.is_action_just_pressed(prefix + "cancel"):
-		is_locked = false
-		emit_signal("cancel_pressed")
+	# Mapeia as ações de acordo com o player_id
+	var left_action = "left_%d" % player_id
+	var right_action = "right_%d" % player_id
+	var up_action = "up_%d" % player_id
+	var down_action = "down_%d" % player_id
+	var jump_action = "jump_%d" % player_id
+	# Para confirmação e cancelamento, você pode usar ui_accept/ui_cancel
+	# ou criar ações específicas como "use_ability_1"
+	var accept_action = "ui_accept"  # ou "use_ability_%d" % player_id
+	var cancel_action = "ui_cancel"  # ou "jump_%d" % player_id
+
+	# Movimento
+	if Input.is_action_just_pressed(left_action):
+		move_cursor(Vector2i(-1, 0))
+	elif Input.is_action_just_pressed(right_action):
+		move_cursor(Vector2i(1, 0))
+	elif Input.is_action_just_pressed(up_action):
+		move_cursor(Vector2i(0, -1))
+	elif Input.is_action_just_pressed(down_action):
+		move_cursor(Vector2i(0, 1))
+
+	# Confirmação
+	if Input.is_action_just_pressed(accept_action):
+		emit_signal("confirm_pressed", player_id - 1)
+	
+	# Cancelamento
+	if Input.is_action_just_pressed(cancel_action):
+		emit_signal("cancel_pressed", player_id - 1)
+
+	# Troca de cor (exemplo: use "use_ability" para próximo, "jump" para anterior)
+	if Input.is_action_just_pressed("use_ability_%d" % player_id):
+		current_costume_index += 1
+		emit_signal("costume_changed", player_id - 1, current_costume_index)
+	elif Input.is_action_just_pressed("jump_%d" % player_id):
+		current_costume_index -= 1
+		emit_signal("costume_changed", player_id - 1, current_costume_index)
 
 func move_cursor(direction: Vector2i):
 	var new_pos = current_grid_pos + direction
-	new_pos.x = clamp(new_pos.x, 0, columns - 1)
-	new_pos.y = clamp(new_pos.y, 0, rows - 1)
-	if new_pos != current_grid_pos:
-		current_grid_pos = new_pos
-		update_cursor_position()
+	# Verifica limites
+	if new_pos.x < 0 or new_pos.x >= columns or new_pos.y < 0 or new_pos.y >= rows:
+		return
+	
+	# Verifica se o personagem está desbloqueado (opcional)
+	var index = new_pos.y * columns + new_pos.x
+	# Aqui você precisaria ter acesso à lista de personagens para verificar bloqueio
+	# Se estiver bloqueado, não move
+	
+	current_grid_pos = new_pos
+	selected_character = index
+	update_cursor_position()
+	emit_signal("cursor_moved", player_id - 1, selected_character)
 
 func update_cursor_position():
-	var index = current_grid_pos.y * columns + current_grid_pos.x
-	if index < grid.get_child_count():
-		var target = grid.get_child(index)
-		global_position = target.global_position
-		selected_character = index
-		emit_signal("cursor_moved", selected_character)
-
-func change_costume(direction: int):
-	current_costume_index = wrapi(current_costume_index + direction, 0, costumes_per_character)
-	emit_signal("costume_changed", current_costume_index)
-	# Aplicar mudança de cor no retrato selecionado
-	var portrait = grid.get_child(selected_character) as TextureRect
-	if portrait and portrait.material is ShaderMaterial:
-		portrait.material.set_shader_parameter("hue_shift", float(current_costume_index) / costumes_per_character)
+	# Atualiza a posição visual do cursor baseado na grade
+	# Exemplo: posiciona sobre o TextureRect correspondente
+	if grid:
+		var child_index = current_grid_pos.y * columns + current_grid_pos.x
+		if child_index < grid.get_child_count():
+			var target = grid.get_child(child_index)
+			global_position = target.global_position
+			# Ajuste conforme necessário (centralizar o cursor)

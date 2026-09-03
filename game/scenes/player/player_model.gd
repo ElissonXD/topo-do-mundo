@@ -27,6 +27,7 @@ var ability_control : String;
 @export var MAX_WALL_SLIDE_SPEED : float = 300
 @onready var animation: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var AudioStream_player: AudioStreamPlayer = $AudioStreamPlayer
 @export_enum("dash", "glide", "climb", "slide") var ability
 # 0 = dash, 1 = float, 2 = climb, 3 = slide
 # colisores

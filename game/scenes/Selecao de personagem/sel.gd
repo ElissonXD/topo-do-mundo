@@ -1,11 +1,11 @@
 extends Control
-
 @export_category("Configurações da seleção")
 @export var grid: GridContainer
-@export var columns: int = 4
-@export var rows: int = 3
+@export var columns: int = 2
+@export var rows: int = 2
 @export var cursor_scene: PackedScene  # cena do cursor (CharacterCursor)
 @export var cursor_positions: Array[Vector2i] = [Vector2i.ZERO, Vector2i(1, 0)]  # posições iniciais
+@export var player_panels: Array[Panel]  # arraste os painéis no inspetor
 
 # Dados dos personagens (preenchidos no _ready ou via editor)
 var characters: Array[CharacterData] = []
@@ -16,7 +16,8 @@ func _ready():
 	create_portraits()
 	setup_cursors()
 	connect_signals()
-	update_ui()
+	#update_ui()
+	update_player_panels()
 
 func load_characters():
 	# Exemplo: carregar recursos .tres de uma pasta
@@ -46,7 +47,7 @@ func create_portraits():
 		portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		# Aplicar shader de cor
-		var shader = load("res://shaders/hue_shift.gdshader")
+		var shader = load("res://game/scenes/player/Colorswt.gdshader")
 		var mat = ShaderMaterial.new()
 		mat.shader = shader
 		mat.set_shader_parameter("hue_shift", 0.0)
@@ -79,10 +80,10 @@ func connect_signals():
 	for i in range(cursors.size()):
 		var cursor = cursors[i]
 		# Conectar movimento, confirmação, cancelamento e troca de cor
-		cursor.connect("cursor_moved", Callable(self, "_on_cursor_moved").bind(i))
-		cursor.connect("confirm_pressed", Callable(self, "_on_confirm_pressed").bind(i))
-		cursor.connect("cancel_pressed", Callable(self, "_on_cancel_pressed").bind(i))
-		cursor.connect("costume_changed", Callable(self, "_on_costume_changed").bind(i))
+		cursor.connect("cursor_moved", Callable(self, "_on_cursor_moved"))
+		cursor.connect("confirm_pressed", Callable(self, "_on_confirm_pressed"))
+		cursor.connect("cancel_pressed", Callable(self, "_on_cancel_pressed"))
+		cursor.connect("costume_changed", Callable(self, "_on_costume_changed"))
 
 # ----- Handlers dos sinais -----
 func _on_cursor_moved(player_index: int, character_index: int):
@@ -97,18 +98,69 @@ func _on_confirm_pressed(player_index: int):
 	var cursor = cursors[player_index]
 	var char_data = characters[cursor.selected_character]
 	var costume_index = cursor.current_costume_index
-	# Atualizar GameManager
+	
+	# Verifica se o personagem está desbloqueado (se houver)
+	if not char_data.is_unlocked:return
+	
+	# Pega o modelo (instância ou caminho)
+	var player_model = char_data.scene
+	# Se model for PackedScene, instancie-o ou passe o caminho; 
+	# melhor: guarde o próprio recurso PlayerModel se ele contiver todos os dados.
+	# Mas pelo seu código, parece que você está usando um "model" que é um recurso.
+	# Vou supor que CharacterData tem um campo "player_model" do tipo PlayerModel.
+	
+	# Extrai a habilidade (pode vir do CharacterData)
+	var ability = char_data.ability if char_data.has("ability") else 0
+	
+	# Chama o GameLogic para adicionar/atualizar o jogador
 	if player_index >= GameLogic.players_data.size():
-		GameLogic.add_player(char_data.model, costume_index, str(player_index + 1))
+		GameLogic.add_player(player_model, costume_index, str(player_index + 1), ability)
 	else:
-		GameLogic.players_data[player_index]["model"] = char_data.model
-		GameLogic.players_data[player_index]["costume_index"] = costume_index
-		GameLogic.players_data[player_index]["control_schema"] = str(player_index+1)
-		GameLogic.set_player_ready(player_index, true)
-		# Atualizar painel para mostrar "Pronto"
-	# update_ui()
-
+		# Atualiza os dados existentes
+		var p_data = GameLogic.players_data[player_index]
+		p_data["model"] = player_model
+		p_data["costume_index"] = costume_index
+		p_data["controls"] = str(player_index + 1)
+		p_data["ability"] = ability
+		p_data["ready"] = true
+		GameLogic.update_player.emit()
+	
+	# Marca o jogador como pronto (se já não estiver)
+	#GameLogic.set_player_ready(player_index, true)
+	
+	# Atualiza UI (painel do jogador)
+	update_player_panel(player_index)
 func _on_cancel_pressed(player_index: int):
 	if player_index < GameLogic.players_data.size():
 		GameLogic.set_player_ready(player_index, false)
 	# update_ui()
+func update_player_panel(player_index: int):
+	var panel = get_node("PlayerPanels/Player%d" % (player_index+1))
+	if not panel:
+		return
+	var name_label = panel.get_node("NameLabel")
+	var costume_label = panel.get_node("CostumeLabel")
+	var ready_indicator = panel.get_node("ReadyIndicator")
+	if player_index < GameLogic.players_data.size():
+		var p = GameLogic.players_data[player_index]
+		var char_data = get_character_by_model(p["model"])
+		if char_data:
+			name_label.text = char_data.character_name
+		costume_label.text = "Cor %d" % (p["costume_index"] + 1)
+		ready_indicator.visible = p["ready"]
+	else:
+		name_label.text = "Aguardando..."
+		costume_label.text = ""
+		ready_indicator.visible = false
+func get_character_by_model(model) -> CharacterData:
+	for char in characters:
+		# Se model for um recurso (ex: PlayerModel), compare as referências
+		if char.model == model:
+			return char
+		# Ou se for um caminho (String), compare os paths
+		if char.model.resource_path == model.resource_path:
+			return char
+	return null  
+func update_player_panels():
+	for i in range(GameLogic.total_players):  # ou cursors.size()
+		update_player_panel(i)

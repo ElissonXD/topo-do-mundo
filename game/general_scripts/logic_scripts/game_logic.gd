@@ -31,16 +31,16 @@ Funções para controle de menu
 
 signal update_player;
 
-func add_player(player_model: PlayerModel, costume_index: int, control_schema: String):
-	if players_data.size() < 4:
-		players_data.append({
-			"model": player_model,
-			"costume_index": costume_index,
-			"control_schema": control_schema,
-			"score": 0,
-			"ready": false
-		})
-		update_player.emit()
+func add_player(player_model, costume_index, controls, ability = 0):
+	players_data.append({
+		"model": player_model,
+		"costume_index": costume_index,
+		"controls": controls,
+		"ability": ability,
+		"score": 0,
+		"ready": false
+	})
+	update_player.emit()
 
 func set_player_ready(player_index: int, ready: bool):
 	if player_index < players_data.size():
@@ -83,20 +83,21 @@ Funções para controle do jogo
 """
 
 
-func get_players():
-	#mock temporarário
-	for x in range(4):
-		var object = load("res://game/scenes/player/player_model.tscn").instantiate()
-		object.ability = 3
-		object.vivo = true
-		object.control_schema = str(x+1)
-		var player = {
-			"id": x+1,
-			"model": object
-		}
-		players_data.append(player)
-
-	return players_data
+#func get_players():
+	##mock temporarário
+	#var players : Array[Dictionary] = []
+	#for x in range(4):
+		#var object = load("res://game/scenes/player/fdp.tscn").instantiate()
+		#object.ability = 3
+		#object.vivo = true
+		#object.control_schema = str(x+1)
+		#var player = {
+			#"id": x+1,
+			#"model": object
+		#}
+		#players.append(player)
+#
+	#return players
 
 func update_game_points(total_points : Array[int]):
 	var player_rank: Array[int] = range(total_points.size())
@@ -109,8 +110,21 @@ func update_game_points(total_points : Array[int]):
 	
 	# logica de calcular posição
 
-
-
+# Em game_logic.gd
+#func create_player_dict(player_model: PlayerModel, costume_index: int, controls: String, ability: int = 0) -> Dictionary:
+	#return {
+		#"model": player_model,
+		#"costume_index": costume_index,   # mantido para a cor
+		#"controls": controls,             # renomeado de control_schema
+		#"ability": ability,               # se vier do modelo, pode ser extraído
+		#"score": 0,
+		#"ready": false,
+		#"id": players_data.size() + 1     # ou use um ID incremental
+	#}
+func clear_players():
+	players_data.clear()
+	update_player.emit()
+	
 func _ready() -> void:
 	pass # Replace with function body.
 

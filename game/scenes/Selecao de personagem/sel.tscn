@@ -35,11 +35,11 @@ script = ExtResource("1_lb04w")
 cursor_scene = ExtResource("2_dhnql")
 grid = NodePath("GridContainer")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1348468283]
+[node name="Fundo" type="Sprite2D" parent="." unique_id=1348468283]
 position = Vector2(509, 183)
 texture = ExtResource("1_x2bni")
 
-[node name="TextureRect5" type="TextureRect" parent="." unique_id=1472388111]
+[node name="fundo menu" type="TextureRect" parent="." unique_id=1472388111]
 modulate = Color(0.16209671, 0.16209671, 0.16209671, 0.5294118)
 layout_mode = 0
 offset_left = 384.0
