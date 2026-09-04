@@ -6,6 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0i88t"]
 
 [node name="Bazuca" type="Area2D" unique_id=712124619]
+collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_ty13e")
 
@@ -13,5 +14,6 @@ script = ExtResource("1_ty13e")
 shape = SubResource("RectangleShape2D_0i88t")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=417434105]
+z_index = -1
 scale = Vector2(0.2, 0.2)
 texture = ExtResource("2_bjy1j")
