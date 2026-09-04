@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://djdvprbkfgopj"
-path="res://.godot/imported/grass.svg-96e3848ed17a6b3635ab2b4564b49293.ctex"
+path="res://.godot/imported/Slide.svg-179ae4e70b4947e00fd9aa05038d2d9e.ctex"
 metadata={
 "has_editor_variant": true,
 "vram_texture": false
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/at-icons/node2d/grass.svg"
-dest_files=["res://.godot/imported/grass.svg-96e3848ed17a6b3635ab2b4564b49293.ctex"]
+source_file="res://addons/at-icons/node2d/Slide.svg"
+dest_files=["res://.godot/imported/Slide.svg-179ae4e70b4947e00fd9aa05038d2d9e.ctex"]
 
 [params]
 

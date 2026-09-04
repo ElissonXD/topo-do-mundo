@@ -31,7 +31,7 @@ Funções para controle de menu
 
 signal update_player;
 
-func add_player(player_model, costume_index, controls, ability = 0):
+func add_player(player_model, costume_index, controls, ability = -1):
 	players_data.append({
 		"model": player_model,
 		"costume_index": costume_index,

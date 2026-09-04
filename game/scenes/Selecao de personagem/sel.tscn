@@ -9,8 +9,8 @@
 [ext_resource type="Texture2D" uid="uid://b8t5fqm0trugg" path="res://addons/at-icons/node2d/paw_print.svg" id="5_dhnql"]
 [ext_resource type="Texture2D" uid="uid://cwe8yh4dj2f2i" path="res://game/scenes/Selecao de personagem/Pointer topo do mundo.png" id="5_ececn"]
 [ext_resource type="Texture2D" uid="uid://ktdckcvcmv0i" path="res://addons/at-icons/node2d/lightning_bolt.svg" id="6_b0tvh"]
-[ext_resource type="Texture2D" uid="uid://pfuf8nwoftmk" path="res://addons/at-icons/node2d/wing.svg" id="7_2grn0"]
-[ext_resource type="Texture2D" uid="uid://djdvprbkfgopj" path="res://addons/at-icons/node2d/grass.svg" id="8_mxwhb"]
+[ext_resource type="Texture2D" uid="uid://pfuf8nwoftmk" path="res://addons/at-icons/node2d/Dash.svg" id="7_2grn0"]
+[ext_resource type="Texture2D" uid="uid://djdvprbkfgopj" path="res://addons/at-icons/node2d/Slide.svg" id="8_mxwhb"]
 
 [sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_dhnql"]
 _data = PackedByteArray("AAADAAUAAAABAAAAXAAAAD8AAAAEAQAAUklGRvwAAABXRUJQVlA4TPAAAAAvW4APEDdAEEBSDvNOvMMaCgIQQPjnm8NFJmCx9XLqHwmBAOHRp0UBAPB/pEZp6fUEHNm22zafqceljAUo9c51AntCg7//xQhweM6uIvo/Afa3/ZAmraJlMqHy4DKYdSEJYYRVxqhGMaZOCxMNtU7nBBxljO0JZoR2vp3pRALs2O06EwW2u+2sEmiKmHkEOpPdZIcrmUvOswy1QSQ0JhGaancaAOEsSwTgqjap3G/E0Lr6rJLRvrP3TyVZIy+jwjJeVGKc7P3dvUSgW3Nexvcr7l4pMSqkhpWcFYr7AvBQortC8RHobHX36f2WkkzpXzU=")

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bgnplngpu4q"
-path="res://.godot/imported/cone.svg-921a73004d6c3dba0307574e989988cc.ctex"
+uid="uid://pfuf8nwoftmk"
+path="res://.godot/imported/Dash.svg-35e5b18fee285c95883af2d9ddd51007.ctex"
 metadata={
 "has_editor_variant": true,
 "vram_texture": false
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/at-icons/node2d/cone.svg"
-dest_files=["res://.godot/imported/cone.svg-921a73004d6c3dba0307574e989988cc.ctex"]
+source_file="res://addons/at-icons/node2d/Dash.svg"
+dest_files=["res://.godot/imported/Dash.svg-35e5b18fee285c95883af2d9ddd51007.ctex"]
 
 [params]
 

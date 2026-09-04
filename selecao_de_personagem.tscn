@@ -10,12 +10,12 @@
 [ext_resource type="PackedScene" uid="uid://c6oysvu1lbpog" path="res://assets/temp_assets/Transicao.tscn" id="4_j6rjp"]
 [ext_resource type="Texture2D" uid="uid://ktdckcvcmv0i" path="res://addons/at-icons/node2d/lightning_bolt.svg" id="5_kdr7r"]
 [ext_resource type="Texture2D" uid="uid://c4ejtivwkhsix" path="res://game/scenes/Selecao de personagem/Dave.png" id="5_rkbnb"]
-[ext_resource type="Texture2D" uid="uid://pfuf8nwoftmk" path="res://addons/at-icons/node2d/wing.svg" id="6_5m4o0"]
-[ext_resource type="Texture2D" uid="uid://djdvprbkfgopj" path="res://addons/at-icons/node2d/grass.svg" id="7_4r5ue"]
+[ext_resource type="Texture2D" uid="uid://pfuf8nwoftmk" path="res://addons/at-icons/node2d/Dash.svg" id="6_5m4o0"]
+[ext_resource type="Texture2D" uid="uid://djdvprbkfgopj" path="res://addons/at-icons/node2d/Slide.svg" id="7_4r5ue"]
 [ext_resource type="Texture2D" uid="uid://cwe8yh4dj2f2i" path="res://game/scenes/Selecao de personagem/Pointer topo do mundo.png" id="12_xet0l"]
 [ext_resource type="AudioStream" uid="uid://cmd1aie2ybuu1" path="res://game/scenes/Selecao de personagem/Three Red Hearts Penguins vs Rabbits.ogg" id="13_hkdv0"]
 
-[node name="Selecao de personagem" type="Control" unique_id=863954326 node_paths=PackedStringArray("grid")]
+[node name="Selecao de personagem" type="Control" unique_id=863954326 node_paths=PackedStringArray("char_grid", "skill_grid", "player_panels")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,9 +25,14 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_4r5ue")
-grid = NodePath("Container/GridContainer")
+char_grid = NodePath("Container/GridContainer")
+skill_grid = NodePath("Container/SkillGrid")
+skill_columns = 2
+skill_rows = 2
 cursor_scene = ExtResource("2_rkbnb")
 cursor_positions = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1)])
+cursor_skill_positions = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1)])
+player_panels = [NodePath("PlayerPanels/Player1"), NodePath("PlayerPanels/Player2"), NodePath("PlayerPanels/Player3"), NodePath("PlayerPanels/Player4")]
 
 [node name="Fundo" type="Sprite2D" parent="." unique_id=1203374127]
 position = Vector2(509, 183)
@@ -197,25 +202,25 @@ offset_bottom = 156.0
 text = "Lajetixa"
 horizontal_alignment = 1
 
-[node name="Skills" type="HBoxContainer" parent="Container" unique_id=287017688]
+[node name="SkillGrid" type="GridContainer" parent="Container" unique_id=109964920]
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_bottom = 72.0
 grow_horizontal = 2
 grow_vertical = 2
-alignment = 1
 metadata/_edit_lock_ = true
 
-[node name="Climb" type="TextureRect" parent="Container/Skills" unique_id=651700820]
+[node name="Climb" type="TextureRect" parent="Container/SkillGrid" unique_id=651700820]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("4_76gfl")
 
-[node name="Label" type="Label" parent="Container/Skills/Climb" unique_id=973391757]
+[node name="Label" type="Label" parent="Container/SkillGrid/Climb" unique_id=973391757]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -227,14 +232,14 @@ grow_vertical = 0
 text = "Climb"
 horizontal_alignment = 1
 
-[node name="Dash" type="TextureRect" parent="Container/Skills" unique_id=594459720]
+[node name="Dash" type="TextureRect" parent="Container/SkillGrid" unique_id=594459720]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("5_kdr7r")
 
-[node name="dash" type="Label" parent="Container/Skills/Dash" unique_id=1874568605]
+[node name="dash" type="Label" parent="Container/SkillGrid/Dash" unique_id=1874568605]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -248,13 +253,13 @@ grow_vertical = 0
 text = "Dash"
 horizontal_alignment = 1
 
-[node name="glide" type="TextureRect" parent="Container/Skills" unique_id=207875053]
+[node name="glide" type="TextureRect" parent="Container/SkillGrid" unique_id=207875053]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("6_5m4o0")
 
-[node name="Label3" type="Label" parent="Container/Skills/glide" unique_id=956704728]
+[node name="Label3" type="Label" parent="Container/SkillGrid/glide" unique_id=956704728]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -266,13 +271,13 @@ grow_vertical = 0
 text = "Glide"
 horizontal_alignment = 1
 
-[node name="Slide" type="TextureRect" parent="Container/Skills" unique_id=1487975610]
+[node name="Slide" type="TextureRect" parent="Container/SkillGrid" unique_id=1487975610]
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("7_4r5ue")
 
-[node name="Label4" type="Label" parent="Container/Skills/Slide" unique_id=1927164571]
+[node name="Label4" type="Label" parent="Container/SkillGrid/Slide" unique_id=1927164571]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -284,7 +289,7 @@ grow_vertical = 0
 text = "Slide"
 horizontal_alignment = 1
 
-[node name="PlayerPanels" type="HBoxContainer" parent="." unique_id=1109121200]
+[node name="PlayerPanels" type="HBoxContainer" parent="." unique_id=1260787917]
 layout_mode = 1
 anchors_preset = -1
 anchor_top = 0.5
@@ -295,6 +300,11 @@ grow_vertical = 2
 
 [node name="Player1" type="Panel" parent="PlayerPanels" unique_id=1444844560]
 layout_mode = 2
+
+[node name="SkillLabel" type="Label" parent="PlayerPanels/Player1" unique_id=1600457388]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
 
 [node name="NameLabel" type="Label" parent="PlayerPanels/Player1" unique_id=832153258]
 layout_mode = 0
@@ -311,6 +321,16 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 14.0
 
+[node name="PortraitRect" type="TextureRect" parent="PlayerPanels/Player1" unique_id=2002384267]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SkillIcon" type="TextureRect" parent="PlayerPanels/Player1" unique_id=1969374620]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="Player2" type="Panel" parent="PlayerPanels" unique_id=78377805]
 layout_mode = 2
 
@@ -319,7 +339,12 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 14.0
 
-[node name="Skin" type="Label" parent="PlayerPanels/Player2" unique_id=894205509]
+[node name="SkillLabel" type="Label" parent="PlayerPanels/Player2" unique_id=1208104021]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="CostumeLabel" type="Label" parent="PlayerPanels/Player2" unique_id=894205509]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 14.0
@@ -329,10 +354,20 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 14.0
 
+[node name="PortraitRect" type="TextureRect" parent="PlayerPanels/Player2" unique_id=993914689]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SkillIcon" type="TextureRect" parent="PlayerPanels/Player2" unique_id=1389125391]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
 [node name="Player3" type="Panel" parent="PlayerPanels" unique_id=1177832153]
 layout_mode = 2
 
-[node name="Nome" type="Label" parent="PlayerPanels/Player3" unique_id=930204832]
+[node name="NameLabel" type="Label" parent="PlayerPanels/Player3" unique_id=930204832]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 14.0
@@ -342,10 +377,25 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 14.0
 
-[node name="ReadyIndicator" type="Label" parent="PlayerPanels/Player3" unique_id=909249234]
+[node name="ReadyIndicator" type="TextureRect" parent="PlayerPanels/Player3" unique_id=1259227853]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 14.0
+
+[node name="SkillLabel" type="Label" parent="PlayerPanels/Player3" unique_id=1248410426]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="PortraitRect" type="TextureRect" parent="PlayerPanels/Player3" unique_id=886459985]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SkillIcon" type="TextureRect" parent="PlayerPanels/Player3" unique_id=1668406815]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Player4" type="Panel" parent="PlayerPanels" unique_id=2145872336]
 layout_mode = 2
@@ -360,10 +410,25 @@ layout_mode = 0
 offset_right = 40.0
 offset_bottom = 14.0
 
-[node name="ReadyIndicator" type="Label" parent="PlayerPanels/Player4" unique_id=1080255594]
+[node name="ReadyIndicator" type="TextureRect" parent="PlayerPanels/Player4" unique_id=1660068614]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 14.0
+
+[node name="SkillLabel" type="Label" parent="PlayerPanels/Player4" unique_id=1145538781]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 14.0
+
+[node name="PortraitRect" type="TextureRect" parent="PlayerPanels/Player4" unique_id=130158129]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SkillIcon" type="TextureRect" parent="PlayerPanels/Player4" unique_id=788040048]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [node name="Cursores" type="CanvasLayer" parent="." unique_id=696467033]
 

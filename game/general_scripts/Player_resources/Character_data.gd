@@ -6,3 +6,5 @@ extends Resource
 @export var portrait: Texture2D
 @export var scene_path: String = "res://characters/character.tscn"
 @export var is_unlocked: bool = true
+@export var model: PackedScene 
+@export var ability: int = 0

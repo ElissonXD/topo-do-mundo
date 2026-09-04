@@ -1,5 +1,6 @@
 [gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://bcs7an7q6opci"]
 
+[ext_resource type="PackedScene" uid="uid://883kieocyryb" path="res://game/scenes/player/Pero.tscn" id="1_cqs4k"]
 [ext_resource type="Script" uid="uid://cgmvkhv68atyw" path="res://game/general_scripts/Player_resources/Character_data.gd" id="1_kcr8b"]
 [ext_resource type="Texture2D" uid="uid://ssjoabxvgopu" path="res://game/scenes/Selecao de personagem/Pero.png" id="1_tyfpt"]
 
@@ -8,4 +9,5 @@ script = ExtResource("1_kcr8b")
 character_name = "Pero"
 portrait = ExtResource("1_tyfpt")
 scene_path = "res://game/scenes/player/Pero.tscn"
+model = ExtResource("1_cqs4k")
 metadata/_custom_type_script = "uid://cgmvkhv68atyw"

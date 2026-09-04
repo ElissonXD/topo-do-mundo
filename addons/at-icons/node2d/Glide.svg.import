@@ -3,7 +3,7 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://dfqwcjsxr34s8"
-path="res://.godot/imported/sky.svg-7b5b21c7241a2889b5c539d947c24df5.ctex"
+path="res://.godot/imported/Glide.svg-901a22fddfbc069abe682925bce0840c.ctex"
 metadata={
 "has_editor_variant": true,
 "vram_texture": false
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/at-icons/node2d/sky.svg"
-dest_files=["res://.godot/imported/sky.svg-7b5b21c7241a2889b5c539d947c24df5.ctex"]
+source_file="res://addons/at-icons/node2d/Glide.svg"
+dest_files=["res://.godot/imported/Glide.svg-901a22fddfbc069abe682925bce0840c.ctex"]
 
 [params]
 

@@ -2,10 +2,12 @@
 
 [ext_resource type="Texture2D" uid="uid://c4ejtivwkhsix" path="res://game/scenes/Selecao de personagem/Dave.png" id="1_g8dlt"]
 [ext_resource type="Script" uid="uid://cgmvkhv68atyw" path="res://game/general_scripts/Player_resources/Character_data.gd" id="1_jp4lw"]
+[ext_resource type="PackedScene" uid="uid://dxum70k0in2bm" path="res://game/scenes/player/Dave.tscn" id="1_q6p0e"]
 
 [resource]
 script = ExtResource("1_jp4lw")
 character_name = "Dave"
 portrait = ExtResource("1_g8dlt")
 scene_path = "res://game/scenes/player/Dave.tscn"
+model = ExtResource("1_q6p0e")
 metadata/_custom_type_script = "uid://cgmvkhv68atyw"

@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://pfuf8nwoftmk"
-path="res://.godot/imported/wing.svg-e296f372d158aedfbc21ee07d050fb53.ctex"
+uid="uid://bgnplngpu4q"
+path="res://.godot/imported/Climb.svg-d76f001b4ee3b5784850bcba190e4b56.ctex"
 metadata={
 "has_editor_variant": true,
 "vram_texture": false
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/at-icons/node2d/wing.svg"
-dest_files=["res://.godot/imported/wing.svg-e296f372d158aedfbc21ee07d050fb53.ctex"]
+source_file="res://addons/at-icons/node2d/Climb.svg"
+dest_files=["res://.godot/imported/Climb.svg-d76f001b4ee3b5784850bcba190e4b56.ctex"]
 
 [params]
 
