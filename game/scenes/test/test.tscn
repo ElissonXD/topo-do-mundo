@@ -31,7 +31,7 @@ metadata/_custom_type_script = "uid://d2nvjq6svo6dr"
 script = ExtResource("3_iybd7")
 item_scene = ExtResource("7_nb3nn")
 item_object = ExtResource("6_3hpeo")
-weight = 2.0
+weight = 0.0
 metadata/_custom_type_script = "uid://d2nvjq6svo6dr"
 
 [node name="test" type="Node2D" unique_id=866233104]
@@ -66,9 +66,13 @@ possible_items = Array[ExtResource("3_iybd7")]([ExtResource("4_a0qkf"), SubResou
 
 [node name="PlayerModel" parent="." unique_id=1305856846 instance=ExtResource("1_64la1")]
 position = Vector2(367, 473)
-ability = 0
 
 [node name="PlayerModel2" parent="." unique_id=1604375750 instance=ExtResource("7_dgugv")]
 position = Vector2(701, 490)
 control_schema = "2"
+ability = 0
+
+[node name="PlayerModel3" parent="." unique_id=1806254893 instance=ExtResource("7_dgugv")]
+position = Vector2(880, 510)
+control_schema = "4"
 ability = 0

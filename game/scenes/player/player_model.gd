@@ -29,6 +29,9 @@ var interact_control : String;
 @export var MAX_WALL_SLIDE_SPEED : float = 300
 @onready var animation: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var aim: Marker2D = $aim
+
+
 @export_enum("dash", "glide", "climb", "slide") var ability
 # 0 = dash, 1 = float, 2 = climb, 3 = slide
 # colisores
@@ -498,9 +501,11 @@ func flip_sprite(direction: int):
 	if direction > 0:
 		animation.flip_h = false
 		animation.offset.x = 12
+		aim.position.x = 13
 	elif direction < 0:
 		animation.flip_h = true
 		animation.offset.x = -12
+		aim.position.x = -13
 	return
 
 func wall_jump(delta: float, direction: int):
@@ -562,24 +567,24 @@ func normal_hitbox() -> void:
 	colission.shape.size.y = 33.5
 	colission.position.y = -0.5
 	return
+	
 func use_current_item() -> void:
 	if current_item == null:
 		return
 	var item_instance = current_item.item_object.instantiate()
 	item_instance.set_author(self)
-	item_instance.position = position # trocar por marker
-	item_instance.position.y -= 50
+	item_instance.position = aim.global_position # nem sempre
 	get_tree().current_scene.add_child(item_instance)
 	current_item = null
 
 func apply_knockback(body: Node2D, POWER: float) -> void:
 	
-	var vector_direction = (body.global_position - global_position).normalized()
+	var vector_direction = (global_position - body.global_position).normalized()
 	
 	vector_direction.y = clamp(vector_direction.y, -0.5, -0.25)
 	vector_direction.normalized()
 	
-	body.velocity = vector_direction * POWER
+	velocity = vector_direction * POWER
 	return
 	
 func detect_left_collision(body: Node2D):
@@ -593,7 +598,7 @@ func detect_left_collision(body: Node2D):
 	if state == PlayerState.slide and not up.is_colliding():
 		if body.is_in_group("Player") and body != self: # será player
 			if body.iframes_timer <= 0:
-				apply_knockback(body, SLIDE_POWER)
+				body.apply_knockback(self, SLIDE_POWER)
 				body.go_to_hurt_state();
 
 func detect_right_collision(body: Node2D):
@@ -603,7 +608,7 @@ func detect_right_collision(body: Node2D):
 	if state == PlayerState.slide and not up.is_colliding():
 		if body.is_in_group("Player") and body != self: # será player
 			if body.iframes_timer <= 0:
-				apply_knockback(body, SLIDE_POWER)
+				body.apply_knockback(self, SLIDE_POWER)
 				body.go_to_hurt_state();
 
 func die():
