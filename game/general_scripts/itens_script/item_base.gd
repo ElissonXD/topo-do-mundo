@@ -9,11 +9,9 @@ func _ready() -> void:
  
  
 func _on_body_entered(body: Node2D) -> void:
-	print('COLIDIU COM: ', body.name)
 	var player := _find_player_model(body)
 	if player == null:
 		return
-	print('PLAYER ENCONTRADO, current_item = ', player.current_item)
 	_try_pick_up(player)
  
  
@@ -29,7 +27,6 @@ func _find_player_model(body: Node2D) -> PlayerModel:
  
  
 func _try_pick_up(player: PlayerModel) -> void:
-	print('TENTANDO PEGAR, spawn_data = ', spawn_data, ' | current_item do player = ', player.current_item)
 	if player.current_item != null:
 		return
  

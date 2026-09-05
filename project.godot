@@ -124,6 +124,7 @@ interact_4={
 
 2d_physics/layer_1="terreno"
 2d_physics/layer_2="player"
+2d_physics/layer_3="item"
 
 [physics]
 

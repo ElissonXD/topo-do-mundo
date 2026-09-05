@@ -63,7 +63,8 @@ enum PlayerState {
 	dash,
 	slide,
 	climb,
-	glide
+	glide,
+	flying
 }
 
 var state: PlayerState
@@ -129,14 +130,14 @@ func _physics_process(delta: float) -> void:
 		
 		if iframes_timer <= 0:
 			animation_player.stop()
-	
-	if use_dash(): #o dash pode ser utilizado em qualquer estado
-		go_to_dash_state()
-	
-	if use_glide(): # o glide pode ser usado em qualquer estado
-		go_to_glide_state()
+	if state != PlayerState.flying: # exçeção
+		if use_dash(): #o dash pode ser utilizado em qualquer estado
+			go_to_dash_state()
+		
+		if use_glide(): # o glide pode ser usado em qualquer estado
+			go_to_glide_state()
 	if current_item != null and Input.is_action_just_pressed(interact_control): 
-		use_current_item()
+		use_current_item() #item pode ser usado em qualquer estado
 	#print(wall_slide_direction)
 	
 	match state:
@@ -160,6 +161,8 @@ func _physics_process(delta: float) -> void:
 			climb_state(delta, direction)
 		PlayerState.glide:
 			glide_state(delta, direction)
+		PlayerState.flying:
+			flying_state(delta, direction)
 	
 	move_and_slide()
 
@@ -240,6 +243,13 @@ func go_to_glide_state():
 	glide_timer = GLIDE_TIME
 	can_glide = false
 	velocity.y = 0
+	return
+
+func go_to_flying_state():
+	# state exclusivo do balao, nao pode usar habilidades, so voar
+	state = PlayerState.flying
+	animation.play('Fall')
+	velocity.y
 	return
 
 # funções de PERMANÊNCIA
@@ -458,6 +468,14 @@ func climb_state(delta: float, direction: int):
 			go_to_idle_state()
 		return
 
+func flying_state(delta: float, direction: int):
+	get_movement(delta, direction)
+	flip_sprite(direction)
+	
+	 # está refém ao item, nao pode ir pra nenhum estado
+	
+	return
+
 # funções de SAÍDA
 
 
@@ -547,17 +565,21 @@ func normal_hitbox() -> void:
 func use_current_item() -> void:
 	if current_item == null:
 		return
-	print('usou o item: ', current_item.display_name)
+	var item_instance = current_item.item_object.instantiate()
+	item_instance.set_author(self)
+	item_instance.position = position # trocar por marker
+	item_instance.position.y -= 50
+	get_tree().current_scene.add_child(item_instance)
 	current_item = null
 
-func apply_knockback(body: Node2D) -> void:
+func apply_knockback(body: Node2D, POWER: float) -> void:
 	
 	var vector_direction = (body.global_position - global_position).normalized()
 	
 	vector_direction.y = clamp(vector_direction.y, -0.5, -0.25)
 	vector_direction.normalized()
 	
-	body.velocity = vector_direction * SLIDE_POWER
+	body.velocity = vector_direction * POWER
 	return
 	
 func detect_left_collision(body: Node2D):
@@ -571,7 +593,7 @@ func detect_left_collision(body: Node2D):
 	if state == PlayerState.slide and not up.is_colliding():
 		if body.is_in_group("Player") and body != self: # será player
 			if body.iframes_timer <= 0:
-				apply_knockback(body)
+				apply_knockback(body, SLIDE_POWER)
 				body.go_to_hurt_state();
 
 func detect_right_collision(body: Node2D):
@@ -581,7 +603,7 @@ func detect_right_collision(body: Node2D):
 	if state == PlayerState.slide and not up.is_colliding():
 		if body.is_in_group("Player") and body != self: # será player
 			if body.iframes_timer <= 0:
-				apply_knockback(body)
+				apply_knockback(body, SLIDE_POWER)
 				body.go_to_hurt_state();
 
 func die():
