@@ -4,9 +4,10 @@ class_name PlayerModel extends CharacterBody2D
 
 @export_category('Vivo')
 @export var vivo : bool = true
-
 # inicialização dos controles
 @export_category("Controles")
+@export_category('Inventário') 
+var current_item: ItemSpawnData = null
 @export_enum("1", "2", "3", "4") var control_schema = '1';
 var left_control : String;
 var right_control : String;
@@ -14,6 +15,7 @@ var down_control : String;
 var up_control : String;
 var jump_control : String;
 var ability_control : String;
+var interact_control : String;
 
 # variáveis
 @export_category("Movimentação")
@@ -27,6 +29,9 @@ var ability_control : String;
 @export var MAX_WALL_SLIDE_SPEED : float = 300
 @onready var animation: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
+@onready var aim: Marker2D = $aim
+
+
 @export_enum("dash", "glide", "climb", "slide") var ability
 # 0 = dash, 1 = float, 2 = climb, 3 = slide
 # colisores
@@ -60,7 +65,9 @@ enum PlayerState {
 	hurt,
 	dash,
 	slide,
-	glide
+	climb,
+	glide,
+	flying
 }
 
 var state: PlayerState
@@ -86,7 +93,9 @@ var slide_timer : float
 var slide_direction : int
 var can_slide : bool = true
 
-
+# climb
+@export_category("Climb")
+@export var CLIMB_POWER : float = 150
 
 # float
 @export_category("Glide")
@@ -103,6 +112,7 @@ func _ready():
 	up_control = 'up_' + control_schema;
 	jump_control = 'jump_' + control_schema;
 	ability_control = 'use_ability_' + control_schema;
+	interact_control = 'interact_' + control_schema;
 	go_to_idle_state()
 
 func _physics_process(delta: float) -> void:
@@ -123,12 +133,15 @@ func _physics_process(delta: float) -> void:
 		
 		if iframes_timer <= 0:
 			animation_player.stop()
-	
-	if use_dash(): #o dash pode ser utilizado em qualquer estado
-		go_to_dash_state()
-	
-	if use_glide(): # o glide pode ser usado em qualquer estado
-		go_to_glide_state()
+	if state != PlayerState.flying: # exçeção
+		if use_dash(): #o dash pode ser utilizado em qualquer estado
+			go_to_dash_state()
+		
+		if use_glide(): # o glide pode ser usado em qualquer estado
+			go_to_glide_state()
+	if current_item != null and Input.is_action_just_pressed(interact_control): 
+		use_current_item() #item pode ser usado em qualquer estado
+	#print(wall_slide_direction)
 	
 	match state:
 		PlayerState.idle:
@@ -147,8 +160,12 @@ func _physics_process(delta: float) -> void:
 			dash_state(delta, direction)
 		PlayerState.slide:
 			slide_state(delta, direction)
+		PlayerState.climb:
+			climb_state(delta, direction)
 		PlayerState.glide:
 			glide_state(delta, direction)
+		PlayerState.flying:
+			flying_state(delta, direction)
 	
 	move_and_slide()
 
@@ -216,12 +233,26 @@ func go_to_slide_state(direction: int):
 	slide_timer = SLIDE_TIME
 	return
 
+func go_to_climb_state():
+	state = PlayerState.climb
+	animation.play('Climb')
+	velocity.y = 0
+	velocity.x = 0
+	return
+
 func go_to_glide_state():
 	state = PlayerState.glide
 	animation.play('glide')
 	glide_timer = GLIDE_TIME
 	can_glide = false
 	velocity.y = 0
+	return
+
+func go_to_flying_state():
+	# state exclusivo do balao, nao pode usar habilidades, so voar
+	state = PlayerState.flying
+	animation.play('Fall')
+	velocity.y
 	return
 
 # funções de PERMANÊNCIA
@@ -283,6 +314,12 @@ func falling_state(delta: float, direction: int):
 	flip_sprite(direction)	
 	
 	if want_to_wall_slide(direction):
+		if use_climb():
+			go_to_climb_state()
+			return
+		else:
+			go_to_wall_slide_state()
+			return
 		go_to_wall_slide_state()
 		return
 	if is_on_floor():
@@ -297,6 +334,10 @@ func wall_slide_state(delta:float, direction: int):
 	if Input.is_action_just_pressed(jump_control):
 		wall_jump(delta, wall_slide_direction)
 		go_to_jump_state()
+		return
+	
+	if use_climb():
+		go_to_climb_state()
 		return
 	
 	if not is_on_wall() or (direction != 0 and wall_slide_direction != direction): # direção oposta
@@ -400,6 +441,43 @@ func glide_state(delta: float, direction: int):
 		go_to_falling_state()
 		return
 
+func climb_state(delta: float, direction: int):
+	var vertical_input = Input.get_axis(up_control, down_control)
+	
+	if vertical_input != 0:
+		velocity.y = vertical_input * CLIMB_POWER
+	else:
+		velocity.y = 0
+	
+	velocity.x = 0  # fixo na parede
+	
+	# Flip do sprite
+	if wall_slide_direction != 0:
+		animation.flip_h = (wall_slide_direction < 0)
+	
+	if not is_on_wall() or Input.is_action_just_pressed(ability_control):
+		go_to_falling_state()
+		return
+	
+	if Input.is_action_just_pressed(jump_control):
+		wall_jump(delta, wall_slide_direction)
+		go_to_jump_state()
+		return
+	
+	if is_on_floor():
+		if velocity.x != 0:
+			go_to_walk_state()
+		else:
+			go_to_idle_state()
+		return
+
+func flying_state(delta: float, direction: int):
+	get_movement(delta, direction)
+	flip_sprite(direction)
+	
+	 # está refém ao item, nao pode ir pra nenhum estado
+	
+	return
 
 # funções de SAÍDA
 
@@ -422,8 +500,12 @@ func get_movement(delta: float, direction: int):
 func flip_sprite(direction: int):
 	if direction > 0:
 		animation.flip_h = false
+		animation.offset.x = 12
+		aim.position.x = 13
 	elif direction < 0:
 		animation.flip_h = true
+		animation.offset.x = -12
+		aim.position.x = -13
 	return
 
 func wall_jump(delta: float, direction: int):
@@ -449,6 +531,11 @@ func use_dash() -> bool:
 			
 func use_slide() -> bool:
 	if ability == 3 and Input.is_action_just_pressed(ability_control):
+		return true
+	return false
+
+func use_climb() -> bool:
+	if ability == 2 and Input.is_action_just_pressed(ability_control):
 		return true
 	return false
 
@@ -480,19 +567,30 @@ func normal_hitbox() -> void:
 	colission.shape.size.y = 33.5
 	colission.position.y = -0.5
 	return
-
-func apply_knockback(body: Node2D) -> void:
 	
-	var vector_direction = (body.global_position - global_position).normalized()
+func use_current_item() -> void:
+	if current_item == null:
+		return
+	var item_instance = current_item.item_object.instantiate()
+	item_instance.set_author(self)
+	item_instance.position = aim.global_position # nem sempre
+	get_tree().current_scene.add_child(item_instance)
+	current_item = null
+
+func apply_knockback(body: Node2D, POWER: float) -> void:
+	
+	var vector_direction = (global_position - body.global_position).normalized()
 	
 	vector_direction.y = clamp(vector_direction.y, -0.5, -0.25)
 	vector_direction.normalized()
 	
-	body.velocity = vector_direction * SLIDE_POWER
+	velocity = vector_direction * POWER
 	return
 	
 func detect_left_collision(body: Node2D):
-	wall_slide_direction = -1
+	
+	if not body.is_in_group("Player"):
+		wall_slide_direction = -1
 	
 	# certo, vou utilizar isso como um detector de ataque do slide
 	# aproveito e já armazeno a direção do chute
@@ -500,16 +598,17 @@ func detect_left_collision(body: Node2D):
 	if state == PlayerState.slide and not up.is_colliding():
 		if body.is_in_group("Player") and body != self: # será player
 			if body.iframes_timer <= 0:
-				apply_knockback(body)
+				body.apply_knockback(self, SLIDE_POWER)
 				body.go_to_hurt_state();
 
 func detect_right_collision(body: Node2D):
-	wall_slide_direction = 1
+	if not body.is_in_group("Player"):
+		wall_slide_direction = 1
 	
 	if state == PlayerState.slide and not up.is_colliding():
 		if body.is_in_group("Player") and body != self: # será player
 			if body.iframes_timer <= 0:
-				apply_knockback(body)
+				body.apply_knockback(self, SLIDE_POWER)
 				body.go_to_hurt_state();
 
 func die():

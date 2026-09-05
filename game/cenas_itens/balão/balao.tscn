@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://rfuv6mgehc4p"]
+
+[ext_resource type="Script" uid="uid://chdpuukejvffk" path="res://game/general_scripts/itens_script/item_base.gd" id="1_1vaoa"]
+[ext_resource type="Texture2D" uid="uid://b5cuvtgrx6bb0" path="res://game/cenas_itens/balão/balao_temp.jpg" id="2_t3n0h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83sn4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oo8ky"]
+atlas = ExtResource("2_t3n0h")
+region = Rect2(0, 0, 360, 360)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_83sn4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oo8ky")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="balao" type="Area2D" unique_id=580157209]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_1vaoa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=15894328]
+shape = SubResource("RectangleShape2D_83sn4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=225826526]
+z_index = -1
+position = Vector2(1.1920929e-07, 1.1920929e-07)
+scale = Vector2(0.1, 0.1)
+sprite_frames = SubResource("SpriteFrames_83sn4")

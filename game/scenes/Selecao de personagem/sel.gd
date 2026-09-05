@@ -1,73 +1,114 @@
 extends Control
-# character_select.gd
 
+@export_category("Configurações da seleção")
 @export var grid: GridContainer
 @export var columns: int = 4
 @export var rows: int = 3
+@export var cursor_scene: PackedScene  # cena do cursor (CharacterCursor)
+@export var cursor_positions: Array[Vector2i] = [Vector2i.ZERO, Vector2i(1, 0)]  # posições iniciais
 
-# Dados dos personagens (carregue da pasta ou pré-defina)
+# Dados dos personagens (preenchidos no _ready ou via editor)
 var characters: Array[CharacterData] = []
-var cursors: Array = []  # referências aos cursores
-
-# Jogadores
-var players = [
-	{"cursor": null, "state": "choosing", "character": -1, "grid_pos": Vector2i.ZERO},
-	{"cursor": null, "state": "choosing", "character": -1, "grid_pos": Vector2i.ZERO},
-]
+var cursors: Array[CharacterCursor] = []
 
 func _ready():
 	load_characters()
+	create_portraits()
 	setup_cursors()
-	for i in range(cursors.size()):
-		cursors[i].connect("confirm_pressed", Callable(self, "_on_confirm_pressed").bind(i))
-		cursors[i].connect("cancel_pressed", Callable(self, "_on_cancel_pressed").bind(i))
+	connect_signals()
+	update_ui()
 
 func load_characters():
-	# Carregue seus recursos manualmente ou através de um loop
-	# Exemplo:
-	#characters.append(load("res://characters/mario.tres"))
-	#characters.append(load("res://characters/link.tres"))
+	# Exemplo: carregar recursos .tres de uma pasta
+	var dir = DirAccess.open("res://characters")
+	if dir:
+		dir.list_dir_begin()
+		var file_name = dir.get_next()
+		while file_name != "":
+			if file_name.ends_with(".tres"):
+				var char_data = load("res://characters/" + file_name) as CharacterData
+				if char_data:
+					characters.append(char_data)
+			file_name = dir.get_next()
+	# Ou carregue manualmente:
+	# characters.append(load("res://characters/mario.tres"))
 	# ...
-	characters.append("res://game/scenes/player/fdp.tscn")
-	characters.append("res://game/scenes/player/Pero.tscn")
-	pass
+
+func create_portraits():
+	# Limpar retratos antigos (se houver)
+	for child in grid.get_children():
+		child.queue_free()
+	# Criar um retrato para cada personagem
+	for char in characters:
+		var portrait = TextureRect.new()
+		portrait.texture = char.portrait
+		portrait.custom_minimum_size = Vector2(120, 120)
+		portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
+		portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
+		# Aplicar shader de cor
+		var shader = load("res://shaders/hue_shift.gdshader")
+		var mat = ShaderMaterial.new()
+		mat.shader = shader
+		mat.set_shader_parameter("hue_shift", 0.0)
+		portrait.material = mat
+		grid.add_child(portrait)
+	# Garantir que a grade tenha o número correto de colunas
+	grid.columns = columns
+
 func setup_cursors():
-	# Cria os cursores e associa aos jogadores
-	players[0].cursor = $Cursores/P1
-	players[1].cursor = $Cursores/P2
-	players[2].cursor = $Cursores/P3
-	players[3].cursor = $Cursores/P4
-	# Define posições iniciais
-	players[0].cursor.current_grid_pos = Vector2i.ZERO
-	players[1].cursor.current_grid_pos = Vector2i(1, 0)
-	players[0].cursor.update_cursor_position()
-	players[1].cursor.update_cursor_position()
-	# Conecta sinais para atualizar UI quando o cursor mover
-	players[0].cursor.connect("cursor_moved", Callable(self, "_on_cursor_moved").bind(0))
-	players[1].cursor.connect("cursor_moved", Callable(self, "_on_cursor_moved").bind(1))
+	# Criar cursores para cada jogador (até 4)
+	for i in range(4):  # ou use total_players do GameManager
+		if i >= GameLogic.total_players:
+			break
+		var cursor = cursor_scene.instantiate() as CharacterCursor
+		cursor.player_id = i + 1
+		cursor.grid = grid
+		cursor.columns = columns
+		cursor.rows = rows
+		add_child(cursor)
+		# Definir posição inicial
+		if i < cursor_positions.size():
+			cursor.current_grid_pos = cursor_positions[i]
+		else:
+			cursor.current_grid_pos = Vector2i(i % columns, i / columns)
+		
+		cursors.append(cursor)
+		cursor.update_cursor_position()
+
+func connect_signals():
+	for i in range(cursors.size()):
+		var cursor = cursors[i]
+		# Conectar movimento, confirmação, cancelamento e troca de cor
+		cursor.connect("cursor_moved", Callable(self, "_on_cursor_moved").bind(i))
+		cursor.connect("confirm_pressed", Callable(self, "_on_confirm_pressed").bind(i))
+		cursor.connect("cancel_pressed", Callable(self, "_on_cancel_pressed").bind(i))
+		cursor.connect("costume_changed", Callable(self, "_on_costume_changed").bind(i))
+
+# ----- Handlers dos sinais -----
+func _on_cursor_moved(player_index: int, character_index: int):
+	# Atualizar painel do jogador (nome do personagem)
+	update_player_panel(player_index)
+
+func _on_costume_changed(player_index: int, costume_index: int):
+	# Atualizar painel do jogador (número da cor)
+	update_player_panel(player_index)
 
 func _on_confirm_pressed(player_index: int):
 	var cursor = cursors[player_index]
-	if cursor.is_locked:
-		return
-	cursor.is_locked = true
 	var char_data = characters[cursor.selected_character]
-	var costume_index = cursor.current_costume_index  # você precisa implementar a troca de costume no cursor
-	# Adicionar ou atualizar jogador no game_logic
+	var costume_index = cursor.current_costume_index
+	# Atualizar GameManager
 	if player_index >= GameLogic.players_data.size():
-		GameLogic.add_player(char_data.model, costume_index, str(player_index+1))
+		GameLogic.add_player(char_data.model, costume_index, str(player_index + 1))
 	else:
-		# Atualizar dados se necessário
 		GameLogic.players_data[player_index]["model"] = char_data.model
 		GameLogic.players_data[player_index]["costume_index"] = costume_index
 		GameLogic.players_data[player_index]["control_schema"] = str(player_index+1)
 		GameLogic.set_player_ready(player_index, true)
 		# Atualizar painel para mostrar "Pronto"
-	update_ui()
+	# update_ui()
 
 func _on_cancel_pressed(player_index: int):
-	var cursor = cursors[player_index]
-	cursor.is_locked = false
 	if player_index < GameLogic.players_data.size():
 		GameLogic.set_player_ready(player_index, false)
-	update_ui()
+	# update_ui()

@@ -1,6 +1,14 @@
 [gd_scene format=3 uid="uid://cvuwnekt1g7s6"]
 
 [ext_resource type="PackedScene" uid="uid://d2sfe4fdgut63" path="res://game/scenes/player/player_model.tscn" id="1_64la1"]
+[ext_resource type="PackedScene" uid="uid://t18vi224ryc7" path="res://game/cenas_itens/item_spawner.tscn" id="1_ehljc"]
+[ext_resource type="Script" uid="uid://d2nvjq6svo6dr" path="res://game/general_scripts/itens_script/item_spawn_data.gd" id="3_iybd7"]
+[ext_resource type="PackedScene" uid="uid://c0jm5bom0e7bs" path="res://game/cenas_itens/dardo/dardo.tscn" id="4_4ne33"]
+[ext_resource type="Resource" uid="uid://bihkooapk4f3l" path="res://game/general_scripts/itens_script/item_data/bazuca.tres" id="4_a0qkf"]
+[ext_resource type="PackedScene" uid="uid://cdb880s184gew" path="res://game/cenas_itens/objects/dardo_object.tscn" id="4_dgugv"]
+[ext_resource type="PackedScene" uid="uid://dkbxerqx5p123" path="res://game/cenas_itens/objects/balao_object.tscn" id="6_3hpeo"]
+[ext_resource type="PackedScene" uid="uid://bf6gqxe7r3mqm" path="res://game/scenes/player/fdp.tscn" id="7_dgugv"]
+[ext_resource type="PackedScene" uid="uid://rfuv6mgehc4p" path="res://game/cenas_itens/balão/balao.tscn" id="7_nb3nn"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_e6i8i"]
 
@@ -13,6 +21,19 @@ size = Vector2(87, 555)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x1k3w"]
 size = Vector2(81.125, 433)
 
+[sub_resource type="Resource" id="Resource_uhs8t"]
+script = ExtResource("3_iybd7")
+item_scene = ExtResource("4_4ne33")
+item_object = ExtResource("4_dgugv")
+metadata/_custom_type_script = "uid://d2nvjq6svo6dr"
+
+[sub_resource type="Resource" id="Resource_yskqv"]
+script = ExtResource("3_iybd7")
+item_scene = ExtResource("7_nb3nn")
+item_object = ExtResource("6_3hpeo")
+weight = 0.0
+metadata/_custom_type_script = "uid://d2nvjq6svo6dr"
+
 [node name="test" type="Node2D" unique_id=866233104]
 
 [node name="1" type="StaticBody2D" parent="." unique_id=1875221178]
@@ -21,10 +42,6 @@ physics_material_override = SubResource("PhysicsMaterial_e6i8i")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="1" unique_id=1928078175]
 position = Vector2(582, 603.5)
 shape = SubResource("RectangleShape2D_64la1")
-
-[node name="PlayerModel" parent="." unique_id=1305856846 instance=ExtResource("1_64la1")]
-position = Vector2(505, 316)
-ability = 0
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=563824624]
 position = Vector2(585, 319)
@@ -40,3 +57,22 @@ shape = SubResource("RectangleShape2D_h7c7b")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=841083756]
 position = Vector2(199, 223)
 shape = SubResource("RectangleShape2D_x1k3w")
+
+[node name="ItemSpawn1" type="Marker2D" parent="." unique_id=1101458223 groups=["ItemSpawn"]]
+position = Vector2(521, 547)
+
+[node name="ItemSpawner" parent="." unique_id=396564027 instance=ExtResource("1_ehljc")]
+possible_items = Array[ExtResource("3_iybd7")]([ExtResource("4_a0qkf"), SubResource("Resource_uhs8t"), SubResource("Resource_yskqv")])
+
+[node name="PlayerModel" parent="." unique_id=1305856846 instance=ExtResource("1_64la1")]
+position = Vector2(367, 473)
+
+[node name="PlayerModel2" parent="." unique_id=1604375750 instance=ExtResource("7_dgugv")]
+position = Vector2(701, 490)
+control_schema = "2"
+ability = 0
+
+[node name="PlayerModel3" parent="." unique_id=1806254893 instance=ExtResource("7_dgugv")]
+position = Vector2(880, 510)
+control_schema = "4"
+ability = 0

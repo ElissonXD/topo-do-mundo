@@ -408,12 +408,36 @@ size = Vector2(6, 33)
 
 [sub_resource type="Animation" id="Animation_mm1n1"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.0]
+}
 
 [sub_resource type="Animation" id="Animation_hi634"]
 resource_name = "invencible"
 length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0.0, 1.0, 0.0, 1.0, 0.0, 1.0]
+}
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_mm2v0"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ogwj7"]
 _data = {
 &"RESET": SubResource("Animation_mm1n1"),
 &"invencible": SubResource("Animation_hi634")
@@ -456,7 +480,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "b71587ceefb0295321d689973ea25049"
 
 [node name="left" type="Area2D" parent="." unique_id=1233443420]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 3
 
 [node name="leftcollision" type="CollisionShape2D" parent="left" unique_id=1552382799]
 position = Vector2(-6, -0.5)
@@ -465,7 +489,7 @@ debug_color = Color(0.978612, 0, 0.39857033, 0.41960785)
 
 [node name="right" type="Area2D" parent="." unique_id=726048532]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 3
 
 [node name="rightcollision" type="CollisionShape2D" parent="right" unique_id=1890823536]
 position = Vector2(6, -0.5)
@@ -475,10 +499,14 @@ debug_color = Color(0.7097094, 0.48675317, 0, 0.41960785)
 [node name="up" type="RayCast2D" parent="." unique_id=63560471]
 target_position = Vector2(0, -24)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1938358586]
-libraries/ = SubResource("AnimationLibrary_mm2v0")
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=349119826]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=940511081]
+libraries/ = SubResource("AnimationLibrary_ogwj7")
+
+[node name="aim" type="Marker2D" parent="." unique_id=1970305842]
+position = Vector2(13, 0)
+scale = Vector2(2, 2)
 
 [connection signal="body_entered" from="left" to="." method="detect_left_collision"]
 [connection signal="body_entered" from="right" to="." method="detect_right_collision"]
