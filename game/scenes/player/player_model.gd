@@ -63,7 +63,8 @@ enum PlayerState {
 	dash,
 	slide,
 	climb,
-	glide
+	glide,
+	flying
 }
 
 var state: PlayerState
@@ -129,12 +130,12 @@ func _physics_process(delta: float) -> void:
 		
 		if iframes_timer <= 0:
 			animation_player.stop()
-	
-	if use_dash(): #o dash pode ser utilizado em qualquer estado
-		go_to_dash_state()
-	
-	if use_glide(): # o glide pode ser usado em qualquer estado
-		go_to_glide_state()
+	if state != PlayerState.flying: # exçeção
+		if use_dash(): #o dash pode ser utilizado em qualquer estado
+			go_to_dash_state()
+		
+		if use_glide(): # o glide pode ser usado em qualquer estado
+			go_to_glide_state()
 	if current_item != null and Input.is_action_just_pressed(interact_control): 
 		use_current_item() #item pode ser usado em qualquer estado
 	#print(wall_slide_direction)
@@ -160,6 +161,8 @@ func _physics_process(delta: float) -> void:
 			climb_state(delta, direction)
 		PlayerState.glide:
 			glide_state(delta, direction)
+		PlayerState.flying:
+			flying_state(delta, direction)
 	
 	move_and_slide()
 
@@ -240,6 +243,13 @@ func go_to_glide_state():
 	glide_timer = GLIDE_TIME
 	can_glide = false
 	velocity.y = 0
+	return
+
+func go_to_flying_state():
+	# state exclusivo do balao, nao pode usar habilidades, so voar
+	state = PlayerState.flying
+	animation.play('Fall')
+	velocity.y
 	return
 
 # funções de PERMANÊNCIA
@@ -458,6 +468,14 @@ func climb_state(delta: float, direction: int):
 			go_to_idle_state()
 		return
 
+func flying_state(delta: float, direction: int):
+	get_movement(delta, direction)
+	flip_sprite(direction)
+	
+	 # está refém ao item, nao pode ir pra nenhum estado
+	
+	return
+
 # funções de SAÍDA
 
 
@@ -552,6 +570,7 @@ func use_current_item() -> void:
 	item_instance.position = position # trocar por marker
 	item_instance.position.y -= 50
 	get_tree().current_scene.add_child(item_instance)
+	current_item = null
 
 func apply_knockback(body: Node2D, POWER: float) -> void:
 	
