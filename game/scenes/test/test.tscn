@@ -34,7 +34,7 @@ item_object = ExtResource("6_3hpeo")
 weight = 0.0
 metadata/_custom_type_script = "uid://d2nvjq6svo6dr"
 
-[node name="test" type="Node2D" unique_id=866233104]
+[node name="test2" type="Node2D" unique_id=866233104]
 
 [node name="1" type="StaticBody2D" parent="." unique_id=1875221178]
 physics_material_override = SubResource("PhysicsMaterial_e6i8i")

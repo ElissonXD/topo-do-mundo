@@ -63,6 +63,8 @@ size = Vector2(16, 5)
 collision_layer = 4
 gravity_scale = 0.0
 script = ExtResource("1_2b0y0")
+ACCEL = 500.0
+MAX_SPEED = 1000.0
 DURATION = 5.0
 POWER = 400.0
 
