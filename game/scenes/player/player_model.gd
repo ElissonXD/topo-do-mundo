@@ -577,18 +577,18 @@ func use_current_item() -> void:
 	get_tree().current_scene.add_child(item_instance)
 	current_item = null
 
-func apply_knockback(body: Node2D, POWER: float) -> void:
+func apply_knockback(body: Node2D, POWER: float, direction: int) -> void:
 	
-	var vector_direction = (global_position - body.global_position).normalized()
+	var knockback = -(POWER*direction)
 	
-	vector_direction.y = clamp(vector_direction.y, -0.5, -0.25)
-	vector_direction.normalized()
-	
-	velocity = vector_direction * POWER
+	velocity.x = knockback
+	velocity.y = -(POWER * 0.4)
 	return
-	
+
+func can_be_hurt() -> bool:
+	return state != PlayerState.hurt and iframes_timer <= 0
+
 func detect_left_collision(body: Node2D):
-	
 	if not body.is_in_group("Player"):
 		wall_slide_direction = -1
 	
@@ -597,8 +597,8 @@ func detect_left_collision(body: Node2D):
 	
 	if state == PlayerState.slide and not up.is_colliding():
 		if body.is_in_group("Player") and body != self: # será player
-			if body.iframes_timer <= 0:
-				body.apply_knockback(self, SLIDE_POWER)
+			if body.can_be_hurt():
+				body.apply_knockback(self, SLIDE_POWER, 1)
 				body.go_to_hurt_state();
 
 func detect_right_collision(body: Node2D):
@@ -607,8 +607,8 @@ func detect_right_collision(body: Node2D):
 	
 	if state == PlayerState.slide and not up.is_colliding():
 		if body.is_in_group("Player") and body != self: # será player
-			if body.iframes_timer <= 0:
-				body.apply_knockback(self, SLIDE_POWER)
+			if body.can_be_hurt():
+				body.apply_knockback(self, SLIDE_POWER, -1)
 				body.go_to_hurt_state();
 
 func die():
