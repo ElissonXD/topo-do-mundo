@@ -31,7 +31,7 @@ metadata/_custom_type_script = "uid://d2nvjq6svo6dr"
 script = ExtResource("3_iybd7")
 item_scene = ExtResource("7_nb3nn")
 item_object = ExtResource("6_3hpeo")
-weight = 2.0
+weight = 0.0
 metadata/_custom_type_script = "uid://d2nvjq6svo6dr"
 
 [node name="test" type="Node2D" unique_id=866233104]

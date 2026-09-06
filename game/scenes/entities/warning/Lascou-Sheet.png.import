@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b5cuvtgrx6bb0"
-path="res://.godot/imported/balao_temp.jpg-d2ed26b818dc7e65af61aaa9c97ae5e4.ctex"
+uid="uid://dgdtmqcqwlw6c"
+path="res://.godot/imported/Lascou-Sheet.png-7dc7ac411bf095cb467afe1b80acea9c.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/cenas_itens/balão/balao_temp.jpg"
-dest_files=["res://.godot/imported/balao_temp.jpg-d2ed26b818dc7e65af61aaa9c97ae5e4.ctex"]
+source_file="res://game/scenes/entities/warning/Lascou-Sheet.png"
+dest_files=["res://.godot/imported/Lascou-Sheet.png-7dc7ac411bf095cb467afe1b80acea9c.ctex"]
 
 [params]
 

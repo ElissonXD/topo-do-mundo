@@ -9,6 +9,7 @@ extends Node
 @export var players : Array[Dictionary]
 @export var players_points : Array[int] = [0,0,0,0]
 @export var roundResults : Control
+var crown_object : Node2D
 
 enum GameState {
 	SETUP,
@@ -26,6 +27,9 @@ signal get_game_timer(timer: Timer)
 signal game_end(dados: Array) 
 
 func _ready() -> void:
+	crown_object = load("res://game/scenes/entities/crown/crown.tscn").instantiate()
+	crown_object.visible = false
+	$"../Entities".add_child(crown_object)
 	change_state(GameState.SETUP)
 
 func _process(delta: float) -> void:
@@ -73,7 +77,7 @@ func _on_timer_2_timeout() -> void:
 
 func _enter_playing_state() -> void:
 	get_tree().paused = false
-	general_timer.start(1)
+	general_timer.start()
 	get_game_timer.emit(general_timer)
 
 func _process_playing_state(delta: float) -> void:
@@ -99,7 +103,12 @@ func _process_playing_state(delta: float) -> void:
 				players_points[2] += delta * 100
 			4:
 				players_points[3] += delta * 100
-		
+		crown_object.visible = true
+		crown_object.global_position = player_vencedor['model'].global_position
+		crown_object.global_position.y -= 30
+	else:
+		crown_object.visible = false
+			
 	get_players_points.emit(players_points)
 
 func _on_timer_timeout() -> void:

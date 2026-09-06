@@ -4,7 +4,7 @@ extends Item
 
 func _ready() -> void:
 	position.x = AUTHOR.position.x
-	position.y = AUTHOR.position.y - 20
+	position.y = AUTHOR.position.y - 40
 	AUTHOR.go_to_flying_state()
 
 func _process(delta: float) -> void:
@@ -15,6 +15,6 @@ func _process(delta: float) -> void:
 		queue_free()
 		return
 	
-	position.y = AUTHOR.position.y - 20
+	position.y = AUTHOR.position.y - 40
 	position.x = AUTHOR.position.x
 	AUTHOR.velocity.y = -POWER
