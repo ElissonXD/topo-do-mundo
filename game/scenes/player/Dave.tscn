@@ -493,5 +493,9 @@ target_position = Vector2(0, -24)
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=822637849]
 libraries/ = SubResource("AnimationLibrary_r01cm")
 
+[node name="aim" type="Marker2D" parent="." unique_id=1616913629]
+position = Vector2(13, 0)
+scale = Vector2(2, 2)
+
 [connection signal="body_entered" from="left" to="." method="detect_left_collision"]
 [connection signal="body_entered" from="right" to="." method="detect_right_collision"]
