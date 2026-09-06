@@ -15,6 +15,7 @@ var characters: Array[CharacterData] = []
 var skills: Array[Dictionary] = []  # recurso com ícone e nome (ou use um array de dicts)
 var skill_icons: Array[Texture2D] = [preload("res://addons/at-icons/node2d/Climb.svg"), preload("res://addons/at-icons/node2d/Slide.svg"),preload("res://addons/at-icons/node2d/Dash.svg"),preload("res://addons/at-icons/node2d/Glide.svg")]         # Resource de skill (com ícone e dados)
 var cursors: Array[CharacterCursor] = []
+var portrait_materials: Array[ShaderMaterial] = [] 
 
 func _ready():
 	load_characters()
@@ -62,6 +63,7 @@ func create_char_portraits():
 		mat.shader = load("res://game/scenes/player/Colorswt.gdshader")
 		mat.set_shader_parameter("hue_shift", 0.0)
 		portrait.material = mat
+		portrait_materials.append(mat)  # guarda o material
 		char_grid.add_child(portrait)
 	char_grid.columns = columns
 
@@ -120,7 +122,12 @@ func _on_mode_changed(player_index: int, new_mode: int):
 
 func _on_costume_changed(player_index: int, costume_index: int):
 	update_player_panel(player_index)
-
+	var cursor = cursors[player_index]
+	var char_index = cursor.selected_character
+	if char_index >= 0 and char_index < portrait_materials.size():
+		var mat = portrait_materials[char_index]
+		mat.set_shader_parameter("hue_shift", get_hue_shift(costume_index))
+			
 func _on_confirm_pressed(player_index: int):
 	var cursor = cursors[player_index]
 	
@@ -196,9 +203,13 @@ func update_player_panel(player_index: int):
 		if ready_indicator:
 			ready_indicator.visible = p["ready"]
 		
-		# --- Atualizar retrato do personagem ---
+		# --- Atualizar retrato do personagem com shader ---
 		if portrait_rect and char_data:
 			portrait_rect.texture = char_data.portrait
+			# Aplica a cor correspondente ao jogador
+			var mat = portrait_rect.material as ShaderMaterial
+			if mat:
+				mat.set_shader_parameter("hue_shift", get_hue_shift(p["costume_index"]))
 		
 		# --- Atualizar ícone da skill ---
 		if skill_icon:
@@ -282,6 +293,17 @@ func ensure_panel_setup():
 			style.border_color = Color.WHITE
 			style.set_border_width_all(2)
 			panel.add_theme_stylebox_override("panel", style)
+		if not panel.has_node("PortraitRect"):
+			var portrait_rect = TextureRect.new()
+			# ... (configurações)
+			portrait_rect.name = "PortraitRect"
+			# Crie um material shader para o painel
+			var mat = ShaderMaterial.new()
+			mat.shader = load("res://game/scenes/player/Colorswt.gdshader")
+			mat.set_shader_parameter("hue_shift", 0.0)
+			portrait_rect.material = mat
+			panel.add_child(portrait_rect)
+
 func update_player_panels():
 	for i in range(GameLogic.total_players):
 		update_player_panel(i)
@@ -291,3 +313,10 @@ func get_character_by_model(model: PackedScene) -> CharacterData:
 		if char.model == model:
 			return char
 	return null
+	
+func get_hue_shift(costume_index: int) -> float:
+	# Mapeia 0 -> 0, 1 -> PI/2, 2 -> PI, 3 -> 3*PI/2
+	var colors = [0.0, PI/2, PI, 3*PI/2]  # ou use valores personalizados
+	if costume_index >= 0 and costume_index < colors.size():
+		return colors[costume_index]
+	return 0.0
