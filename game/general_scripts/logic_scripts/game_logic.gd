@@ -98,6 +98,7 @@ func get_players():
 		
 		active_players.append({
 			"id": data["id"],
+			"portrait": data['portrait'],
 			"model": node_instance,
 			"score": data["score"]
 		})
@@ -117,11 +118,12 @@ func go_to_next_map():
 
 func _ready() -> void:
 	var players : Array[Dictionary]
-	for x in range(2):
+	for x in range(4):
 		var object = preload("res://game/scenes/player/fdp.tscn")
 		var player = {
 			"id": x+1,
 			"model": object,
+			"portrait": 'fdp',
 			"ability": 3,
 			"controls": str(x+1),
 			"score": 0

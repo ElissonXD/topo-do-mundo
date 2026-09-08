@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d2jlkb5orl772"]
 
 [ext_resource type="Script" uid="uid://chdpuukejvffk" path="res://game/general_scripts/itens_script/item_base.gd" id="1_ty13e"]
-[ext_resource type="Texture2D" uid="uid://fcmil2k2urmd" path="res://assets/temp_assets/itens/png_ultra_realista_de_bazuca.jpeg" id="2_bjy1j"]
+[ext_resource type="Texture2D" uid="uid://fcmil2k2urmd" path="res://game/cenas_itens/bazuca/png_ultra_realista_de_bazuca.jpeg" id="2_bjy1j"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_0i88t"]
 

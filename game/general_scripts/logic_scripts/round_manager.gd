@@ -1,5 +1,8 @@
 extends Node
 
+# ok, importante, talvez seja legal refatorar os nós para ser exports
+# ao inves de depender da cena, depois faço isso
+
 # Configurações
 
 @export_category('Configurações gerais')
@@ -10,6 +13,13 @@ extends Node
 @export var players_points : Array[int] = [0,0,0,0]
 @export var roundResults : Control
 var crown_object : Node2D
+
+var colors_dict : Dictionary = {
+		0: Color.RED,
+		1: Color.BLUE,
+		2: Color.GREEN,
+		3: Color.YELLOW
+}
 
 enum GameState {
 	SETUP,
@@ -67,14 +77,15 @@ func _enter_setup_state() -> void:
 		$"../Jogadores".add_child(players[x]['model'])
 		players[x]["model"].global_position = spawn_points[x].global_position
 	
-	create_ui_points(len(players))
-	
-	start_timer.start(3)
+	start_timer.start()
 	get_start_timer.emit(start_timer)
 
 func _on_timer_2_timeout() -> void:
 	change_state(GameState.PLAYING)
-
+	create_ui_points(len(players))
+	create_ui_itens((len(players)))
+	$"../CanvasLayer/round_timer".visible = true
+	
 func _enter_playing_state() -> void:
 	get_tree().paused = false
 	general_timer.start()
@@ -123,6 +134,8 @@ func _enter_game_over_state() -> void:
 	var placar = calculate_score()
 	
 	roundResults.go_to_score_state(placar)
+	$"../CanvasLayer/players".visible = false
+	$"../CanvasLayer/round_timer".visible = false
 	hide_ui_points()
 	game_end.emit(placar as Array)
 
@@ -131,17 +144,32 @@ func _enter_game_over_state() -> void:
 
 func create_ui_points(length: int) -> void:
 	var object = load("res://game/scenes/ui_principal/player_bar.tscn")
+
 	for i in range(length):
+		var player_portrait = players[i]['portrait']
 		var player_ui_score = object.instantiate()
+		player_ui_score.change_color(colors_dict[i])
 		$"../CanvasLayer/players".add_child(player_ui_score)
-		player_ui_score.change_player(i)
+		player_ui_score.change_player(i, player_portrait)
 		get_players_points.connect(player_ui_score.change_score)
+
+func create_ui_itens(length:int) -> void:
+	var object = load("res://game/scenes/ui_principal/item_ui.tscn")
+
+	for i in range(length):
+		var player_portrait = players[i]['portrait']
+		var player_ui_item = object.instantiate()
+		player_ui_item.change_color(colors_dict[i])
+		players[i]['model'].get_item.connect(player_ui_item.get_item)
+		players[i]['model'].use_item.connect(player_ui_item.remove_item)
+		$"../CanvasLayer/items".add_child(player_ui_item)
 
 func calculate_score() -> Array[Dictionary]:
 	var players_dict: Array[Dictionary] = []
 	for i in range(players.size()):
 		players_dict.append({
 			"id": i + 1,
+			"portrait": players[i]['portrait'],
 			"score": players_points[i],
 			"show": 0,
 			"pos": 0,
@@ -165,4 +193,5 @@ func calculate_score() -> Array[Dictionary]:
 
 func hide_ui_points() -> void:
 	$"../CanvasLayer/players".visible = false
+	$"../CanvasLayer/items".visible = false
 	return

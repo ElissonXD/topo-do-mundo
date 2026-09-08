@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bumovlmjcbvnx" path="res://game/scenes/player/player_model.gd" id="1_r01cm"]
 [ext_resource type="Shader" uid="uid://cr2wx16b0818h" path="res://game/scenes/player/Colorswt.gdshader" id="2_4aryg"]
+[ext_resource type="Texture2D" uid="uid://daut1mrfrqibh" path="res://game/scenes/player/Dave_slide.png" id="3_4aryg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mm1n1"]
 resource_local_to_scene = true
@@ -162,6 +163,10 @@ region = Rect2(0, 252, 92, 63)
 [sub_resource type="AtlasTexture" id="AtlasTexture_x14dr"]
 atlas = SubResource("PortableCompressedTexture2D_r01cm")
 region = Rect2(92, 252, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_muwlf"]
+atlas = ExtResource("3_4aryg")
+region = Rect2(0, 0, 92, 63)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2jpic"]
 atlas = SubResource("PortableCompressedTexture2D_r01cm")
@@ -352,6 +357,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_muwlf")
+}],
+"loop": 1,
+"name": &"Slide",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_2jpic")
 }, {
 "duration": 1.0,
@@ -445,7 +458,7 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_7met1")
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_muwlf")
-animation = &"Jump"
+animation = &"Idle"
 offset = Vector2(12, 0)
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": false,

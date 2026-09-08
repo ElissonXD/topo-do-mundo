@@ -3,8 +3,8 @@ extends Item
 # enquanto estiver ativo, só vai subir o player
 
 func _ready() -> void:
-	position.x = AUTHOR.position.x
-	position.y = AUTHOR.position.y - 40
+	global_position.x = AUTHOR.global_position.x
+	global_position.y = AUTHOR.global_position.y - 40
 	AUTHOR.go_to_flying_state()
 
 func _process(delta: float) -> void:
@@ -15,6 +15,6 @@ func _process(delta: float) -> void:
 		queue_free()
 		return
 	
-	position.y = AUTHOR.position.y - 40
-	position.x = AUTHOR.position.x
+	global_position.x = AUTHOR.global_position.x
+	global_position.y = AUTHOR.global_position.y - 40
 	AUTHOR.velocity.y = -POWER

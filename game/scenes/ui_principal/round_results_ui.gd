@@ -12,6 +12,7 @@ var number_players : int
 
 """
 dicionario que deve receber (o array tem que já estar em ordem dos players):
+	portrait: fdp | pero | dave -> portrait para exibir
 	score: x -> pontuação da rodada
 	show: 0 -> pontuação para mostrar no placar
 	pos: x -> posição em que ficou
@@ -69,7 +70,8 @@ func go_to_score_state(results : Array):
 	
 	for x in range(number_players):
 		var player = 'Player ' + str(x+1)
-		players_array[x].show_details(player)
+		var portrait = players_results[x]['portrait']
+		players_array[x].show_details(player, portrait)
 	
 	return
 

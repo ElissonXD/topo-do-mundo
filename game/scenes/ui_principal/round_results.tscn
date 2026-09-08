@@ -3,6 +3,19 @@
 [ext_resource type="Script" uid="uid://bs6adsl1lqkhc" path="res://game/scenes/ui_principal/round_results_ui.gd" id="1_803jg"]
 [ext_resource type="PackedScene" uid="uid://5l54dxcschsm" path="res://game/scenes/ui_principal/round_player.tscn" id="2_styvl"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpayf"]
+bg_color = Color(0.09019608, 0.09019608, 0.09019608, 0.6)
+border_width_left = 3
+border_width_top = 3
+border_width_right = 3
+border_width_bottom = 3
+border_color = Color(0.8, 0.44313726, 0.8784314, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 10
+
 [node name="RoundResults" type="Control" unique_id=1131514644 node_paths=PackedStringArray("round_player", "round_player_2", "round_player_3", "round_player_4")]
 layout_mode = 3
 anchor_right = 0.832
@@ -25,6 +38,7 @@ anchor_right = 0.9985416
 anchor_bottom = 0.7795926
 offset_right = -0.3199997
 offset_bottom = -0.1760025
+theme_override_styles/panel = SubResource("StyleBoxFlat_qpayf")
 metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=136125841]
