@@ -164,10 +164,6 @@ region = Rect2(0, 252, 92, 63)
 atlas = SubResource("PortableCompressedTexture2D_r01cm")
 region = Rect2(92, 252, 92, 63)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_muwlf"]
-atlas = ExtResource("3_4aryg")
-region = Rect2(0, 0, 92, 63)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_2jpic"]
 atlas = SubResource("PortableCompressedTexture2D_r01cm")
 region = Rect2(276, 63, 92, 63)
@@ -357,7 +353,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_muwlf")
+"texture": ExtResource("3_4aryg")
 }],
 "loop": 1,
 "name": &"Slide",
@@ -458,7 +454,7 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_7met1")
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_muwlf")
-animation = &"Idle"
+animation = &"Slide"
 offset = Vector2(12, 0)
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": false,
