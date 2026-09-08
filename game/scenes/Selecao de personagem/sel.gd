@@ -5,8 +5,8 @@ extends Control
 @export var skill_grid: GridContainer         # Grid de skills (direita)
 @export var columns: int = 2                  # colunas do grid de personagens
 @export var rows: int = 2                     # linhas do grid de personagens
-@export var skill_columns: int = 4            # colunas do grid de skills
-@export var skill_rows: int = 1               # linhas do grid de skills
+@export var skill_columns: int = 2            # colunas do grid de skills
+@export var skill_rows: int = 2               # linhas do grid de skills
 @export var cursor_scene: PackedScene         # cena do cursor (CharacterCursor)
 @export var cursor_positions: Array[Vector2i] = [Vector2i.ZERO, Vector2i(1, 0)]  # posições iniciais (personagem)
 @export var cursor_skill_positions: Array[Vector2i] = [Vector2i.ZERO, Vector2i(1, 0)]  # posições iniciais (skill)
@@ -26,6 +26,8 @@ func _ready():
 	connect_signals()
 	ensure_panel_setup()   
 	update_player_panels() 
+	char_grid.add_theme_constant_override("h_separation", 20)
+	char_grid.add_theme_constant_override("v_separation", 20)
 # ------------------- Carregamento de dados -------------------
 func load_characters():
 	var dir = DirAccess.open("res://characters")
@@ -71,7 +73,7 @@ func create_skill_icons():
 	for skill in skills:
 		var icon = TextureRect.new()
 		icon.texture = skill["icon"]
-		icon.custom_minimum_size = Vector2(80, 80)
+		icon.custom_minimum_size = Vector2(120, 120)
 		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		skill_grid.add_child(icon)

@@ -25,10 +25,8 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_4r5ue")
-char_grid = NodePath("Container/GridContainer")
-skill_grid = NodePath("Container/SkillGrid")
-skill_columns = 2
-skill_rows = 2
+char_grid = NodePath("Container/HBoxContainer/GridContainer")
+skill_grid = NodePath("Container/HBoxContainer/SkillGrid")
 cursor_scene = ExtResource("2_rkbnb")
 cursor_positions = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1)])
 cursor_skill_positions = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1)])
@@ -62,18 +60,20 @@ texture = ExtResource("2_1n431")
 expand_mode = 3
 metadata/_edit_lock_ = true
 
-[node name="GridContainer" type="GridContainer" parent="Container" unique_id=404643922]
-layout_mode = 1
-anchors_preset = -1
-anchor_right = 0.5
-anchor_bottom = 0.98800004
-offset_left = 4.0
-offset_bottom = 7.8880005
-grow_vertical = 2
+[node name="HBoxContainer" type="HBoxContainer" parent="Container" unique_id=1378787106]
+layout_mode = 0
+offset_right = 1152.0
+offset_bottom = 328.0
+alignment = 1
+metadata/_edit_lock_ = true
+
+[node name="GridContainer" type="GridContainer" parent="Container/HBoxContainer" unique_id=404643922]
+layout_mode = 2
 size_flags_vertical = 8
 columns = 2
+metadata/_edit_lock_ = true
 
-[node name="Feldspato" type="TextureRect" parent="Container/GridContainer" unique_id=2002617282]
+[node name="Feldspato" type="TextureRect" parent="Container/HBoxContainer/GridContainer" unique_id=2002617282]
 texture_filter = 1
 layout_mode = 2
 texture = ExtResource("3_5m4o0")
@@ -103,7 +103,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "daa58964eb47be16c13e720ceb85ce55"
 
-[node name="Label" type="Label" parent="Container/GridContainer/Feldspato" unique_id=1330247678]
+[node name="Label" type="Label" parent="Container/HBoxContainer/GridContainer/Feldspato" unique_id=1330247678]
 layout_mode = 0
 offset_left = 89.0
 offset_top = 135.0
@@ -112,7 +112,7 @@ offset_bottom = 149.0
 text = "Feldspato"
 horizontal_alignment = 1
 
-[node name="Pero" type="TextureRect" parent="Container/GridContainer" unique_id=805582131]
+[node name="Pero" type="TextureRect" parent="Container/HBoxContainer/GridContainer" unique_id=805582131]
 texture_filter = 1
 custom_minimum_size = Vector2(288, 162)
 layout_mode = 2
@@ -140,7 +140,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "b71587ceefb0295321d689973ea25049"
 
-[node name="Label2" type="Label" parent="Container/GridContainer/Pero" unique_id=402083783]
+[node name="Label2" type="Label" parent="Container/HBoxContainer/GridContainer/Pero" unique_id=402083783]
 layout_mode = 0
 offset_left = 113.0
 offset_top = 135.0
@@ -149,7 +149,7 @@ offset_bottom = 149.0
 text = "Pero"
 horizontal_alignment = 1
 
-[node name="Dave" type="TextureRect" parent="Container/GridContainer" unique_id=161467740]
+[node name="Dave" type="TextureRect" parent="Container/HBoxContainer/GridContainer" unique_id=161467740]
 texture_filter = 1
 custom_minimum_size = Vector2(0, 162)
 layout_mode = 2
@@ -178,7 +178,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "6367dcf03b29d7696c06a050f1fc76e2"
 
-[node name="Label3" type="Label" parent="Container/GridContainer/Dave" unique_id=71454361]
+[node name="Label3" type="Label" parent="Container/HBoxContainer/GridContainer/Dave" unique_id=71454361]
 layout_mode = 0
 offset_left = 89.0
 offset_top = 136.0
@@ -187,13 +187,13 @@ offset_bottom = 156.0
 text = "Dave"
 horizontal_alignment = 1
 
-[node name="TextureRect4" type="TextureRect" parent="Container/GridContainer" unique_id=2108667534]
+[node name="TextureRect4" type="TextureRect" parent="Container/HBoxContainer/GridContainer" unique_id=2108667534]
 custom_minimum_size = Vector2(0, 162)
 layout_mode = 2
 texture = ExtResource("5_rkbnb")
 expand_mode = 3
 
-[node name="Label4" type="Label" parent="Container/GridContainer/TextureRect4" unique_id=1327760389]
+[node name="Label4" type="Label" parent="Container/HBoxContainer/GridContainer/TextureRect4" unique_id=1327760389]
 layout_mode = 0
 offset_left = 113.0
 offset_top = 136.0
@@ -202,17 +202,13 @@ offset_bottom = 156.0
 text = "Lajetixa"
 horizontal_alignment = 1
 
-[node name="SkillGrid" type="GridContainer" parent="Container" unique_id=109964920]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.5
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="SkillGrid" type="GridContainer" parent="Container/HBoxContainer" unique_id=109964920]
+custom_minimum_size = Vector2(320, 80)
+layout_mode = 2
+size_flags_horizontal = 3
 columns = 2
 
-[node name="Climb" type="TextureRect" parent="Container/SkillGrid" unique_id=651700820]
+[node name="Climb" type="TextureRect" parent="Container/HBoxContainer/SkillGrid" unique_id=651700820]
 visible = false
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
@@ -220,7 +216,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("4_76gfl")
 
-[node name="Label" type="Label" parent="Container/SkillGrid/Climb" unique_id=973391757]
+[node name="Label" type="Label" parent="Container/HBoxContainer/SkillGrid/Climb" unique_id=973391757]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -232,7 +228,7 @@ grow_vertical = 0
 text = "Climb"
 horizontal_alignment = 1
 
-[node name="Dash" type="TextureRect" parent="Container/SkillGrid" unique_id=594459720]
+[node name="Dash" type="TextureRect" parent="Container/HBoxContainer/SkillGrid" unique_id=594459720]
 visible = false
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
@@ -240,8 +236,7 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 texture = ExtResource("5_kdr7r")
 
-[node name="dash" type="Label" parent="Container/SkillGrid/Dash" unique_id=1874568605]
-visible = false
+[node name="dash" type="Label" parent="Container/HBoxContainer/SkillGrid/Dash" unique_id=1874568605]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -255,15 +250,14 @@ grow_vertical = 0
 text = "Dash"
 horizontal_alignment = 1
 
-[node name="glide" type="TextureRect" parent="Container/SkillGrid" unique_id=207875053]
+[node name="glide" type="TextureRect" parent="Container/HBoxContainer/SkillGrid" unique_id=207875053]
 visible = false
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
 size_flags_vertical = 4
 texture = ExtResource("6_5m4o0")
 
-[node name="Label3" type="Label" parent="Container/SkillGrid/glide" unique_id=956704728]
-visible = false
+[node name="Label3" type="Label" parent="Container/HBoxContainer/SkillGrid/glide" unique_id=956704728]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -275,14 +269,13 @@ grow_vertical = 0
 text = "Glide"
 horizontal_alignment = 1
 
-[node name="Slide" type="TextureRect" parent="Container/SkillGrid" unique_id=1487975610]
+[node name="Slide" type="TextureRect" parent="Container/HBoxContainer/SkillGrid" unique_id=1487975610]
 visible = false
 custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
-size_flags_vertical = 4
 texture = ExtResource("7_4r5ue")
 
-[node name="Label4" type="Label" parent="Container/SkillGrid/Slide" unique_id=1927164571]
+[node name="Label4" type="Label" parent="Container/HBoxContainer/SkillGrid/Slide" unique_id=1927164571]
 layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
@@ -300,6 +293,8 @@ anchors_preset = -1
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -6.0
+offset_right = 6.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -324,18 +319,24 @@ offset_bottom = 14.0
 
 [node name="ReadyIndicator" type="TextureRect" parent="PlayerPanels/Player1" unique_id=119958819]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 14.0
+offset_left = 125.0
+offset_top = 233.0
+offset_right = 165.0
+offset_bottom = 247.0
 
 [node name="PortraitRect" type="TextureRect" parent="PlayerPanels/Player1" unique_id=2002384267]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 125.0
+offset_top = 66.0
+offset_right = 165.0
+offset_bottom = 106.0
 
 [node name="SkillIcon" type="TextureRect" parent="PlayerPanels/Player1" unique_id=1969374620]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 125.0
+offset_top = 160.0
+offset_right = 165.0
+offset_bottom = 200.0
 
 [node name="Player2" type="Panel" parent="PlayerPanels" unique_id=78377805]
 custom_minimum_size = Vector2(288, 0)
