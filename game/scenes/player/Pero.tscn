@@ -2,6 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://cr2wx16b0818h" path="res://game/scenes/player/Colorswt.gdshader" id="1_ogwj7"]
 [ext_resource type="Script" uid="uid://bumovlmjcbvnx" path="res://game/scenes/player/player_model.gd" id="2_c5ssw"]
+[ext_resource type="Texture2D" uid="uid://c6kjad7w0yxot" path="res://game/scenes/player/Pero_slide.png" id="3_c5ssw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mm1n1"]
 resource_local_to_scene = true
@@ -174,6 +175,10 @@ region = Rect2(368, 189, 92, 63)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ftngv"]
 atlas = SubResource("PortableCompressedTexture2D_ogwj7")
 region = Rect2(460, 189, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_81the"]
+atlas = ExtResource("3_c5ssw")
+region = Rect2(0, 0, 92, 63)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rhxde"]
 atlas = SubResource("PortableCompressedTexture2D_ogwj7")
@@ -364,6 +369,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_81the")
+}],
+"loop": 1,
+"name": &"Slide",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_rhxde")
 }, {
 "duration": 1.0,
@@ -456,7 +469,7 @@ shape = SubResource("RectangleShape2D_mm1n1")
 texture_filter = 1
 material = SubResource("ShaderMaterial_4fcqj")
 sprite_frames = SubResource("SpriteFrames_81the")
-animation = &"Jump"
+animation = &"Slide"
 offset = Vector2(12, 0)
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": false,
@@ -480,7 +493,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "b71587ceefb0295321d689973ea25049"
 
 [node name="left" type="Area2D" parent="." unique_id=1233443420]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 7
 
 [node name="leftcollision" type="CollisionShape2D" parent="left" unique_id=1552382799]
 position = Vector2(-6, -0.5)
@@ -489,7 +502,7 @@ debug_color = Color(0.978612, 0, 0.39857033, 0.41960785)
 
 [node name="right" type="Area2D" parent="." unique_id=726048532]
 collision_layer = 2
-collision_mask = 3
+collision_mask = 7
 
 [node name="rightcollision" type="CollisionShape2D" parent="right" unique_id=1890823536]
 position = Vector2(6, -0.5)

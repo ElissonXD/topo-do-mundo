@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://fcmil2k2urmd"
-path="res://.godot/imported/png_ultra_realista_de_bazuca.jpeg-1e509cdc295614c6126d8a90f27df6a4.ctex"
+uid="uid://daut1mrfrqibh"
+path="res://.godot/imported/Dave_slide.png-31e6efab11ced9b1cf3f8aa391f83925.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/temp_assets/itens/png_ultra_realista_de_bazuca.jpeg"
-dest_files=["res://.godot/imported/png_ultra_realista_de_bazuca.jpeg-1e509cdc295614c6126d8a90f27df6a4.ctex"]
+source_file="res://game/scenes/player/Dave_slide.png"
+dest_files=["res://.godot/imported/Dave_slide.png-31e6efab11ced9b1cf3f8aa391f83925.ctex"]
 
 [params]
 

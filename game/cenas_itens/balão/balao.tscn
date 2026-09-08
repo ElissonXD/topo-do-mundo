@@ -64,7 +64,6 @@ script = ExtResource("1_1vaoa")
 shape = SubResource("RectangleShape2D_83sn4")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=225826526]
-z_index = -1
 position = Vector2(0, -0.5000005)
 scale = Vector2(2, 2.112)
 sprite_frames = SubResource("SpriteFrames_83sn4")

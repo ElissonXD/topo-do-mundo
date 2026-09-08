@@ -3,7 +3,12 @@
 [ext_resource type="Script" uid="uid://dt63txufxrolx" path="res://round_player_ui.gd" id="1_u3twt"]
 [ext_resource type="Texture2D" uid="uid://bukrebr403wjl" path="res://assets/Resource/LajeWhite.png" id="2_8itaj"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_83sn4"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ii72q"]
+bg_color = Color(0, 0, 0, 0)
+border_width_left = 4
+border_color = Color(0.41568628, 0.67058825, 0.8, 1)
+corner_radius_top_left = 4
+corner_radius_bottom_left = 4
 
 [node name="RoundPlayer" type="Control" unique_id=708078265]
 visible = false
@@ -22,7 +27,7 @@ anchor_right = 0.22597224
 anchor_bottom = 0.8104568
 offset_right = -0.3199997
 offset_bottom = -0.1760025
-theme_override_styles/panel = SubResource("StyleBoxEmpty_83sn4")
+theme_override_styles/panel = SubResource("StyleBoxFlat_ii72q")
 metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=2120586964]
@@ -47,7 +52,6 @@ size_flags_horizontal = 4
 size_flags_vertical = 0
 offset_transform_enabled = true
 texture = ExtResource("2_8itaj")
-expand_mode = 1
 
 [node name="playername" type="Label" parent="PanelContainer/MarginContainer/VBoxContainer/playerstats" unique_id=704564309]
 layout_mode = 2

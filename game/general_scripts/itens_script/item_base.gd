@@ -31,4 +31,5 @@ func _try_pick_up(player: PlayerModel) -> void:
 		return
  
 	player.current_item = spawn_data
+	player.get_item.emit(spawn_data.texture)
 	queue_free()

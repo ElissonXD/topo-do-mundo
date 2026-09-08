@@ -3,7 +3,17 @@
 [ext_resource type="Script" uid="uid://cbv2d0fmor8w3" path="res://game/scenes/ui_principal/player_bar.gd" id="1_047qv"]
 [ext_resource type="Texture2D" uid="uid://bukrebr403wjl" path="res://assets/Resource/LajeWhite.png" id="1_u4fxp"]
 
-[node name="PlayerBar" type="Control" unique_id=56221701 node_paths=PackedStringArray("player", "score")]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_183dl"]
+bg_color = Color(0, 0, 0, 0.23529412)
+border_width_left = 4
+border_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+corner_detail = 16
+
+[node name="PlayerBar" type="Control" unique_id=56221701 node_paths=PackedStringArray("player", "score", "texture_rect", "panel_container")]
 layout_mode = 3
 anchor_right = 0.09913195
 anchor_bottom = 0.0784568
@@ -14,6 +24,8 @@ grow_vertical = 2
 script = ExtResource("1_047qv")
 player = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/player")
 score = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/score")
+texture_rect = NodePath("PanelContainer/MarginContainer/HBoxContainer/TextureRect")
+panel_container = NodePath("PanelContainer")
 metadata/_edit_use_anchors_ = true
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=997425048]
@@ -26,6 +38,7 @@ anchor_bottom = 0.09440741
 offset_right = 7.6800003
 offset_bottom = -0.1760025
 scale = Vector2(1.5, 1.5)
+theme_override_styles/panel = SubResource("StyleBoxFlat_183dl")
 metadata/_edit_use_anchors_ = true
 
 [node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=1687546276]
