@@ -214,9 +214,9 @@ size_flags_horizontal = 3
 columns = 2
 
 [node name="PlayerPanels" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1260787917]
-visible = false
 layout_mode = 2
 size_flags_vertical = 3
+alignment = 1
 
 [node name="Player1" type="Panel" parent="MarginContainer/VBoxContainer/PlayerPanels" unique_id=1444844560]
 custom_minimum_size = Vector2(288, 0)

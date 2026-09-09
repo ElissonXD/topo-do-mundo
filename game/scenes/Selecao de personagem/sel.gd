@@ -74,15 +74,19 @@ func create_char_portraits():
 		child.queue_free()
 	for char in characters:
 		var cell = VBoxContainer.new()
-		cell.custom_minimum_size = Vector2(120, 140)
-		cell.alignment = BoxContainer.ALIGNMENT_CENTER
+		cell.custom_minimum_size = Vector2(160, 180) # Tamanho mínimo da célula
+		cell.alignment = BoxContainer.ALIGNMENT_CENTER # Centraliza verticalmente
+		cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		cell.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		
 		var portrait = TextureRect.new()
 		portrait.texture = char.portrait
 		portrait.custom_minimum_size = Vector2(120, 120)
 		portrait.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		portrait.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		# Shader de cor (como você já tem)
+		portrait.size_flags_horizontal = Control.SIZE_SHRINK_CENTER # Centraliza horizontalmente
+		
+		# Shader de cor 
 		var mat = ShaderMaterial.new()
 		mat.shader = load("res://game/scenes/player/Colorswt.gdshader")
 		mat.set_shader_parameter("hue_shift", 0.0)
@@ -94,13 +98,33 @@ func create_char_portraits():
 	
 func create_skill_icons():
 	for skill in skills:
+		# Cria um container vertical para cada habilidade (Ícone + Nome)
+		var cell = VBoxContainer.new()
+		cell.custom_minimum_size = Vector2(100, 120)
+		cell.alignment = BoxContainer.ALIGNMENT_CENTER
+		cell.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		cell.size_flags_vertical = Control.SIZE_EXPAND_FILL
+
+		# Ícone da habilidade
 		var icon = TextureRect.new()
 		icon.texture = skill["icon"]
 		icon.custom_minimum_size = Vector2(80, 80)
 		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		skill_grid.add_child(icon)
+		icon.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
+		cell.add_child(icon)
+
+		# Nome da habilidade
+		var skill_label = Label.new()
+		skill_label.text = skill["name"]
+		skill_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		skill_label.add_theme_font_size_override("font_size", 14)
+		skill_label.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		cell.add_child(skill_label)
+
+		skill_grid.add_child(cell)
 	skill_grid.columns = skill_columns
+	skill_grid.size_flags_horizontal = Control.SIZE_SHRINK_CENTER # Centraliza o grid na tela
 # ------------------- Cursores -------------------
 func setup_cursors():
 	for i in range(GameLogic.total_players):
@@ -274,7 +298,7 @@ func ensure_panel_setup():
 	for panel in player_panels:
 		if panel == null:
 			continue
-		player_panel_container.add_child(panel)
+		#player_panel_container.add_child(panel)
 		panel.custom_minimum_size = Vector2(280, 110)
 		# --- Labels existentes (manter) ---
 		if not panel.has_node("NameLabel"):
@@ -300,7 +324,7 @@ func ensure_panel_setup():
 			indicator.position = Vector2(250, 15)
 			indicator.visible = false
 			panel.add_child(indicator)
-		
+		panel.visible = true
 		# --- ADICIONAR TextureRect para o retrato do personagem ---
 		if not panel.has_node("PortraitRect"):
 			var portrait_rect = TextureRect.new()
