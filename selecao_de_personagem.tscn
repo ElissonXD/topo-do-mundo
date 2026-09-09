@@ -6,16 +6,14 @@
 [ext_resource type="PackedScene" uid="uid://bvue80epc713t" path="res://game/scenes/Selecao de personagem/Cursor.tscn" id="2_rkbnb"]
 [ext_resource type="Texture2D" uid="uid://dbjltv7dckxeg" path="res://game/scenes/Selecao de personagem/Purgatorio.png" id="3_5m4o0"]
 [ext_resource type="Texture2D" uid="uid://ssjoabxvgopu" path="res://game/scenes/Selecao de personagem/Pero.png" id="4_4r5ue"]
-[ext_resource type="Texture2D" uid="uid://b8t5fqm0trugg" path="res://addons/at-icons/node2d/paw_print.svg" id="4_76gfl"]
 [ext_resource type="PackedScene" uid="uid://c6oysvu1lbpog" path="res://assets/temp_assets/Transicao.tscn" id="4_j6rjp"]
-[ext_resource type="Texture2D" uid="uid://ktdckcvcmv0i" path="res://addons/at-icons/node2d/lightning_bolt.svg" id="5_kdr7r"]
 [ext_resource type="Texture2D" uid="uid://c4ejtivwkhsix" path="res://game/scenes/Selecao de personagem/Dave.png" id="5_rkbnb"]
-[ext_resource type="Texture2D" uid="uid://pfuf8nwoftmk" path="res://addons/at-icons/node2d/Dash.svg" id="6_5m4o0"]
-[ext_resource type="Texture2D" uid="uid://djdvprbkfgopj" path="res://addons/at-icons/node2d/Slide.svg" id="7_4r5ue"]
+[ext_resource type="Texture2D" uid="uid://cjp7w6vhb3igk" path="res://game/scenes/player/Lajetixa_idle.png" id="8_xo52a"]
+[ext_resource type="Texture2D" uid="uid://cngpl3fxv6jj5" path="res://assets/okpng-export.png" id="9_rkbnb"]
 [ext_resource type="Texture2D" uid="uid://cwe8yh4dj2f2i" path="res://game/scenes/Selecao de personagem/Pointer topo do mundo.png" id="12_xet0l"]
 [ext_resource type="AudioStream" uid="uid://cmd1aie2ybuu1" path="res://game/scenes/Selecao de personagem/Three Red Hearts Penguins vs Rabbits.ogg" id="13_hkdv0"]
 
-[node name="Selecao de personagem" type="Control" unique_id=863954326 node_paths=PackedStringArray("char_grid", "skill_grid", "player_panels")]
+[node name="Selecao de personagem" type="Control" unique_id=863954326 node_paths=PackedStringArray("char_grid", "skill_grid", "player_panels", "player_panel_container")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -25,55 +23,61 @@ grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_4r5ue")
-char_grid = NodePath("Container/HBoxContainer/GridContainer")
-skill_grid = NodePath("Container/HBoxContainer/SkillGrid")
+char_grid = NodePath("MarginContainer/VBoxContainer/Container/HBoxContainer/GridContainer")
+skill_grid = NodePath("MarginContainer/VBoxContainer/Container/HBoxContainer/SkillGrid")
 cursor_scene = ExtResource("2_rkbnb")
 cursor_positions = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1)])
 cursor_skill_positions = Array[Vector2i]([Vector2i(0, 0), Vector2i(1, 0), Vector2i(0, 1), Vector2i(1, 1)])
-player_panels = [NodePath("PlayerPanels/Player1"), NodePath("PlayerPanels/Player2"), NodePath("PlayerPanels/Player3"), NodePath("PlayerPanels/Player4")]
+player_panels = [NodePath("MarginContainer/VBoxContainer/PlayerPanels/Player1"), NodePath("MarginContainer/VBoxContainer/PlayerPanels/Player2"), NodePath("MarginContainer/VBoxContainer/PlayerPanels/Player3"), NodePath("MarginContainer/VBoxContainer/PlayerPanels/Player4")]
+player_panel_container = NodePath("MarginContainer/VBoxContainer/Container/HBoxContainer")
 
 [node name="Fundo" type="Sprite2D" parent="." unique_id=1203374127]
 position = Vector2(509, 183)
 texture = ExtResource("1_3tw78")
 metadata/_edit_lock_ = true
 
-[node name="Container" type="Control" parent="." unique_id=1201010084]
-layout_mode = 1
-anchor_right = 1.0
-anchor_bottom = 0.5
-grow_horizontal = 2
-grow_vertical = 2
-metadata/_edit_use_anchors_ = true
-
-[node name="fundo menu" type="TextureRect" parent="Container" unique_id=1860528871]
-modulate = Color(0.16209671, 0.16209671, 0.16209671, 0.5294118)
+[node name="MarginContainer" type="MarginContainer" parent="." unique_id=1153574945]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="fundo menu" type="TextureRect" parent="MarginContainer" unique_id=1860528871]
+modulate = Color(0.16209671, 0.16209671, 0.16209671, 0.5294118)
+layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 offset_transform_enabled = true
 texture = ExtResource("2_1n431")
 expand_mode = 3
-metadata/_edit_lock_ = true
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Container" unique_id=1378787106]
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 328.0
-alignment = 1
-metadata/_edit_lock_ = true
-
-[node name="GridContainer" type="GridContainer" parent="Container/HBoxContainer" unique_id=404643922]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer" unique_id=120596058]
 layout_mode = 2
-size_flags_vertical = 8
+
+[node name="Container" type="Control" parent="MarginContainer/VBoxContainer" unique_id=1201010084]
+layout_mode = 2
+size_flags_vertical = 3
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/Container" unique_id=1378787106]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0120001
+offset_bottom = 2.1359863
+grow_horizontal = 2
+alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="MarginContainer/VBoxContainer/Container/HBoxContainer" unique_id=404643922]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+size_flags_horizontal = 3
 columns = 2
 metadata/_edit_lock_ = true
 
-[node name="Feldspato" type="TextureRect" parent="Container/HBoxContainer/GridContainer" unique_id=2002617282]
+[node name="Feldspato" type="TextureRect" parent="MarginContainer/VBoxContainer/Container/HBoxContainer/GridContainer" unique_id=2002617282]
 texture_filter = 1
 layout_mode = 2
 texture = ExtResource("3_5m4o0")
@@ -103,7 +107,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "daa58964eb47be16c13e720ceb85ce55"
 
-[node name="Label" type="Label" parent="Container/HBoxContainer/GridContainer/Feldspato" unique_id=1330247678]
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/Container/HBoxContainer/GridContainer/Feldspato" unique_id=1330247678]
 layout_mode = 0
 offset_left = 89.0
 offset_top = 135.0
@@ -112,7 +116,7 @@ offset_bottom = 149.0
 text = "Feldspato"
 horizontal_alignment = 1
 
-[node name="Pero" type="TextureRect" parent="Container/HBoxContainer/GridContainer" unique_id=805582131]
+[node name="Pero" type="TextureRect" parent="MarginContainer/VBoxContainer/Container/HBoxContainer/GridContainer" unique_id=805582131]
 texture_filter = 1
 custom_minimum_size = Vector2(288, 162)
 layout_mode = 2
@@ -140,7 +144,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "b71587ceefb0295321d689973ea25049"
 
-[node name="Label2" type="Label" parent="Container/HBoxContainer/GridContainer/Pero" unique_id=402083783]
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/Container/HBoxContainer/GridContainer/Pero" unique_id=402083783]
 layout_mode = 0
 offset_left = 113.0
 offset_top = 135.0
@@ -149,7 +153,7 @@ offset_bottom = 149.0
 text = "Pero"
 horizontal_alignment = 1
 
-[node name="Dave" type="TextureRect" parent="Container/HBoxContainer/GridContainer" unique_id=161467740]
+[node name="Dave" type="TextureRect" parent="MarginContainer/VBoxContainer/Container/HBoxContainer/GridContainer" unique_id=161467740]
 texture_filter = 1
 custom_minimum_size = Vector2(0, 162)
 layout_mode = 2
@@ -178,7 +182,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "6367dcf03b29d7696c06a050f1fc76e2"
 
-[node name="Label3" type="Label" parent="Container/HBoxContainer/GridContainer/Dave" unique_id=71454361]
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/Container/HBoxContainer/GridContainer/Dave" unique_id=71454361]
 layout_mode = 0
 offset_left = 89.0
 offset_top = 136.0
@@ -187,13 +191,14 @@ offset_bottom = 156.0
 text = "Dave"
 horizontal_alignment = 1
 
-[node name="TextureRect4" type="TextureRect" parent="Container/HBoxContainer/GridContainer" unique_id=2108667534]
+[node name="TextureRect4" type="TextureRect" parent="MarginContainer/VBoxContainer/Container/HBoxContainer/GridContainer" unique_id=2108667534]
 custom_minimum_size = Vector2(0, 162)
 layout_mode = 2
-texture = ExtResource("5_rkbnb")
+offset_transform_enabled = true
+texture = ExtResource("8_xo52a")
 expand_mode = 3
 
-[node name="Label4" type="Label" parent="Container/HBoxContainer/GridContainer/TextureRect4" unique_id=1327760389]
+[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer/Container/HBoxContainer/GridContainer/TextureRect4" unique_id=1327760389]
 layout_mode = 0
 offset_left = 113.0
 offset_top = 136.0
@@ -202,243 +207,208 @@ offset_bottom = 156.0
 text = "Lajetixa"
 horizontal_alignment = 1
 
-[node name="SkillGrid" type="GridContainer" parent="Container/HBoxContainer" unique_id=109964920]
-custom_minimum_size = Vector2(320, 80)
+[node name="SkillGrid" type="GridContainer" parent="MarginContainer/VBoxContainer/Container/HBoxContainer" unique_id=109964920]
+custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 3
 columns = 2
 
-[node name="Climb" type="TextureRect" parent="Container/HBoxContainer/SkillGrid" unique_id=651700820]
+[node name="PlayerPanels" type="HBoxContainer" parent="MarginContainer/VBoxContainer" unique_id=1260787917]
 visible = false
-custom_minimum_size = Vector2(96, 96)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("4_76gfl")
+size_flags_vertical = 3
 
-[node name="Label" type="Label" parent="Container/HBoxContainer/SkillGrid/Climb" unique_id=973391757]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -14.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Climb"
-horizontal_alignment = 1
-
-[node name="Dash" type="TextureRect" parent="Container/HBoxContainer/SkillGrid" unique_id=594459720]
-visible = false
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-texture = ExtResource("5_kdr7r")
-
-[node name="dash" type="Label" parent="Container/HBoxContainer/SkillGrid/Dash" unique_id=1874568605]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -4.0
-offset_top = -14.0
-offset_right = -4.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Dash"
-horizontal_alignment = 1
-
-[node name="glide" type="TextureRect" parent="Container/HBoxContainer/SkillGrid" unique_id=207875053]
-visible = false
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-size_flags_vertical = 4
-texture = ExtResource("6_5m4o0")
-
-[node name="Label3" type="Label" parent="Container/HBoxContainer/SkillGrid/glide" unique_id=956704728]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -14.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Glide"
-horizontal_alignment = 1
-
-[node name="Slide" type="TextureRect" parent="Container/HBoxContainer/SkillGrid" unique_id=1487975610]
-visible = false
-custom_minimum_size = Vector2(96, 96)
-layout_mode = 2
-texture = ExtResource("7_4r5ue")
-
-[node name="Label4" type="Label" parent="Container/HBoxContainer/SkillGrid/Slide" unique_id=1927164571]
-layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_top = -14.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "Slide"
-horizontal_alignment = 1
-
-[node name="PlayerPanels" type="HBoxContainer" parent="." unique_id=1260787917]
-layout_mode = 1
-anchors_preset = -1
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -6.0
-offset_right = 6.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Player1" type="Panel" parent="PlayerPanels" unique_id=1444844560]
+[node name="Player1" type="Panel" parent="MarginContainer/VBoxContainer/PlayerPanels" unique_id=1444844560]
 custom_minimum_size = Vector2(288, 0)
 layout_mode = 2
 
-[node name="SkillLabel" type="Label" parent="PlayerPanels/Player1" unique_id=1600457388]
+[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerPanels/Player1" unique_id=832153258]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 14.0
+offset_right = 288.0
+offset_bottom = 28.0
+horizontal_alignment = 1
 
-[node name="NameLabel" type="Label" parent="PlayerPanels/Player1" unique_id=832153258]
+[node name="CostumeLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerPanels/Player1" unique_id=967612174]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 14.0
+offset_left = 6.0
+offset_top = 40.0
+offset_right = 288.0
+offset_bottom = 66.0
+horizontal_alignment = 1
 
-[node name="CostumeLabel" type="Label" parent="PlayerPanels/Player1" unique_id=967612174]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 14.0
-
-[node name="ReadyIndicator" type="TextureRect" parent="PlayerPanels/Player1" unique_id=119958819]
+[node name="ReadyIndicator" type="TextureRect" parent="MarginContainer/VBoxContainer/PlayerPanels/Player1" unique_id=119958819]
 layout_mode = 0
 offset_left = 125.0
-offset_top = 233.0
-offset_right = 165.0
-offset_bottom = 247.0
+offset_top = 214.0
+offset_right = 176.0
+offset_bottom = 263.0
+texture = ExtResource("9_rkbnb")
 
-[node name="PortraitRect" type="TextureRect" parent="PlayerPanels/Player1" unique_id=2002384267]
+[node name="PortraitRect" type="TextureRect" parent="MarginContainer/VBoxContainer/PlayerPanels/Player1" unique_id=2002384267]
+layout_mode = 0
+offset_left = 116.0
+offset_top = 79.0
+offset_right = 178.0
+offset_bottom = 165.0
+
+[node name="SkillIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/PlayerPanels/Player1" unique_id=1969374620]
 layout_mode = 0
 offset_left = 125.0
-offset_top = 66.0
-offset_right = 165.0
-offset_bottom = 106.0
+offset_top = 158.0
+offset_right = 176.0
+offset_bottom = 201.0
 
-[node name="SkillIcon" type="TextureRect" parent="PlayerPanels/Player1" unique_id=1969374620]
+[node name="SkillLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerPanels/Player1" unique_id=1600457388]
 layout_mode = 0
 offset_left = 125.0
-offset_top = 160.0
+offset_top = 201.0
+offset_right = 176.0
+offset_bottom = 215.0
+horizontal_alignment = 1
+
+[node name="Player2" type="Panel" parent="MarginContainer/VBoxContainer/PlayerPanels" unique_id=78377805]
+custom_minimum_size = Vector2(288, 0)
+layout_mode = 2
+
+[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerPanels/Player2" unique_id=757748454]
+layout_mode = 0
+offset_right = 288.0
+offset_bottom = 28.0
+horizontal_alignment = 1
+
+[node name="CostumeLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerPanels/Player2" unique_id=412267114]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 40.0
+offset_right = 288.0
+offset_bottom = 66.0
+horizontal_alignment = 1
+
+[node name="ReadyIndicator" type="TextureRect" parent="MarginContainer/VBoxContainer/PlayerPanels/Player2" unique_id=1237517587]
+layout_mode = 0
+offset_left = 114.0
+offset_top = 214.0
 offset_right = 165.0
-offset_bottom = 200.0
+offset_bottom = 263.0
+texture = ExtResource("9_rkbnb")
 
-[node name="Player2" type="Panel" parent="PlayerPanels" unique_id=78377805]
+[node name="PortraitRect" type="TextureRect" parent="MarginContainer/VBoxContainer/PlayerPanels/Player2" unique_id=1440310859]
+layout_mode = 0
+offset_left = 106.0
+offset_top = 90.0
+offset_right = 168.0
+offset_bottom = 176.0
+
+[node name="SkillIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/PlayerPanels/Player2" unique_id=1085101853]
+layout_mode = 0
+offset_left = 114.0
+offset_top = 165.0
+offset_right = 165.0
+offset_bottom = 208.0
+
+[node name="SkillLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerPanels/Player2" unique_id=1232199145]
+layout_mode = 0
+offset_left = 114.0
+offset_top = 200.0
+offset_right = 165.0
+offset_bottom = 214.0
+horizontal_alignment = 1
+
+[node name="Player3" type="Panel" parent="MarginContainer/VBoxContainer/PlayerPanels" unique_id=1177832153]
 custom_minimum_size = Vector2(288, 0)
 layout_mode = 2
 
-[node name="NameLabel" type="Label" parent="PlayerPanels/Player2" unique_id=1875574553]
+[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerPanels/Player3" unique_id=1789092854]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 14.0
+offset_right = 288.0
+offset_bottom = 28.0
+horizontal_alignment = 1
 
-[node name="SkillLabel" type="Label" parent="PlayerPanels/Player2" unique_id=1208104021]
+[node name="CostumeLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerPanels/Player3" unique_id=1862486035]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 14.0
+offset_left = 6.0
+offset_top = 40.0
+offset_right = 288.0
+offset_bottom = 66.0
+horizontal_alignment = 1
 
-[node name="CostumeLabel" type="Label" parent="PlayerPanels/Player2" unique_id=894205509]
+[node name="ReadyIndicator" type="TextureRect" parent="MarginContainer/VBoxContainer/PlayerPanels/Player3" unique_id=1215501826]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 14.0
+offset_left = 114.0
+offset_top = 214.0
+offset_right = 165.0
+offset_bottom = 263.0
+texture = ExtResource("9_rkbnb")
 
-[node name="ReadyIndicator" type="TextureRect" parent="PlayerPanels/Player2" unique_id=1781570618]
+[node name="PortraitRect" type="TextureRect" parent="MarginContainer/VBoxContainer/PlayerPanels/Player3" unique_id=335632344]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 14.0
+offset_left = 110.0
+offset_top = 82.0
+offset_right = 172.0
+offset_bottom = 168.0
 
-[node name="PortraitRect" type="TextureRect" parent="PlayerPanels/Player2" unique_id=993914689]
+[node name="SkillIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/PlayerPanels/Player3" unique_id=198595045]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 114.0
+offset_top = 154.0
+offset_right = 165.0
+offset_bottom = 197.0
 
-[node name="SkillIcon" type="TextureRect" parent="PlayerPanels/Player2" unique_id=1389125391]
+[node name="SkillLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerPanels/Player3" unique_id=679366660]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 114.0
+offset_top = 200.0
+offset_right = 165.0
+offset_bottom = 214.0
+horizontal_alignment = 1
 
-[node name="Player3" type="Panel" parent="PlayerPanels" unique_id=1177832153]
+[node name="Player4" type="Panel" parent="MarginContainer/VBoxContainer/PlayerPanels" unique_id=2145872336]
 custom_minimum_size = Vector2(288, 0)
 layout_mode = 2
 
-[node name="NameLabel" type="Label" parent="PlayerPanels/Player3" unique_id=930204832]
+[node name="NameLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerPanels/Player4" unique_id=175054798]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 14.0
+offset_right = 288.0
+offset_bottom = 28.0
+horizontal_alignment = 1
 
-[node name="CostumeLabel" type="Label" parent="PlayerPanels/Player3" unique_id=658737823]
+[node name="CostumeLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerPanels/Player4" unique_id=252109657]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 14.0
+offset_left = 6.0
+offset_top = 40.0
+offset_right = 288.0
+offset_bottom = 66.0
+horizontal_alignment = 1
 
-[node name="ReadyIndicator" type="TextureRect" parent="PlayerPanels/Player3" unique_id=1259227853]
+[node name="ReadyIndicator" type="TextureRect" parent="MarginContainer/VBoxContainer/PlayerPanels/Player4" unique_id=1823614601]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 14.0
+offset_left = 114.0
+offset_top = 214.0
+offset_right = 165.0
+offset_bottom = 263.0
+texture = ExtResource("9_rkbnb")
 
-[node name="SkillLabel" type="Label" parent="PlayerPanels/Player3" unique_id=1248410426]
+[node name="PortraitRect" type="TextureRect" parent="MarginContainer/VBoxContainer/PlayerPanels/Player4" unique_id=507999736]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 14.0
+offset_left = 106.0
+offset_top = 90.0
+offset_right = 168.0
+offset_bottom = 176.0
 
-[node name="PortraitRect" type="TextureRect" parent="PlayerPanels/Player3" unique_id=886459985]
+[node name="SkillIcon" type="TextureRect" parent="MarginContainer/VBoxContainer/PlayerPanels/Player4" unique_id=403169572]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 114.0
+offset_top = 158.0
+offset_right = 165.0
+offset_bottom = 201.0
 
-[node name="SkillIcon" type="TextureRect" parent="PlayerPanels/Player3" unique_id=1668406815]
+[node name="SkillLabel" type="Label" parent="MarginContainer/VBoxContainer/PlayerPanels/Player4" unique_id=1812043273]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="Player4" type="Panel" parent="PlayerPanels" unique_id=2145872336]
-custom_minimum_size = Vector2(288, 0)
-layout_mode = 2
-
-[node name="NameLabel" type="Label" parent="PlayerPanels/Player4" unique_id=685471488]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 14.0
-
-[node name="CostumeLabel" type="Label" parent="PlayerPanels/Player4" unique_id=633151036]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 14.0
-
-[node name="ReadyIndicator" type="TextureRect" parent="PlayerPanels/Player4" unique_id=1660068614]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 14.0
-
-[node name="SkillLabel" type="Label" parent="PlayerPanels/Player4" unique_id=1145538781]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 14.0
-
-[node name="PortraitRect" type="TextureRect" parent="PlayerPanels/Player4" unique_id=130158129]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
-
-[node name="SkillIcon" type="TextureRect" parent="PlayerPanels/Player4" unique_id=788040048]
-layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 106.0
+offset_top = 197.0
+offset_right = 157.0
+offset_bottom = 211.0
+horizontal_alignment = 1
 
 [node name="Cursores" type="CanvasLayer" parent="." unique_id=696467033]
 

@@ -5,17 +5,19 @@ extends Control
 @export var skill_grid: GridContainer         # Grid de skills (direita)
 @export var columns: int = 2                  # colunas do grid de personagens
 @export var rows: int = 2                     # linhas do grid de personagens
-@export var skill_columns: int = 2            # colunas do grid de skills
-@export var skill_rows: int = 2               # linhas do grid de skills
+@export var skill_columns: int = 4            # colunas do grid de skills
+@export var skill_rows: int = 1               # linhas do grid de skills
 @export var cursor_scene: PackedScene         # cena do cursor (CharacterCursor)
 @export var cursor_positions: Array[Vector2i] = [Vector2i.ZERO, Vector2i(1, 0)]  # posições iniciais (personagem)
 @export var cursor_skill_positions: Array[Vector2i] = [Vector2i.ZERO, Vector2i(1, 0)]  # posições iniciais (skill)
 @export var player_panels: Array[Panel]       # arraste os painéis no inspetor
+@export var player_panel_container: HBoxContainer
 var characters: Array[CharacterData] = []
 var skills: Array[Dictionary] = []  # recurso com ícone e nome (ou use um array de dicts)
 var skill_icons: Array[Texture2D] = [preload("res://addons/at-icons/node2d/Climb.svg"), preload("res://addons/at-icons/node2d/Slide.svg"),preload("res://addons/at-icons/node2d/Dash.svg"),preload("res://addons/at-icons/node2d/Glide.svg")]         # Resource de skill (com ícone e dados)
 var cursors: Array[CharacterCursor] = []
 var portrait_materials: Array[ShaderMaterial] = [] 
+
 
 func _ready():
 	load_characters()
@@ -24,10 +26,26 @@ func _ready():
 	create_skill_icons()
 	setup_cursors()
 	connect_signals()
-	ensure_panel_setup()   
-	update_player_panels() 
+	ensure_panel_setup()
+	update_player_panels()
+
+	# Ajustes de layout
 	char_grid.add_theme_constant_override("h_separation", 20)
 	char_grid.add_theme_constant_override("v_separation", 20)
+	skill_grid.add_theme_constant_override("h_separation", 10)
+	skill_grid.add_theme_constant_override("v_separation", 0)
+	
+	# Garantir que os grids ocupem espaço correto
+	char_grid.custom_minimum_size = Vector2(260, 260)
+	skill_grid.custom_minimum_size = Vector2(360, 80)
+	
+	# Se você estiver usando um HBoxContainer superior, defina o tamanho mínimo da parte esquerda/direita
+	var left_container = char_grid.get_parent()  # VBoxContainer esquerdo
+	if left_container:
+		left_container.custom_minimum_size = Vector2(300, 0)
+	var right_container = skill_grid.get_parent() # VBoxContainer direito
+	if right_container:
+		right_container.custom_minimum_size = Vector2(360, 0)
 # ------------------- Carregamento de dados -------------------
 func load_characters():
 	var dir = DirAccess.open("res://characters")
@@ -55,6 +73,10 @@ func create_char_portraits():
 	for child in char_grid.get_children():
 		child.queue_free()
 	for char in characters:
+		var cell = VBoxContainer.new()
+		cell.custom_minimum_size = Vector2(120, 140)
+		cell.alignment = BoxContainer.ALIGNMENT_CENTER
+		
 		var portrait = TextureRect.new()
 		portrait.texture = char.portrait
 		portrait.custom_minimum_size = Vector2(120, 120)
@@ -69,11 +91,12 @@ func create_char_portraits():
 		char_grid.add_child(portrait)
 	char_grid.columns = columns
 
+	
 func create_skill_icons():
 	for skill in skills:
 		var icon = TextureRect.new()
 		icon.texture = skill["icon"]
-		icon.custom_minimum_size = Vector2(120, 120)
+		icon.custom_minimum_size = Vector2(80, 80)
 		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 		skill_grid.add_child(icon)
@@ -166,7 +189,18 @@ func _on_confirm_pressed(player_index: int):
 		p["ready"] = true
 		GameLogic.update_player.emit()
 		update_player_panel(player_index)
-
+	elif cursor.mode == CharacterCursor.Mode.SKILL:
+		if player_index >= GameLogic.players_data.size():
+			return
+		var skill_index = cursor.selected_skill
+		var p = GameLogic.players_data[player_index]
+		p["ability"] = skill_index
+		p["ready"] = true
+		GameLogic.update_player.emit()
+		update_player_panel(player_index)
+		
+		# NOVO: Chama a verificação de todos prontos
+		check_all_ready()
 func _on_cancel_pressed(player_index: int):
 	if player_index < GameLogic.players_data.size():
 		GameLogic.set_player_ready(player_index, false)
@@ -240,7 +274,8 @@ func ensure_panel_setup():
 	for panel in player_panels:
 		if panel == null:
 			continue
-		
+		player_panel_container.add_child(panel)
+		panel.custom_minimum_size = Vector2(280, 110)
 		# --- Labels existentes (manter) ---
 		if not panel.has_node("NameLabel"):
 			var lbl = Label.new()
@@ -297,7 +332,6 @@ func ensure_panel_setup():
 			panel.add_theme_stylebox_override("panel", style)
 		if not panel.has_node("PortraitRect"):
 			var portrait_rect = TextureRect.new()
-			# ... (configurações)
 			portrait_rect.name = "PortraitRect"
 			# Crie um material shader para o painel
 			var mat = ShaderMaterial.new()
@@ -322,3 +356,33 @@ func get_hue_shift(costume_index: int) -> float:
 	if costume_index >= 0 and costume_index < colors.size():
 		return colors[costume_index]
 	return 0.0
+# ------------------- Lógica de Início de Partida -------------------
+
+func check_all_ready():
+	# Verifica se o número de jogadores é o esperado
+	if GameLogic.players_data.size() < GameLogic.total_players:
+		return
+
+	# Verifica se todos os jogadores estão prontos
+	for p in GameLogic.players_data:
+		if not p["ready"]:
+			return # Se alguém não estiver pronto, não inicia
+
+	# Se chegou aqui, todos estão prontos!
+	start_game()
+
+func start_game():
+	print("Todos os jogadores estão prontos! Iniciando partida...")
+	# Desative os cursores para evitar que mexam no menu
+	for cursor in cursors:
+		cursor.set_process_input(false)
+		cursor.visible = false
+	
+	# Pequeno delay para o jogador ver o "Ready" verde (opcional)
+	
+	$Control.show()
+	$Control/Timer.start()
+	$Control/AnimationPlayer.play("Transicao")
+	await get_tree().create_timer(0.5).timeout
+	# Mude para a cena do jogo
+	get_tree().change_scene_to_file("res://game/scenes/test/test_2 da camera.tscn") # COLOQUE O CAMINHO DA SUA FASE AQUI
