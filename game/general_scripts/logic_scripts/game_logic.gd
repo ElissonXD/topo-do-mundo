@@ -151,8 +151,7 @@ func clear_players():
 	players_data.clear()
 	update_player.emit()
 	
-func _ready() -> void:
-	pass # Replace with function body.
+
 func go_to_next_map():
 	current_map = (current_map + 1) % 3 #temporariamente circular
 	var map = maps[current_map]

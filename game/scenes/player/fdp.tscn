@@ -509,9 +509,6 @@ debug_color = Color(0.7097094, 0.48675317, 0, 0.41960785)
 target_position = Vector2(0, -24)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=349119826]
-stream = SubResource("AudioStreamPlaylist_gag16")
-autoplay = true
-bus = &"Sfx"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2133642633]
 libraries/ = SubResource("AnimationLibrary_c8lnc")
