@@ -5,7 +5,7 @@ extends Control
 @export var skill_grid: GridContainer         # Grid de skills (direita)
 @export var columns: int = 2                  # colunas do grid de personagens
 @export var rows: int = 2                     # linhas do grid de personagens
-@export var skill_columns: int = 4            # colunas do grid de skills
+@export var skill_columns: int = 4           # colunas do grid de skills
 @export var skill_rows: int = 1               # linhas do grid de skills
 @export var cursor_scene: PackedScene         # cena do cursor (CharacterCursor)
 @export var cursor_positions: Array[Vector2i] = [Vector2i.ZERO, Vector2i(1, 0)]  # posições iniciais (personagem)
@@ -237,7 +237,7 @@ func update_player_panel(player_index: int):
 	var panel = player_panels[player_index]
 	if not panel:
 		return
-	
+	#var 
 	panel.visible = true
 	
 	var name_label = panel.get_node_or_null("NameLabel")

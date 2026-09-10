@@ -36,7 +36,7 @@ func _on_creditos_pressed():
 	pass
 func _on_timer_timeout():
 	if botao == "JOGO":
-		get_tree().change_scene_to_file("res://game/scenes/test/test_2 da camera.tscn")
+		get_tree().change_scene_to_file("res://selecao_de_personagem.tscn")
 	elif botao == "OPCAO":
 		get_tree().change_scene_to_file("res://assets/Opcoes.tscn")
 	else:
