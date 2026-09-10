@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://cfgf3sr5ivlnt"]
+
+[ext_resource type="Script" uid="uid://blgeplrncfgsl" path="res://game/cenas_itens/objects/soco_object.gd" id="1_4n3f5"]
+[ext_resource type="Texture2D" uid="uid://ct7wu2xkesh21" path="res://game/cenas_itens/soco/images.jpeg" id="2_7cnhy"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mfnai"]
+size = Vector2(16, 5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qky2f"]
+size = Vector2(16, 5)
+
+[node name="SocoObject" type="RigidBody2D" unique_id=554926405]
+collision_layer = 4
+gravity_scale = 0.0
+script = ExtResource("1_4n3f5")
+DURATION = 0.15
+POWER = 100.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=359583116]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_mfnai")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1030711820]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=910446190]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_qky2f")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1345802751]
+scale = Vector2(0.2, 0.2)
+texture = ExtResource("2_7cnhy")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
