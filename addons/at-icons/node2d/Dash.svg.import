@@ -2,8 +2,8 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dfqwcjsxr34s8"
-path="res://.godot/imported/sky.svg-7b5b21c7241a2889b5c539d947c24df5.ctex"
+uid="uid://pfuf8nwoftmk"
+path="res://.godot/imported/Dash.svg-35e5b18fee285c95883af2d9ddd51007.ctex"
 metadata={
 "has_editor_variant": true,
 "vram_texture": false
@@ -11,8 +11,8 @@ metadata={
 
 [deps]
 
-source_file="res://addons/at-icons/node2d/sky.svg"
-dest_files=["res://.godot/imported/sky.svg-7b5b21c7241a2889b5c539d947c24df5.ctex"]
+source_file="res://addons/at-icons/node2d/Dash.svg"
+dest_files=["res://.godot/imported/Dash.svg-35e5b18fee285c95883af2d9ddd51007.ctex"]
 
 [params]
 
