@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemSpawnData" format=3 uid="uid://bihkooapk4f3l"]
+
+[ext_resource type="PackedScene" uid="uid://ceestqctraafx" path="res://game/cenas_itens/objects/bazuca_object.tscn" id="1_23g0g"]
+[ext_resource type="Script" uid="uid://d2nvjq6svo6dr" path="res://game/general_scripts/itens_script/item_spawn_data.gd" id="1_bqsj7"]
+[ext_resource type="PackedScene" uid="uid://d2jlkb5orl772" path="res://game/cenas_itens/bazuca/bazuca.tscn" id="1_wufym"]
+
+[resource]
+script = ExtResource("1_bqsj7")
+item_scene = ExtResource("1_wufym")
+item_object = ExtResource("1_23g0g")
+weight = 10.0
+metadata/_custom_type_script = "uid://d2nvjq6svo6dr"

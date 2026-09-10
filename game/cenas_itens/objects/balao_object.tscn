@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://dkbxerqx5p123"]
+
+[ext_resource type="Script" uid="uid://bfpcdr2y6cn5s" path="res://game/cenas_itens/objects/balao_object.gd" id="1_ex67h"]
+[ext_resource type="Texture2D" uid="uid://br614nlfx35a0" path="res://game/cenas_itens/balão/balao-Sheet.png" id="2_ex67h"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83sn4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v71pc"]
+atlas = ExtResource("2_ex67h")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_05l8v"]
+atlas = ExtResource("2_ex67h")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qejwy"]
+atlas = ExtResource("2_ex67h")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6qitt"]
+atlas = ExtResource("2_ex67h")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tbaqx"]
+atlas = ExtResource("2_ex67h")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r3j2o"]
+atlas = ExtResource("2_ex67h")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_83sn4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v71pc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_05l8v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qejwy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6qitt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tbaqx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r3j2o")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="balao_object" type="RigidBody2D" unique_id=1600818337]
+collision_layer = 0
+collision_mask = 0
+sleeping = true
+lock_rotation = true
+script = ExtResource("1_ex67h")
+DURATION = 4.0
+POWER = 120.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1709084562]
+shape = SubResource("RectangleShape2D_83sn4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1276604584]
+z_index = 1
+position = Vector2(-4.7683716e-07, 4.7683716e-07)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_83sn4")
+autoplay = "default"
+frame_progress = 0.026450694
