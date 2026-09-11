@@ -8,7 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://ssjoabxvgopu" path="res://game/scenes/Selecao de personagem/Pero.png" id="4_4r5ue"]
 [ext_resource type="PackedScene" uid="uid://c6oysvu1lbpog" path="res://assets/temp_assets/Transicao.tscn" id="4_j6rjp"]
 [ext_resource type="Texture2D" uid="uid://c4ejtivwkhsix" path="res://game/scenes/Selecao de personagem/Dave.png" id="5_rkbnb"]
-[ext_resource type="Texture2D" uid="uid://cjp7w6vhb3igk" path="res://game/scenes/player/Lajetixa_idle.png" id="8_xo52a"]
+[ext_resource type="Texture2D" uid="uid://cjp7w6vhb3igk" path="res://assets/portraits/Lajetixa_idle.png" id="8_xo52a"]
 [ext_resource type="Texture2D" uid="uid://cngpl3fxv6jj5" path="res://assets/okpng-export.png" id="9_rkbnb"]
 [ext_resource type="Script" uid="uid://bjwg7cxlnbcmp" path="res://game/scenes/Selecao de personagem/cursor.gd" id="11_xet0l"]
 [ext_resource type="Texture2D" uid="uid://cwe8yh4dj2f2i" path="res://game/scenes/Selecao de personagem/Pointer topo do mundo.png" id="12_xet0l"]

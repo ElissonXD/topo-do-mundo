@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://dxew3ftpxo4g4"]
+
+[ext_resource type="Texture2D" uid="uid://bivaarrfon82i" path="res://game/scenes/entities/timer/olha_a_hora-Sheet.png" id="1_61a14"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rl3i1"]
+atlas = ExtResource("1_61a14")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nijxd"]
+atlas = ExtResource("1_61a14")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_538qr"]
+atlas = ExtResource("1_61a14")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yktn0"]
+atlas = ExtResource("1_61a14")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0kunx"]
+atlas = ExtResource("1_61a14")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jp0oh"]
+atlas = ExtResource("1_61a14")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_83sn4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rl3i1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nijxd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_538qr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yktn0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0kunx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jp0oh")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="timer" type="AnimatedSprite2D" unique_id=162817959]
+sprite_frames = SubResource("SpriteFrames_83sn4")
+autoplay = "default"
+frame_progress = 0.86427057

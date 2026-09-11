@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="ItemSpawnData" format=3 uid="uid://bu3gab7m736se"]
+
+[ext_resource type="Script" uid="uid://d2nvjq6svo6dr" path="res://game/general_scripts/itens_script/item_spawn_data.gd" id="1_17rqc"]
+[ext_resource type="PackedScene" uid="uid://dvdq8xa7xbv1t" path="res://game/cenas_itens/objects/zawarudo_object.tscn" id="1_p74h5"]
+[ext_resource type="PackedScene" uid="uid://dnnqg647jj51s" path="res://game/cenas_itens/zawarudo/zawarudo.tscn" id="2_rvig7"]
+
+[resource]
+script = ExtResource("1_17rqc")
+item_scene = ExtResource("2_rvig7")
+item_object = ExtResource("1_p74h5")
+weight = 5.0
+metadata/_custom_type_script = "uid://d2nvjq6svo6dr"

@@ -1,0 +1,71 @@
+[gd_scene format=3 uid="uid://rfuv6mgehc4p"]
+
+[ext_resource type="Script" uid="uid://chdpuukejvffk" path="res://game/general_scripts/itens_script/item_base.gd" id="1_1vaoa"]
+[ext_resource type="Texture2D" uid="uid://br614nlfx35a0" path="res://game/cenas_itens/balão/balao-Sheet.png" id="2_1vaoa"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83sn4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3n0h"]
+atlas = ExtResource("2_1vaoa")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oo8ky"]
+atlas = ExtResource("2_1vaoa")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3kckl"]
+atlas = ExtResource("2_1vaoa")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_etb08"]
+atlas = ExtResource("2_1vaoa")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_13f8k"]
+atlas = ExtResource("2_1vaoa")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v3c8l"]
+atlas = ExtResource("2_1vaoa")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_83sn4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3n0h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oo8ky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3kckl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_etb08")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_13f8k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v3c8l")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[node name="balao" type="Area2D" unique_id=580157209]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_1vaoa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=15894328]
+shape = SubResource("RectangleShape2D_83sn4")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=225826526]
+position = Vector2(0, -0.5000005)
+scale = Vector2(2, 2.112)
+sprite_frames = SubResource("SpriteFrames_83sn4")
+autoplay = "default"
+frame_progress = 0.54549813

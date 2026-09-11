@@ -183,7 +183,20 @@ func _on_confirm_pressed(player_index: int):
 	if cursor.mode == CharacterCursor.Mode.CHAR:
 		# Confirmar personagem
 		var index = cursor.selected_character
-		var char_data = characters[index]
+		var char_data : Resource = characters[index]
+		var portrait : String
+		var path = char_data.resource_path
+		print(path)
+		if 'Purgatorio' in path:
+			portrait = 'fdp'
+		elif 'Pero' in path:
+			portrait = 'pero'
+		elif 'Lage' in path:
+			portrait = 'laje'
+		else: # dave
+			portrait = 'dave'
+		
+		
 		if not char_data.is_unlocked:
 			print("Personagem bloqueado!")
 			return
@@ -192,7 +205,7 @@ func _on_confirm_pressed(player_index: int):
 		var costume = cursor.current_costume_index
 		
 		if player_index >= GameLogic.players_data.size():
-			GameLogic.add_player(model, costume, str(player_index + 1), -1)
+			GameLogic.add_player(str(player_index + 1), model, costume, portrait, str(player_index + 1), -1)
 		else:
 			var p = GameLogic.players_data[player_index]
 			p["model"] = model

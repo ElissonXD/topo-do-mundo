@@ -6,12 +6,19 @@ extends Camera2D
 @export var max_zoom: float = 2.0   # zoom mínimo (muito aproximado)
 @export var smooth_factor: float = 5.0  # suavidade (mais alto = mais rápido)
 @export var lookahead_factor: float = 0.3  # influência da velocidade
-@export var maximum_margin: float = 30
+@export var maximum_margin_per_player: float = 30
+var maximum_margin : float
+var warning_object : Node2D
+
+# shake
+var randomStrengh : float
+var shakeFade: float
 
 var players: Array = []
 var target_zoom: float = 1.0
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	# Obter referências para os jogadores
 	if players_parent:
 		var parent = get_node(players_parent)
@@ -24,6 +31,11 @@ func _ready():
 	#set_limit(MARGIN_TOP, limit_top)
 	#set_limit(MARGIN_BOTTOM, limit_bottom)
 	# Tornar a câmara atual
+	
+	warning_object = load("res://game/scenes/entities/warning/warning.tscn").instantiate()
+	warning_object.visible = false
+	$"../Entities".add_child(warning_object)
+	
 	make_current()
 
 func _process(delta):
@@ -34,6 +46,13 @@ func _process(delta):
 				if child.has_method("is_alive"):
 					players.append(child)
 	update_camera(delta)
+	
+	if randomStrengh > 0:
+		randomStrengh = lerpf(randomStrengh, 0, shakeFade * delta)
+		var rng = RandomNumberGenerator.new()
+		var randomOffset = Vector2(rng.randf_range(-randomStrengh, randomStrengh), rng.randf_range(-randomStrengh, randomStrengh))
+		offset = randomOffset
+	
 
 func update_camera(delta):
 	# Filtrar jogadores vivos
@@ -41,6 +60,8 @@ func update_camera(delta):
 	for p in players:
 		if p.has_method("is_alive") and p.is_alive():
 			alive.append(p)
+	
+	maximum_margin = alive.size() * maximum_margin_per_player
 	
 	if alive.is_empty():
 		return
@@ -94,12 +115,31 @@ func update_camera(delta):
 	player_is_onbound(alive, viewport_size)
 	
 func player_is_onbound(alive: Array, viewport: Vector2) -> void:
-	if is_equal_approx(zoom.x, min_zoom) or zoom.x <= min_zoom + 0.05:
-		var canvas_transform = get_canvas_transform()
+	var canvas_transform = get_canvas_transform()
 		
-		for p in alive:
-			var screen_pos = canvas_transform * p.global_position
-			
+	var lowest_player = null
+	var max_y = -INF
+		
+	for p in alive:
+		if p.global_position.y > max_y:
+			max_y = p.global_position.y
+			lowest_player = p
+
+	var is_near_min_zoom = zoom.y < min_zoom + 0.2
+
+	for p in alive:
+		var screen_pos = canvas_transform * p.global_position
+
+		if is_near_min_zoom:
 			if screen_pos.y > viewport.y + maximum_margin:
 				p.die()
-				
+
+	var show_warning = lowest_player != null and is_near_min_zoom
+	warning_object.visible = show_warning
+
+	if show_warning:
+		warning_object.global_position = lowest_player.global_position + Vector2(0, -40)
+
+func shake_camera(randomS : float, shakeF : float):
+	randomStrengh = randomS
+	shakeFade = shakeF
