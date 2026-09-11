@@ -49,6 +49,9 @@ var coyote_timer : float
 var hurt_timer : float
 @export var IFRAMES : float = 1.5
 var iframes_timer : float
+@export_category("Stun")
+@export var STUN_TIME : float = 3.0
+var stun_timer : float
 
 # estados
 
@@ -62,7 +65,8 @@ enum PlayerState {
 	dash,
 	slide,
 	climb,
-	glide
+	glide,
+	stun
 }
 
 var state: PlayerState
@@ -578,3 +582,34 @@ func die():
 
 func is_alive():
 	return vivo #mudar dps com as condicoes futuras
+	
+func go_to_stun_state(duration: float = -1.0):
+	state = PlayerState.stun
+	stun_timer = duration if duration > 0 else STUN_TIME
+	velocity.x = 0   # zera o movimento horizontal
+	animation.play("hurt")  # reaproveita; ou crie uma "stun"
+	return
+
+func stun_state(delta: float, direction: int):
+	stun_timer -= delta
+	
+	# Atrito forte para ele parar no lugar
+	velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
+	
+	if stun_timer <= 0:
+		if is_on_floor():
+			if velocity.x != 0:
+				go_to_walk_state()
+			else:
+				go_to_idle_state()
+		else:
+			go_to_falling_state()
+		return
+func apply_stun(duration: float = 3.0) -> void:
+	if not vivo:
+		return
+	# Não deixa re-stunar se já está stunado (ou some, se preferir empilhar)
+	if state == PlayerState.stun:
+		stun_timer = max(stun_timer, duration)
+		return
+	go_to_stun_state(duration)
