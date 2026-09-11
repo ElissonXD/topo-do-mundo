@@ -3,6 +3,9 @@ extends Control
 @export var display_timer : Timer
 @onready var label: Label = $Panel/MarginContainer/HBoxContainer/Label
 
+func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
+
 func _process(delta: float) -> void:
 	var minutes = int(display_timer.time_left) / 60
 	var seconds = int(display_timer.time_left) % 60

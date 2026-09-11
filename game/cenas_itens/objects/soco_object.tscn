@@ -29,7 +29,7 @@ position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_qky2f")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1345802751]
-scale = Vector2(0.2, 0.2)
+scale = Vector2(0.08, 0.08)
 texture = ExtResource("2_7cnhy")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

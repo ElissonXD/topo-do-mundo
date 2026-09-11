@@ -12,6 +12,16 @@
 [ext_resource type="PackedScene" uid="uid://dq2krkscdnpoj" path="res://game/scenes/ui_principal/timer_ui.tscn" id="10_pcf16"]
 [ext_resource type="PackedScene" uid="uid://dls45famuwmj8" path="res://game/scenes/ui_principal/round_timer.tscn" id="11_183dl"]
 [ext_resource type="PackedScene" uid="uid://t18vi224ryc7" path="res://game/cenas_itens/item_spawner.tscn" id="12_ii72q"]
+[ext_resource type="Script" uid="uid://d2nvjq6svo6dr" path="res://game/general_scripts/itens_script/item_spawn_data.gd" id="13_wuqfg"]
+[ext_resource type="PackedScene" uid="uid://d2jlkb5orl772" path="res://game/cenas_itens/bazuca/bazuca.tscn" id="14_8wwtn"]
+[ext_resource type="Texture2D" uid="uid://fcmil2k2urmd" path="res://game/cenas_itens/bazuca/png_ultra_realista_de_bazuca.jpeg" id="15_hpe34"]
+[ext_resource type="PackedScene" uid="uid://cdb880s184gew" path="res://game/cenas_itens/objects/dardo_object.tscn" id="16_nxyrx"]
+[ext_resource type="PackedScene" uid="uid://c0jm5bom0e7bs" path="res://game/cenas_itens/dardo/dardo.tscn" id="17_3a8cn"]
+[ext_resource type="Texture2D" uid="uid://dfufgcmukq0mq" path="res://assets/itens/dardo_text.png" id="18_7wst0"]
+[ext_resource type="PackedScene" uid="uid://dkbxerqx5p123" path="res://game/cenas_itens/objects/balao_object.tscn" id="19_iu5oe"]
+[ext_resource type="PackedScene" uid="uid://rfuv6mgehc4p" path="res://game/cenas_itens/balão/balao.tscn" id="20_bhs4e"]
+[ext_resource type="Texture2D" uid="uid://dg748hslsdnkv" path="res://assets/itens/balao_text.png" id="21_avgf1"]
+[ext_resource type="Resource" uid="uid://bu3gab7m736se" path="res://game/general_scripts/itens_script/item_data/zawarudo.tres" id="22_ad2sq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bhunq"]
 
@@ -310,6 +320,27 @@ func _process(delta: float) -> void:
 	pass
 "
 
+[sub_resource type="Resource" id="Resource_yskqv"]
+script = ExtResource("13_wuqfg")
+item_scene = ExtResource("14_8wwtn")
+weight = 0.0
+texture = ExtResource("15_hpe34")
+metadata/_custom_type_script = "uid://d2nvjq6svo6dr"
+
+[sub_resource type="Resource" id="Resource_uhs8t"]
+script = ExtResource("13_wuqfg")
+item_scene = ExtResource("17_3a8cn")
+item_object = ExtResource("16_nxyrx")
+texture = ExtResource("18_7wst0")
+metadata/_custom_type_script = "uid://d2nvjq6svo6dr"
+
+[sub_resource type="Resource" id="Resource_dka5x"]
+script = ExtResource("13_wuqfg")
+item_scene = ExtResource("20_bhs4e")
+item_object = ExtResource("19_iu5oe")
+texture = ExtResource("21_avgf1")
+metadata/_custom_type_script = "uid://d2nvjq6svo6dr"
+
 [node name="test" type="Node2D" unique_id=866233104]
 
 [node name="Fundo" type="Node2D" parent="." unique_id=381131237]
@@ -379,7 +410,7 @@ start_timer = NodePath("Timer2")
 roundResults = NodePath("../CanvasLayer/RoundResults")
 
 [node name="Timer" type="Timer" parent="RoundManager" unique_id=1617015737]
-wait_time = 2.0
+wait_time = 30.0
 one_shot = true
 
 [node name="Timer2" type="Timer" parent="RoundManager" unique_id=1598500682]
@@ -448,6 +479,7 @@ display_timer = NodePath("../../RoundManager/Timer")
 position = Vector2(178, 550)
 
 [node name="ItemSpawner" parent="." unique_id=396564027 instance=ExtResource("12_ii72q")]
+possible_items = Array[ExtResource("13_wuqfg")]([SubResource("Resource_yskqv"), SubResource("Resource_uhs8t"), SubResource("Resource_dka5x"), ExtResource("22_ad2sq")])
 
 [connection signal="game_end" from="RoundManager" to="CanvasLayer/RoundResults" method="go_to_score_state"]
 [connection signal="timeout" from="RoundManager/Timer" to="RoundManager" method="_on_timer_timeout"]

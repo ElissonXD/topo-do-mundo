@@ -6,6 +6,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_83sn4"]
 
 [node name="Soco" type="Area2D" unique_id=1182335024]
+z_index = -2
 collision_layer = 4
 collision_mask = 2
 script = ExtResource("1_2706e")
@@ -14,5 +15,6 @@ script = ExtResource("1_2706e")
 shape = SubResource("RectangleShape2D_83sn4")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1550060117]
-scale = Vector2(0.2, 0.2)
+z_index = -2
+scale = Vector2(0.1, 0.1)
 texture = ExtResource("2_m6k1p")

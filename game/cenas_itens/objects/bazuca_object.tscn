@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://ce0ofkg6a7beo" path="res://game/cenas_itens/objects/bazuca_object.gd" id="1_rwvct"]
 [ext_resource type="PackedScene" uid="uid://b5uuq36qnh2qg" path="res://game/cenas_itens/objects/explosion.tscn" id="2_jrct2"]
-[ext_resource type="Texture2D" uid="uid://fcmil2k2urmd" path="res://game/cenas_itens/bazuca/png_ultra_realista_de_bazuca.jpeg" id="2_rwvct"]
+[ext_resource type="Texture2D" uid="uid://c3o610j8fydha" path="res://game/cenas_itens/bazuca/missel png.jpg" id="3_jrct2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mfnai"]
 size = Vector2(16, 5)
@@ -11,6 +11,7 @@ size = Vector2(16, 5)
 size = Vector2(16, 5)
 
 [node name="BazucaObject" type="RigidBody2D" unique_id=554926405]
+z_index = -2
 collision_layer = 4
 gravity_scale = 0.0
 script = ExtResource("1_rwvct")
@@ -26,10 +27,12 @@ collision_layer = 4
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=910446190]
+z_index = 1
 position = Vector2(0, -0.5)
 shape = SubResource("RectangleShape2D_qky2f")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=499355539]
-texture = ExtResource("2_rwvct")
+scale = Vector2(0.04, 0.04)
+texture = ExtResource("3_jrct2")
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

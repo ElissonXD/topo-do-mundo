@@ -8,8 +8,10 @@
 [ext_resource type="PackedScene" uid="uid://dkbxerqx5p123" path="res://game/cenas_itens/objects/balao_object.tscn" id="6_3hpeo"]
 [ext_resource type="PackedScene" uid="uid://bf6gqxe7r3mqm" path="res://game/scenes/player/fdp.tscn" id="7_dgugv"]
 [ext_resource type="PackedScene" uid="uid://rfuv6mgehc4p" path="res://game/cenas_itens/balão/balao.tscn" id="7_nb3nn"]
+[ext_resource type="Resource" uid="uid://rhsfcqfpxbl8" path="res://game/general_scripts/itens_script/item_data/soco.tres" id="8_vfsnp"]
 [ext_resource type="PackedScene" uid="uid://883kieocyryb" path="res://game/scenes/player/Pero.tscn" id="9_3hpeo"]
 [ext_resource type="PackedScene" uid="uid://m33aaq6kxcij" path="res://game/scenes/player/Lajetixa.tscn" id="9_nb3nn"]
+[ext_resource type="Resource" uid="uid://bu3gab7m736se" path="res://game/general_scripts/itens_script/item_data/zawarudo.tres" id="9_r63ru"]
 [ext_resource type="PackedScene" uid="uid://dxum70k0in2bm" path="res://game/scenes/player/Dave.tscn" id="10_nb3nn"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_e6i8i"]
@@ -64,7 +66,7 @@ shape = SubResource("RectangleShape2D_x1k3w")
 position = Vector2(521, 547)
 
 [node name="ItemSpawner" parent="." unique_id=396564027 instance=ExtResource("1_ehljc")]
-possible_items = Array[ExtResource("3_iybd7")]([ExtResource("4_a0qkf"), SubResource("Resource_uhs8t"), SubResource("Resource_yskqv")])
+possible_items = Array[ExtResource("3_iybd7")]([ExtResource("4_a0qkf"), SubResource("Resource_uhs8t"), SubResource("Resource_yskqv"), ExtResource("8_vfsnp"), ExtResource("9_r63ru")])
 
 [node name="PlayerModel2" parent="." unique_id=1604375750 instance=ExtResource("7_dgugv")]
 position = Vector2(701, 490)

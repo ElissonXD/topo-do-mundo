@@ -416,24 +416,48 @@ size = Vector2(6, 33.5)
 resource_local_to_scene = true
 size = Vector2(6, 33)
 
-[sub_resource type="Animation" id="Animation_mm1n1"]
-length = 0.001
-
-[sub_resource type="Animation" id="Animation_hi634"]
-resource_name = "invencible"
-length = 1.5
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_mm2v0"]
-_data = {
-&"RESET": SubResource("Animation_mm1n1"),
-&"invencible": SubResource("Animation_hi634")
-}
-
 [sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_gag16"]
 loop = false
 stream_count = 2
 stream_0 = ExtResource("3_rkk0q")
 stream_1 = ExtResource("4_16ea1")
+
+[sub_resource type="Animation" id="Animation_mm1n1"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_hi634"]
+resource_name = "invencible"
+length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0.0, 1.0, 0.0, 1.0, 0.0, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_tousn"]
+_data = {
+&"RESET": SubResource("Animation_mm1n1"),
+&"invencible": SubResource("Animation_hi634")
+}
 
 [node name="PlayerModel" type="CharacterBody2D" unique_id=1305856846 groups=["Player"]]
 collision_layer = 2
@@ -491,9 +515,6 @@ debug_color = Color(0.7097094, 0.48675317, 0, 0.41960785)
 [node name="up" type="RayCast2D" parent="." unique_id=63560471]
 target_position = Vector2(0, -24)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1938358586]
-libraries/ = SubResource("AnimationLibrary_mm2v0")
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=349119826]
 stream = SubResource("AudioStreamPlaylist_gag16")
 autoplay = true
@@ -502,6 +523,9 @@ bus = &"Sfx"
 [node name="aim" type="Marker2D" parent="." unique_id=954435005]
 position = Vector2(13, 0)
 scale = Vector2(2, 2)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=155791482]
+libraries/ = SubResource("AnimationLibrary_tousn")
 
 [connection signal="body_entered" from="left" to="." method="detect_left_collision"]
 [connection signal="body_entered" from="right" to="." method="detect_right_collision"]

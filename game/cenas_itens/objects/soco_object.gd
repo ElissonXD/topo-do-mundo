@@ -1,12 +1,15 @@
 extends Item
 
 var direction: int = 1
+@onready var sprite_2d: Sprite2D = $Sprite2D
 
 
 func _ready() -> void:
 	direction = 1
 	if AUTHOR.aim.position.x < 0:
 		direction = -1
+		sprite_2d.flip_h = false
+		
 	
 	global_position = AUTHOR.aim.global_position
 	freeze = true

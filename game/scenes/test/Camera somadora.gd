@@ -18,6 +18,7 @@ var players: Array = []
 var target_zoom: float = 1.0
 
 func _ready():
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	# Obter referências para os jogadores
 	if players_parent:
 		var parent = get_node(players_parent)

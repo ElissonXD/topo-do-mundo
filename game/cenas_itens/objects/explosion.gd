@@ -33,7 +33,8 @@ func _ready() -> void:
  
  
 func _on_body_entered(body: Node) -> void:
-	_apply_explosion_to(body)
+	if body != _author:
+		_apply_explosion_to(body)
  
  
 func _wait_and_free() -> void:

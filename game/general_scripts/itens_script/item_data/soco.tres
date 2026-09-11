@@ -8,4 +8,5 @@
 script = ExtResource("1_dylxn")
 item_scene = ExtResource("2_xs2qx")
 item_object = ExtResource("1_5tlhk")
+weight = 5.0
 metadata/_custom_type_script = "uid://d2nvjq6svo6dr"
