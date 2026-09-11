@@ -219,6 +219,7 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="Player1" type="Panel" parent="MarginContainer/VBoxContainer/PlayerPanels" unique_id=1444844560]
+visible = false
 custom_minimum_size = Vector2(288, 0)
 layout_mode = 2
 
@@ -267,6 +268,7 @@ offset_bottom = 215.0
 horizontal_alignment = 1
 
 [node name="Player2" type="Panel" parent="MarginContainer/VBoxContainer/PlayerPanels" unique_id=78377805]
+visible = false
 custom_minimum_size = Vector2(288, 0)
 layout_mode = 2
 
@@ -315,6 +317,7 @@ offset_bottom = 214.0
 horizontal_alignment = 1
 
 [node name="Player3" type="Panel" parent="MarginContainer/VBoxContainer/PlayerPanels" unique_id=1177832153]
+visible = false
 custom_minimum_size = Vector2(288, 0)
 layout_mode = 2
 
@@ -363,6 +366,7 @@ offset_bottom = 214.0
 horizontal_alignment = 1
 
 [node name="Player4" type="Panel" parent="MarginContainer/VBoxContainer/PlayerPanels" unique_id=2145872336]
+visible = false
 custom_minimum_size = Vector2(288, 0)
 layout_mode = 2
 
@@ -428,6 +432,7 @@ offset_left = 0.0
 offset_top = 0.0
 offset_right = 0.0
 offset_bottom = 0.0
+pivot_offset = Vector2(0, -100)
 
 [node name="P2" type="TextureRect" parent="Cursores/Node2D" unique_id=688318584]
 modulate = Color(1, 0, 0, 1)
