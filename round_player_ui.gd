@@ -3,7 +3,8 @@ extends Control
 @export var portraits : Dictionary = {
 	'fdp':load("res://assets/portraits/Purgatorio_portrait.png"),
 	'pero': load("res://assets/portraits/Pero_portrait.png"),
-	'dave': load("res://assets/portraits/Dave_portrait.png")
+	'dave': load("res://assets/portraits/Dave_portrait.png"),
+	'laje': load('res://assets/portraits/Lajetixa_idle.png')
 }
 
 

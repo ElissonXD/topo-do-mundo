@@ -181,10 +181,11 @@ func calculate_score() -> Array[Dictionary]:
 	
 	var points : int = 7
 	for i in range(players_dict.size()):
+		var player_index : int = players_dict[i]["id"] - 1
 		players_dict[i]['scored'] = points
 		players_dict[i]["pos"] = i + 1
 		players_dict[i]["total_score"] = points + players[i]["score"]
-		GameLogic.update_player_total_points(i, points)
+		GameLogic.update_player_total_points(player_index, points)
 		points -= 2
 	
 	players_dict.sort_custom(func (a, b): return a['id'] < b['id'])

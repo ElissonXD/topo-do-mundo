@@ -379,7 +379,7 @@ start_timer = NodePath("Timer2")
 roundResults = NodePath("../CanvasLayer/RoundResults")
 
 [node name="Timer" type="Timer" parent="RoundManager" unique_id=1617015737]
-wait_time = 10.0
+wait_time = 2.0
 one_shot = true
 
 [node name="Timer2" type="Timer" parent="RoundManager" unique_id=1598500682]

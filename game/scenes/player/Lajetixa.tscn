@@ -448,7 +448,7 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_7met1")
 position = Vector2(-1, 16)
 sprite_frames = SubResource("SpriteFrames_3utm2")
-animation = &"Idle"
+animation = &"Slide"
 offset = Vector2(14, -16)
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": false,
@@ -498,6 +498,10 @@ libraries/ = SubResource("AnimationLibrary_mm2v0")
 stream = SubResource("AudioStreamPlaylist_gag16")
 autoplay = true
 bus = &"Sfx"
+
+[node name="aim" type="Marker2D" parent="." unique_id=954435005]
+position = Vector2(13, 0)
+scale = Vector2(2, 2)
 
 [connection signal="body_entered" from="left" to="." method="detect_left_collision"]
 [connection signal="body_entered" from="right" to="." method="detect_right_collision"]

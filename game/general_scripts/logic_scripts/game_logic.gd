@@ -23,9 +23,10 @@ game logic princiapl
 @export var maps : Dictionary = {
 	0: "res://game/scenes/test/test_2 da camera.tscn",
 	1: "res://game/scenes/test/test_2 da camera.tscn",
-	2: 'res://game/scenes/test/test_2 da camera.tscn'
+	2: 'res://game/scenes/test/test_2 da camera.tscn',
+	3: "res://game/scenes/ui_principal/resultados_finais.tscn"
 }
-@export var current_map : int = 1
+@export var current_map : int = 0
 
 # Controle do menu
 
@@ -153,20 +154,22 @@ func clear_players():
 	
 
 func go_to_next_map():
-	current_map = (current_map + 1) % 3 #temporariamente circular
+	current_map += 1
 	var map = maps[current_map]
 	get_tree().change_scene_to_file.call_deferred(map)
+	get_tree().paused = false
 	return
 
 
 func _ready() -> void:
+	"""
 	var players : Array[Dictionary]
 	for x in range(4):
-		var object = preload("res://game/scenes/player/fdp.tscn")
+		var object = preload("res://game/scenes/player/Lajetixa.tscn")
 		var player = {
 			"id": x+1,
 			"model": object,
-			"portrait": 'fdp',
+			"portrait": 'laje',
 			"ability": 3,
 			"controls": str(x+1),
 			"score": 0
@@ -174,6 +177,13 @@ func _ready() -> void:
 		players.append(player)
 	
 	players_data = players
+	"""
+	pass
+
+func clear_and_go_back():
+	players_data = []
+	current_map = 0
+	get_tree().change_scene_to_file.call_deferred("res://game/scenes/main_menu.tscn")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

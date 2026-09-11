@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cjp7w6vhb3igk"
-path="res://.godot/imported/Lajetixa_idle.png-966a9052152a2828000d09456e925a5e.ctex"
+path="res://.godot/imported/Lajetixa_idle.png-d0d90ab8fb6bdfb588dfbde4ae25e13e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/scenes/player/Lajetixa_idle.png"
-dest_files=["res://.godot/imported/Lajetixa_idle.png-966a9052152a2828000d09456e925a5e.ctex"]
+source_file="res://assets/portraits/Lajetixa_idle.png"
+dest_files=["res://.godot/imported/Lajetixa_idle.png-d0d90ab8fb6bdfb588dfbde4ae25e13e.ctex"]
 
 [params]
 

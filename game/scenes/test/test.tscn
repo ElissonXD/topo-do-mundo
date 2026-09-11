@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bf6gqxe7r3mqm" path="res://game/scenes/player/fdp.tscn" id="7_dgugv"]
 [ext_resource type="PackedScene" uid="uid://rfuv6mgehc4p" path="res://game/cenas_itens/balão/balao.tscn" id="7_nb3nn"]
 [ext_resource type="PackedScene" uid="uid://883kieocyryb" path="res://game/scenes/player/Pero.tscn" id="9_3hpeo"]
+[ext_resource type="PackedScene" uid="uid://m33aaq6kxcij" path="res://game/scenes/player/Lajetixa.tscn" id="9_nb3nn"]
 [ext_resource type="PackedScene" uid="uid://dxum70k0in2bm" path="res://game/scenes/player/Dave.tscn" id="10_nb3nn"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_e6i8i"]
@@ -68,7 +69,11 @@ possible_items = Array[ExtResource("3_iybd7")]([ExtResource("4_a0qkf"), SubResou
 [node name="PlayerModel2" parent="." unique_id=1604375750 instance=ExtResource("7_dgugv")]
 position = Vector2(701, 490)
 
-[node name="PlayerModel3" parent="." unique_id=1305856846 instance=ExtResource("9_3hpeo")]
+[node name="PlayerModel" parent="." unique_id=1305856846 instance=ExtResource("9_nb3nn")]
+position = Vector2(701, 490)
+ability = 3
+
+[node name="PlayerModel3" parent="." unique_id=1120389457 instance=ExtResource("9_3hpeo")]
 position = Vector2(905, 454)
 control_schema = "2"
 
