@@ -1,0 +1,66 @@
+[gd_scene format=3 uid="uid://dls45famuwmj8"]
+
+[ext_resource type="Script" uid="uid://bwjme41agq5f3" path="res://game/scenes/ui_principal/round_timer_ui.gd" id="1_c8age"]
+[ext_resource type="PackedScene" uid="uid://dxew3ftpxo4g4" path="res://game/scenes/entities/timer/timer.tscn" id="2_c8age"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_83sn4"]
+bg_color = Color(0, 0, 0, 0.3647059)
+border_width_left = 4
+border_width_right = 4
+border_color = Color(1, 0.8, 0.8, 1)
+corner_radius_top_left = 4
+corner_radius_bottom_right = 4
+corner_detail = 12
+
+[node name="round_timer" type="Control" unique_id=1722227797]
+layout_mode = 3
+anchor_right = 0.115
+anchor_bottom = 0.082
+offset_right = -0.47999573
+offset_bottom = -0.13600159
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_c8age")
+metadata/_edit_use_anchors_ = true
+
+[node name="Panel" type="Panel" parent="." unique_id=1220579085]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.3335757
+anchor_bottom = 0.81132084
+offset_right = -0.03199768
+offset_bottom = -3.0000038
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_83sn4")
+
+[node name="MarginContainer" type="MarginContainer" parent="Panel" unique_id=1877248274]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -100.0
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel/MarginContainer" unique_id=962284028]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="timer" parent="Panel/MarginContainer/HBoxContainer" unique_id=162817959 instance=ExtResource("2_c8age")]
+position = Vector2(-37, 16)
+scale = Vector2(2, 2)
+
+[node name="Label" type="Label" parent="Panel/MarginContainer/HBoxContainer" unique_id=994899800]
+layout_mode = 2
+theme_override_colors/font_color = Color(0.99215686, 1, 1, 1)
+theme_override_font_sizes/font_size = 32
+text = "x:xx"

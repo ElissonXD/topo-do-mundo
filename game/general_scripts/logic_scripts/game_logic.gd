@@ -20,6 +20,13 @@ game logic princiapl
 @export_category('Configurações de jogo')
 @export var players_data: Array[Dictionary] = []
 @export var total_players : int = 1
+@export var maps : Dictionary = {
+	0: "res://game/scenes/test/test_2 da camera.tscn",
+	1: "res://game/scenes/test/test_2 da camera.tscn",
+	2: 'res://game/scenes/test/test_2 da camera.tscn',
+	3: "res://game/scenes/ui_principal/resultados_finais.tscn"
+}
+@export var current_map : int = 0
 
 # Controle do menu
 
@@ -31,10 +38,12 @@ Funções para controle de menu
 
 signal update_player;
 
-func add_player(player_model, costume_index, controls, ability = -1):
+func add_player(id, player_model, costume_index, portrait, controls, ability = -1):
 	players_data.append({
+		"id": id,
 		"model": player_model,
 		"costume_index": costume_index,
+		"portrait": portrait,
 		"controls": controls,
 		"ability": ability,
 		"score": 0,
@@ -81,7 +90,27 @@ Funções para controle do jogo
  - Controlar mudança de mapa
  
 """
+func get_players():
+	var active_players: Array[Dictionary] = []
+	
+	for data in players_data:
+		var node_instance = data['model'].instantiate()
+		
+		node_instance.ability = data['ability']
+		node_instance.control_schema = data['controls']
+		
+		active_players.append({
+			"id": data["id"],
+			"portrait": data['portrait'],
+			"model": node_instance,
+			"score": data["score"]
+		})
+		
+	return active_players
 
+func update_player_total_points(id: int, points:int):
+	players_data[id]['score'] += points
+	return
 
 #func get_players():
 	##mock temporarário
@@ -125,8 +154,38 @@ func clear_players():
 	players_data.clear()
 	update_player.emit()
 	
+
+func go_to_next_map():
+	current_map += 1
+	var map = maps[current_map]
+	get_tree().change_scene_to_file.call_deferred(map)
+	get_tree().paused = false
+	return
+
+
 func _ready() -> void:
-	pass # Replace with function body.
+	"""
+	var players : Array[Dictionary]
+	for x in range(4):
+		var object = preload("res://game/scenes/player/Lajetixa.tscn")
+		var player = {
+			"id": x+1,
+			"model": object,
+			"portrait": 'laje',
+			"ability": 3,
+			"controls": str(x+1),
+			"score": 0
+		}
+		players.append(player)
+	
+	players_data = players
+"""
+	pass
+
+func clear_and_go_back():
+	players_data = []
+	current_map = 0
+	get_tree().change_scene_to_file.call_deferred("res://game/scenes/main_menu.tscn")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

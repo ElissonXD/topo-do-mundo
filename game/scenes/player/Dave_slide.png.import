@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cjp7w6vhb3igk"
-path="res://.godot/imported/Lajetixa_idle.png-966a9052152a2828000d09456e925a5e.ctex"
+uid="uid://daut1mrfrqibh"
+path="res://.godot/imported/Dave_slide.png-31e6efab11ced9b1cf3f8aa391f83925.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://game/scenes/player/Lajetixa_idle.png"
-dest_files=["res://.godot/imported/Lajetixa_idle.png-966a9052152a2828000d09456e925a5e.ctex"]
+source_file="res://game/scenes/player/Dave_slide.png"
+dest_files=["res://.godot/imported/Dave_slide.png-31e6efab11ced9b1cf3f8aa391f83925.ctex"]
 
 [params]
 

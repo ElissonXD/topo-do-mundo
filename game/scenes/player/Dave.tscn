@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bumovlmjcbvnx" path="res://game/scenes/player/player_model.gd" id="1_r01cm"]
 [ext_resource type="Shader" uid="uid://cr2wx16b0818h" path="res://game/scenes/player/Colorswt.gdshader" id="2_4aryg"]
+[ext_resource type="Texture2D" uid="uid://daut1mrfrqibh" path="res://game/scenes/player/Dave_slide.png" id="3_4aryg"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mm1n1"]
 resource_local_to_scene = true
@@ -352,6 +353,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("3_4aryg")
+}],
+"loop": 1,
+"name": &"Slide",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_2jpic")
 }, {
 "duration": 1.0,
@@ -396,12 +405,36 @@ size = Vector2(6, 33)
 
 [sub_resource type="Animation" id="Animation_mm1n1"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.0]
+}
 
 [sub_resource type="Animation" id="Animation_hi634"]
 resource_name = "invencible"
 length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0.0, 1.0, 0.0, 1.0, 0.0, 1.0]
+}
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_mm2v0"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_r01cm"]
 _data = {
 &"RESET": SubResource("Animation_mm1n1"),
 &"invencible": SubResource("Animation_hi634")
@@ -421,7 +454,7 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_7met1")
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_muwlf")
-animation = &"Jump"
+animation = &"Slide"
 offset = Vector2(12, 0)
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": false,
@@ -445,7 +478,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "6367dcf03b29d7696c06a050f1fc76e2"
 
 [node name="left" type="Area2D" parent="." unique_id=1233443420]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 7
 
 [node name="leftcollision" type="CollisionShape2D" parent="left" unique_id=1552382799]
 position = Vector2(-6, -0.5)
@@ -454,7 +487,7 @@ debug_color = Color(0.978612, 0, 0.39857033, 0.41960785)
 
 [node name="right" type="Area2D" parent="." unique_id=726048532]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 7
 
 [node name="rightcollision" type="CollisionShape2D" parent="right" unique_id=1890823536]
 position = Vector2(6, -0.5)
@@ -464,10 +497,14 @@ debug_color = Color(0.7097094, 0.48675317, 0, 0.41960785)
 [node name="up" type="RayCast2D" parent="." unique_id=63560471]
 target_position = Vector2(0, -24)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1938358586]
-libraries/ = SubResource("AnimationLibrary_mm2v0")
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=349119826]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=822637849]
+libraries/ = SubResource("AnimationLibrary_r01cm")
+
+[node name="aim" type="Marker2D" parent="." unique_id=1616913629]
+position = Vector2(13, 0)
+scale = Vector2(2, 2)
 
 [connection signal="body_entered" from="left" to="." method="detect_left_collision"]
 [connection signal="body_entered" from="right" to="." method="detect_right_collision"]

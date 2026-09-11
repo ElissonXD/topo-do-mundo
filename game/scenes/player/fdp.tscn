@@ -2,8 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bumovlmjcbvnx" path="res://game/scenes/player/player_model.gd" id="1_buh7r"]
 [ext_resource type="Shader" uid="uid://cr2wx16b0818h" path="res://game/scenes/player/Colorswt.gdshader" id="1_c8lnc"]
-[ext_resource type="AudioStream" uid="uid://ds75occ6ypqbw" path="res://assets/SFX/jump1.wav" id="3_stxbl"]
-[ext_resource type="AudioStream" uid="uid://bi2f8qydu2ygl" path="res://assets/SFX/Throw1.wav" id="4_iihnl"]
+[ext_resource type="Texture2D" uid="uid://dkuyawgavwcme" path="res://game/scenes/player/feldspato_slide.png" id="3_r7dpu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mm1n1"]
 resource_local_to_scene = true
@@ -172,6 +171,10 @@ region = Rect2(0, 252, 92, 63)
 [sub_resource type="AtlasTexture" id="AtlasTexture_e7ll1"]
 atlas = SubResource("PortableCompressedTexture2D_buh7r")
 region = Rect2(92, 252, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3grme"]
+atlas = ExtResource("3_r7dpu")
+region = Rect2(0, 0, 92, 63)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w13vm"]
 atlas = SubResource("PortableCompressedTexture2D_buh7r")
@@ -362,6 +365,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_3grme")
+}],
+"loop": 1,
+"name": &"Slide",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_w13vm")
 }, {
 "duration": 1.0,
@@ -406,26 +417,45 @@ size = Vector2(6, 33)
 
 [sub_resource type="Animation" id="Animation_mm1n1"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1.0]
+}
 
 [sub_resource type="Animation" id="Animation_hi634"]
 resource_name = "invencible"
 length = 1.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:modulate:a")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.2, 0.4, 0.6, 0.8, 1, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0.0, 1.0, 0.0, 1.0, 0.0, 1.0]
+}
 
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_mm2v0"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_c8lnc"]
 _data = {
 &"RESET": SubResource("Animation_mm1n1"),
 &"invencible": SubResource("Animation_hi634")
 }
 
-[sub_resource type="AudioStreamPlaylist" id="AudioStreamPlaylist_gag16"]
-loop = false
-stream_count = 2
-stream_0 = ExtResource("3_stxbl")
-stream_1 = ExtResource("4_iihnl")
-
-[node name="PlayerModel" type="CharacterBody2D" unique_id=1305856846 groups=["Player"]]
+[node name="PlayerModel2" type="CharacterBody2D" unique_id=1305856846 groups=["Player"]]
 collision_layer = 2
 script = ExtResource("1_buh7r")
+ability = 3
 
 [node name="Colission" type="CollisionShape2D" parent="." unique_id=2035951123]
 position = Vector2(0, -0.5)
@@ -434,10 +464,9 @@ shape = SubResource("RectangleShape2D_mm1n1")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=1879678150]
 texture_filter = 1
 material = SubResource("ShaderMaterial_7met1")
-position = Vector2(-1, 16)
 sprite_frames = SubResource("SpriteFrames_3grme")
-animation = &"Idle"
-offset = Vector2(14, -16)
+animation = &"Slide"
+offset = Vector2(12, 0)
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": false,
 "layer_section": false,
@@ -460,7 +489,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "daa58964eb47be16c13e720ceb85ce55"
 
 [node name="left" type="Area2D" parent="." unique_id=1233443420]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 3
 
 [node name="leftcollision" type="CollisionShape2D" parent="left" unique_id=1552382799]
 position = Vector2(-6, -0.5)
@@ -469,7 +498,7 @@ debug_color = Color(0.978612, 0, 0.39857033, 0.41960785)
 
 [node name="right" type="Area2D" parent="." unique_id=726048532]
 collision_layer = 2
-collision_mask = 2
+collision_mask = 3
 
 [node name="rightcollision" type="CollisionShape2D" parent="right" unique_id=1890823536]
 position = Vector2(6, -0.5)
@@ -479,13 +508,14 @@ debug_color = Color(0.7097094, 0.48675317, 0, 0.41960785)
 [node name="up" type="RayCast2D" parent="." unique_id=63560471]
 target_position = Vector2(0, -24)
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1938358586]
-libraries/ = SubResource("AnimationLibrary_mm2v0")
-
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=349119826]
-stream = SubResource("AudioStreamPlaylist_gag16")
-autoplay = true
-bus = &"Sfx"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=2133642633]
+libraries/ = SubResource("AnimationLibrary_c8lnc")
+
+[node name="aim" type="Marker2D" parent="." unique_id=1951735534]
+position = Vector2(13, 0)
+scale = Vector2(2, 2)
 
 [connection signal="body_entered" from="left" to="." method="detect_left_collision"]
 [connection signal="body_entered" from="right" to="." method="detect_right_collision"]

@@ -1,0 +1,39 @@
+[gd_scene format=3 uid="uid://t18vi224ryc7"]
+
+[ext_resource type="Script" uid="uid://dmymv86aui3n6" path="res://game/general_scripts/itens_script/item_spawner.gd" id="1_fm84c"]
+[ext_resource type="Script" uid="uid://d2nvjq6svo6dr" path="res://game/general_scripts/itens_script/item_spawn_data.gd" id="2_ojajv"]
+[ext_resource type="PackedScene" uid="uid://d2jlkb5orl772" path="res://game/cenas_itens/bazuca/bazuca.tscn" id="3_ytq0n"]
+[ext_resource type="PackedScene" uid="uid://cdb880s184gew" path="res://game/cenas_itens/objects/dardo_object.tscn" id="4_imwlo"]
+[ext_resource type="Texture2D" uid="uid://fcmil2k2urmd" path="res://game/cenas_itens/bazuca/png_ultra_realista_de_bazuca.jpeg" id="4_yskqv"]
+[ext_resource type="PackedScene" uid="uid://c0jm5bom0e7bs" path="res://game/cenas_itens/dardo/dardo.tscn" id="5_nhqkh"]
+[ext_resource type="PackedScene" uid="uid://dkbxerqx5p123" path="res://game/cenas_itens/objects/balao_object.tscn" id="6_imwlo"]
+[ext_resource type="Texture2D" uid="uid://dfufgcmukq0mq" path="res://assets/itens/dardo_text.png" id="7_dka5x"]
+[ext_resource type="PackedScene" uid="uid://rfuv6mgehc4p" path="res://game/cenas_itens/balão/balao.tscn" id="7_nhqkh"]
+[ext_resource type="Texture2D" uid="uid://dg748hslsdnkv" path="res://assets/itens/balao_text.png" id="10_sagxm"]
+
+[sub_resource type="Resource" id="Resource_yskqv"]
+script = ExtResource("2_ojajv")
+item_scene = ExtResource("3_ytq0n")
+weight = 0.0
+texture = ExtResource("4_yskqv")
+metadata/_custom_type_script = "uid://d2nvjq6svo6dr"
+
+[sub_resource type="Resource" id="Resource_uhs8t"]
+script = ExtResource("2_ojajv")
+item_scene = ExtResource("5_nhqkh")
+item_object = ExtResource("4_imwlo")
+texture = ExtResource("7_dka5x")
+metadata/_custom_type_script = "uid://d2nvjq6svo6dr"
+
+[sub_resource type="Resource" id="Resource_dka5x"]
+script = ExtResource("2_ojajv")
+item_scene = ExtResource("7_nhqkh")
+item_object = ExtResource("6_imwlo")
+texture = ExtResource("10_sagxm")
+metadata/_custom_type_script = "uid://d2nvjq6svo6dr"
+
+[node name="ItemSpawner" type="Node" unique_id=396564027]
+script = ExtResource("1_fm84c")
+possible_items = Array[ExtResource("2_ojajv")]([SubResource("Resource_yskqv"), SubResource("Resource_uhs8t"), SubResource("Resource_dka5x")])
+spawn_chance_per_tick = 0.5
+max_items_alive = 1

@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://dn73hvvpcghc5"]
+
+[ext_resource type="Script" uid="uid://chdpuukejvffk" path="res://game/general_scripts/itens_script/item_base.gd" id="1_2706e"]
+[ext_resource type="Texture2D" uid="uid://ct7wu2xkesh21" path="res://game/cenas_itens/soco/images.jpeg" id="2_m6k1p"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83sn4"]
+
+[node name="Soco" type="Area2D" unique_id=1182335024]
+z_index = -2
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_2706e")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=324340892]
+shape = SubResource("RectangleShape2D_83sn4")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1550060117]
+z_index = -2
+scale = Vector2(0.1, 0.1)
+texture = ExtResource("2_m6k1p")

@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://cdb880s184gew"]
+
+[ext_resource type="Script" uid="uid://berp3ku16v7l1" path="res://game/cenas_itens/objects/dardo_object.gd" id="1_2b0y0"]
+[ext_resource type="Texture2D" uid="uid://ctoxhi02swlgd" path="res://game/cenas_itens/dardo/Dardo_malandro-Sheet-Sheet.png" id="1_14vxk"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_mfnai"]
+size = Vector2(16, 5)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2b0y0"]
+atlas = ExtResource("1_14vxk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q7v05"]
+atlas = ExtResource("1_14vxk")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kgdjy"]
+atlas = ExtResource("1_14vxk")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xclbh"]
+atlas = ExtResource("1_14vxk")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bd65l"]
+atlas = ExtResource("1_14vxk")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pqaaj"]
+atlas = ExtResource("1_14vxk")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_83sn4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2b0y0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q7v05")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kgdjy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xclbh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bd65l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pqaaj")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qky2f"]
+size = Vector2(16, 5)
+
+[node name="DardoObject" type="RigidBody2D" unique_id=554926405]
+collision_layer = 4
+gravity_scale = 0.0
+script = ExtResource("1_2b0y0")
+ACCEL = 500.0
+MAX_SPEED = 1000.0
+DURATION = 5.0
+POWER = 400.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=359583116]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_mfnai")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=657456404]
+sprite_frames = SubResource("SpriteFrames_83sn4")
+autoplay = "default"
+frame_progress = 0.54621154
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1030711820]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=910446190]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_qky2f")
+
+[node name="vision" type="Area2D" parent="." unique_id=240683633]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="vision" unique_id=32639281]
+position = Vector2(1, 0)
+scale = Vector2(3.823863, 1.7053571)
+polygon = PackedVector2Array(0, 0, 11.2451725, -24.041885, 47.072815, -23.455498, 47.33433, 21.10995, 10.983657, 20.523561)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]
+[connection signal="body_entered" from="vision" to="." method="_on_vision_body_entered"]
+[connection signal="body_exited" from="vision" to="." method="_on_vision_body_exited"]
