@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="ItemSpawnData" format=3 uid="uid://rhsfcqfpxbl8"]
+
+[ext_resource type="PackedScene" uid="uid://cfgf3sr5ivlnt" path="res://game/cenas_itens/objects/soco_object.tscn" id="1_5tlhk"]
+[ext_resource type="Script" uid="uid://d2nvjq6svo6dr" path="res://game/general_scripts/itens_script/item_spawn_data.gd" id="1_dylxn"]
+[ext_resource type="PackedScene" uid="uid://dn73hvvpcghc5" path="res://game/cenas_itens/soco/soco.tscn" id="2_xs2qx"]
+
+[resource]
+script = ExtResource("1_dylxn")
+item_scene = ExtResource("2_xs2qx")
+item_object = ExtResource("1_5tlhk")
+metadata/_custom_type_script = "uid://d2nvjq6svo6dr"
