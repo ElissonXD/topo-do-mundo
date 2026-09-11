@@ -183,16 +183,29 @@ func _on_confirm_pressed(player_index: int):
 	if cursor.mode == CharacterCursor.Mode.CHAR:
 		# Confirmar personagem
 		var index = cursor.selected_character
-		var char_data = characters[index]
+		var char_data : Resource = characters[index]
+		var portrait : String
+		var path = char_data.resource_path
+		print(path)
+		if 'Purgatorio' in path:
+			portrait = 'fdp'
+		elif 'Pero' in path:
+			portrait = 'pero'
+		elif 'Lage' in path:
+			portrait = 'laje'
+		else: # dave
+			portrait = 'dave'
+		
+		
 		if not char_data.is_unlocked:
 			print("Personagem bloqueado!")
 			return
 		
 		var model = char_data.model
 		var costume = cursor.current_costume_index
-		# Atualizar/Adicionar jogador com ability = -1 (ainda não escolhida)
+		
 		if player_index >= GameLogic.players_data.size():
-			GameLogic.add_player(model, costume, str(player_index + 1), -1)
+			GameLogic.add_player(str(player_index + 1), model, costume, portrait, str(player_index + 1), -1)
 		else:
 			var p = GameLogic.players_data[player_index]
 			p["model"] = model
@@ -203,16 +216,8 @@ func _on_confirm_pressed(player_index: int):
 		
 		# Mudar para modo skill automaticamente
 		cursor.set_mode(CharacterCursor.Mode.SKILL)
+		update_player_panel(player_index) # Atualiza o painel para mostrar o personagem escolhido
 		
-	elif cursor.mode == CharacterCursor.Mode.SKILL:
-		if player_index >= GameLogic.players_data.size():
-			return
-		var skill_index = cursor.selected_skill
-		var p = GameLogic.players_data[player_index]
-		p["ability"] = skill_index   # int 0-3
-		p["ready"] = true
-		GameLogic.update_player.emit()
-		update_player_panel(player_index)
 	elif cursor.mode == CharacterCursor.Mode.SKILL:
 		if player_index >= GameLogic.players_data.size():
 			return
@@ -223,7 +228,7 @@ func _on_confirm_pressed(player_index: int):
 		GameLogic.update_player.emit()
 		update_player_panel(player_index)
 		
-		# NOVO: Chama a verificação de todos prontos
+		# Chama a verificação de todos prontos
 		check_all_ready()
 func _on_cancel_pressed(player_index: int):
 	if player_index < GameLogic.players_data.size():
@@ -237,8 +242,24 @@ func update_player_panel(player_index: int):
 	var panel = player_panels[player_index]
 	if not panel:
 		return
-	#var 
-	panel.visible = true
+	
+	# Verifica se o slot realmente contém um jogador válido (com modelo escolhido)
+	var has_player = false
+	if player_index < GameLogic.players_data.size():
+		var p = GameLogic.players_data[player_index]
+		if p.get("model") != null: # Se o modelo não for nulo, o jogador existe
+			has_player = true
+	
+	# Esconde o painel inteiro se não houver jogador
+	panel.visible = has_player
+	
+	# Se não há jogador, não precisa atualizar o resto
+	if not has_player:
+		return
+	
+	# --- A partir daqui, o código só roda se o jogador existir ---
+	var p = GameLogic.players_data[player_index]
+	var char_data = get_character_by_model(p["model"])
 	
 	var name_label = panel.get_node_or_null("NameLabel")
 	var costume_label = panel.get_node_or_null("CostumeLabel")
@@ -247,51 +268,32 @@ func update_player_panel(player_index: int):
 	var portrait_rect = panel.get_node_or_null("PortraitRect")
 	var skill_icon = panel.get_node_or_null("SkillIcon")
 	
-	if player_index < GameLogic.players_data.size():
-		var p = GameLogic.players_data[player_index]
-		var char_data = get_character_by_model(p["model"])
-		
-		if name_label:
-			name_label.text = char_data.character_name if char_data else "?"
-		if costume_label:
-			costume_label.text = "Cor %d" % (p["costume_index"] + 1)
-		if skill_label:
-			if p["ability"] >= 0 and p["ability"] < skills.size():
-				skill_label.text = "Skill: " + skills[p["ability"]]["name"]
-			else:
-				skill_label.text = "Escolha skill"
-		if ready_indicator:
-			ready_indicator.visible = p["ready"]
-		
-		# --- Atualizar retrato do personagem com shader ---
-		if portrait_rect and char_data:
-			portrait_rect.texture = char_data.portrait
-			# Aplica a cor correspondente ao jogador
-			var mat = portrait_rect.material as ShaderMaterial
-			if mat:
-				mat.set_shader_parameter("hue_shift", get_hue_shift(p["costume_index"]))
-		
-		# --- Atualizar ícone da skill ---
-		if skill_icon:
-			if p["ability"] >= 0 and p["ability"] < skills.size():
-				skill_icon.texture = skills[p["ability"]]["icon"]
-				skill_icon.visible = true
-			else:
-				skill_icon.texture = null
-				skill_icon.visible = false
-	else:
-		# Jogador ainda não escolheu nada
-		if name_label:
-			name_label.text = "Aguardando..."
-		if costume_label:
-			costume_label.text = ""
-		if skill_label:
-			skill_label.text = ""
-		if ready_indicator:
-			ready_indicator.visible = false
-		if portrait_rect:
-			portrait_rect.texture = null
-		if skill_icon:
+	if name_label:
+		name_label.text = char_data.character_name if char_data else "?"
+	if costume_label:
+		costume_label.text = "Cor %d" % (p["costume_index"] + 1)
+	if skill_label:
+		if p["ability"] >= 0 and p["ability"] < skills.size():
+			skill_label.text = "Skill: " + skills[p["ability"]]["name"]
+		else:
+			skill_label.text = "Escolha skill"
+	
+	if ready_indicator:
+		ready_indicator.visible = p["ready"]  
+	
+	# --- Atualizar retrato do personagem com shader ---
+	if portrait_rect and char_data:
+		portrait_rect.texture = char_data.portrait
+		var mat = portrait_rect.material as ShaderMaterial
+		if mat:
+			mat.set_shader_parameter("hue_shift", get_hue_shift(p["costume_index"]))
+	
+	# --- Atualizar ícone da skill ---
+	if skill_icon:
+		if p["ability"] >= 0 and p["ability"] < skills.size():
+			skill_icon.texture = skills[p["ability"]]["icon"]
+			skill_icon.visible = true
+		else:
 			skill_icon.texture = null
 			skill_icon.visible = false
 func ensure_panel_setup():
@@ -324,7 +326,7 @@ func ensure_panel_setup():
 			indicator.position = Vector2(250, 15)
 			indicator.visible = false
 			panel.add_child(indicator)
-		panel.visible = true
+		#panel.visible = true
 		# --- ADICIONAR TextureRect para o retrato do personagem ---
 		if not panel.has_node("PortraitRect"):
 			var portrait_rect = TextureRect.new()
@@ -347,7 +349,7 @@ func ensure_panel_setup():
 		
 		# Garantir que o painel tenha um fundo e tamanho
 		panel.custom_minimum_size = Vector2(280, 110)  # aumente a altura para caber as imagens
-		panel.visible = true
+		#panel.visible = true
 		if panel.get_theme_stylebox("panel") == null:
 			var style = StyleBoxFlat.new()
 			style.bg_color = Color(0, 0, 0, 0.6)

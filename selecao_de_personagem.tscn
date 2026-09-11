@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://c4ejtivwkhsix" path="res://game/scenes/Selecao de personagem/Dave.png" id="5_rkbnb"]
 [ext_resource type="Texture2D" uid="uid://cjp7w6vhb3igk" path="res://assets/portraits/Lajetixa_idle.png" id="8_xo52a"]
 [ext_resource type="Texture2D" uid="uid://cngpl3fxv6jj5" path="res://assets/okpng-export.png" id="9_rkbnb"]
-[ext_resource type="Texture2D" uid="uid://cwe8yh4dj2f2i" path="res://game/scenes/Selecao de personagem/Pointer topo do mundo.png" id="12_xet0l"]
 [ext_resource type="AudioStream" uid="uid://cmd1aie2ybuu1" path="res://game/scenes/Selecao de personagem/Three Red Hearts Penguins vs Rabbits.ogg" id="13_hkdv0"]
 
 [node name="Selecao de personagem" type="Control" unique_id=863954326 node_paths=PackedStringArray("char_grid", "skill_grid", "player_panels", "player_panel_container")]
@@ -219,6 +218,7 @@ size_flags_vertical = 3
 alignment = 1
 
 [node name="Player1" type="Panel" parent="MarginContainer/VBoxContainer/PlayerPanels" unique_id=1444844560]
+visible = false
 custom_minimum_size = Vector2(288, 0)
 layout_mode = 2
 
@@ -267,6 +267,7 @@ offset_bottom = 215.0
 horizontal_alignment = 1
 
 [node name="Player2" type="Panel" parent="MarginContainer/VBoxContainer/PlayerPanels" unique_id=78377805]
+visible = false
 custom_minimum_size = Vector2(288, 0)
 layout_mode = 2
 
@@ -315,6 +316,7 @@ offset_bottom = 214.0
 horizontal_alignment = 1
 
 [node name="Player3" type="Panel" parent="MarginContainer/VBoxContainer/PlayerPanels" unique_id=1177832153]
+visible = false
 custom_minimum_size = Vector2(288, 0)
 layout_mode = 2
 
@@ -363,6 +365,7 @@ offset_bottom = 214.0
 horizontal_alignment = 1
 
 [node name="Player4" type="Panel" parent="MarginContainer/VBoxContainer/PlayerPanels" unique_id=2145872336]
+visible = false
 custom_minimum_size = Vector2(288, 0)
 layout_mode = 2
 
@@ -421,40 +424,6 @@ offset_right = -1152.0
 offset_bottom = -648.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="P1" parent="Cursores/Node2D" unique_id=1021154722 instance=ExtResource("2_rkbnb")]
-layout_mode = 0
-offset_left = 243.0
-offset_top = 330.0
-offset_right = 275.0
-offset_bottom = 362.0
-
-[node name="P2" type="TextureRect" parent="Cursores/Node2D" unique_id=688318584]
-modulate = Color(1, 0, 0, 1)
-layout_mode = 0
-offset_left = 540.0
-offset_top = 330.0
-offset_right = 572.0
-offset_bottom = 362.0
-texture = ExtResource("12_xet0l")
-
-[node name="P3" type="TextureRect" parent="Cursores/Node2D" unique_id=1466685817]
-modulate = Color(0.64373946, 0.75195247, 0.26839355, 1)
-layout_mode = 0
-offset_left = 828.0
-offset_top = 330.0
-offset_right = 860.0
-offset_bottom = 362.0
-texture = ExtResource("12_xet0l")
-
-[node name="P4" type="TextureRect" parent="Cursores/Node2D" unique_id=1611040926]
-modulate = Color(1, 0.96933335, 0.07999998, 1)
-layout_mode = 0
-offset_left = 1119.0
-offset_top = 330.0
-offset_right = 1151.0
-offset_bottom = 362.0
-texture = ExtResource("12_xet0l")
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=1105233415]
 stream = ExtResource("13_hkdv0")

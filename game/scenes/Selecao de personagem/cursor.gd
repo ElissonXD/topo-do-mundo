@@ -94,9 +94,13 @@ func update_cursor_position():
 		var child_index = current_grid_pos.y * columns + current_grid_pos.x
 		if child_index < grid.get_child_count():
 			var target = grid.get_child(child_index)
-			global_position = target.global_position
+			# Calcula o centro do alvo e subtrai metade do tamanho do cursor
+			var target_center = target.global_position + target.size * 0.5
+			global_position = target_center - size * 0.5
 	elif mode == Mode.SKILL and skill_grid:
 		var child_index = current_skill_pos.y * skill_columns + current_skill_pos.x
 		if child_index < skill_grid.get_child_count():
 			var target = skill_grid.get_child(child_index)
-			global_position = target.global_position
+			# Mesma lógica para o grid de skills
+			var target_center = target.global_position + target.size * 0.5
+			global_position = target_center - size * 0.5

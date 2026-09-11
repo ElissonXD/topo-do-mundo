@@ -38,10 +38,12 @@ Funções para controle de menu
 
 signal update_player;
 
-func add_player(player_model, costume_index, controls, ability = -1):
+func add_player(id, player_model, costume_index, portrait, controls, ability = -1):
 	players_data.append({
+		"id": id,
 		"model": player_model,
 		"costume_index": costume_index,
+		"portrait": portrait,
 		"controls": controls,
 		"ability": ability,
 		"score": 0,
@@ -162,7 +164,7 @@ func go_to_next_map():
 
 
 func _ready() -> void:
-	
+	"""
 	var players : Array[Dictionary]
 	for x in range(4):
 		var object = preload("res://game/scenes/player/Lajetixa.tscn")
@@ -177,7 +179,7 @@ func _ready() -> void:
 		players.append(player)
 	
 	players_data = players
-
+"""
 	pass
 
 func clear_and_go_back():
