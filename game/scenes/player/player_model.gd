@@ -1,5 +1,7 @@
 class_name PlayerModel extends CharacterBody2D
 
+# caralho esse codigo ta imenso, ele nem tá ruim, só ta imenso
+
 # Configurações do player
 
 @export_category('Vivo')
@@ -53,6 +55,15 @@ var coyote_timer : float
 var hurt_timer : float
 @export var IFRAMES : float = 1.5
 var iframes_timer : float
+
+# sinais
+
+signal get_item(item_text : Texture)
+signal use_item() 
+
+# camera
+
+var camera : Camera2D
 
 # estados
 
@@ -113,6 +124,11 @@ func _ready():
 	jump_control = 'jump_' + control_schema;
 	ability_control = 'use_ability_' + control_schema;
 	interact_control = 'interact_' + control_schema;
+	
+	# pegar camera
+	
+	camera = get_tree().get_first_node_in_group('Camera')
+	
 	go_to_idle_state()
 
 func _physics_process(delta: float) -> void:
@@ -205,6 +221,9 @@ func go_to_hurt_state():
 	animation.play('hurt')
 	normal_hitbox()
 	hurt_timer = HURT_TIME
+	
+	if camera.has_method('shake_camera'):
+		camera.shake_camera(20, 10)
 	return
 
 func go_to_dash_state():
@@ -222,11 +241,14 @@ func go_to_dash_state():
 		# não é a forma ideial de resolver mas é oq tem
 		velocity *= 0.7
 	
+	if camera.has_method('shake_camera'):
+		camera.shake_camera(30, 10)
+	
 	return
 
 func go_to_slide_state(direction: int):
 	state = PlayerState.slide
-	animation.play("slide")
+	animation.play("Slide")
 	low_hitbox()
 	slide_direction = direction
 	velocity.x = SLIDE_POWER*direction
@@ -576,19 +598,20 @@ func use_current_item() -> void:
 	item_instance.position = aim.global_position # nem sempre
 	get_tree().current_scene.add_child(item_instance)
 	current_item = null
+	use_item.emit() 
 
-func apply_knockback(body: Node2D, POWER: float) -> void:
+func apply_knockback(body: Node2D, POWER: float, direction: int) -> void:
 	
-	var vector_direction = (global_position - body.global_position).normalized()
+	var knockback = -(POWER*direction)
 	
-	vector_direction.y = clamp(vector_direction.y, -0.5, -0.25)
-	vector_direction.normalized()
-	
-	velocity = vector_direction * POWER
+	velocity.x = knockback
+	velocity.y = -(POWER * 0.4)
 	return
-	
+
+func can_be_hurt() -> bool:
+	return state != PlayerState.hurt and iframes_timer <= 0
+
 func detect_left_collision(body: Node2D):
-	
 	if not body.is_in_group("Player"):
 		wall_slide_direction = -1
 	
@@ -597,8 +620,8 @@ func detect_left_collision(body: Node2D):
 	
 	if state == PlayerState.slide and not up.is_colliding():
 		if body.is_in_group("Player") and body != self: # será player
-			if body.iframes_timer <= 0:
-				body.apply_knockback(self, SLIDE_POWER)
+			if body.can_be_hurt():
+				body.apply_knockback(self, SLIDE_POWER, 1)
 				body.go_to_hurt_state();
 
 func detect_right_collision(body: Node2D):
@@ -607,13 +630,44 @@ func detect_right_collision(body: Node2D):
 	
 	if state == PlayerState.slide and not up.is_colliding():
 		if body.is_in_group("Player") and body != self: # será player
-			if body.iframes_timer <= 0:
-				body.apply_knockback(self, SLIDE_POWER)
+			if body.can_be_hurt():
+				body.apply_knockback(self, SLIDE_POWER, -1)
 				body.go_to_hurt_state();
 
 func die():
 	vivo = false
-	PROCESS_MODE_DISABLED
+	process_mode = Node.PROCESS_MODE_DISABLED
 
 func is_alive():
 	return vivo #mudar dps com as condicoes futuras
+	
+func go_to_stun_state(duration: float = -1.0):
+	state = PlayerState.stun
+	stun_timer = duration if duration > 0 else STUN_TIME
+	velocity.x = 0   # zera o movimento horizontal
+	animation.play("hurt")  # reaproveita; ou crie uma "stun"
+	return
+
+func stun_state(delta: float, direction: int):
+	stun_timer -= delta
+	
+	# Atrito forte para ele parar no lugar
+	velocity.x = move_toward(velocity.x, 0, FRICTION * delta)
+	
+	if stun_timer <= 0:
+		if is_on_floor():
+			if velocity.x != 0:
+				go_to_walk_state()
+			else:
+				go_to_idle_state()
+		else:
+			go_to_falling_state()
+		return
+func apply_stun(duration: float = 3.0) -> void:
+	if not vivo:
+		return
+	# Não deixa re-stunar se já está stunado (ou some, se preferir empilhar)
+	if state == PlayerState.stun:
+		stun_timer = max(stun_timer, duration)
+		return
+	go_to_stun_state(duration)

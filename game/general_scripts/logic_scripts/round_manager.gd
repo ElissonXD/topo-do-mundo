@@ -1,5 +1,8 @@
 extends Node
 
+# ok, importante, talvez seja legal refatorar os nós para ser exports
+# ao inves de depender da cena, depois faço isso
+
 # Configurações
 
 @export_category('Configurações gerais')
@@ -9,6 +12,14 @@ extends Node
 @export var players : Array[Dictionary]
 @export var players_points : Array[int] = [0,0,0,0]
 @export var roundResults : Control
+var crown_object : Node2D
+
+var colors_dict : Dictionary = {
+		0: Color.RED,
+		1: Color.BLUE,
+		2: Color.GREEN,
+		3: Color.YELLOW
+}
 
 enum GameState {
 	SETUP,
@@ -26,6 +37,9 @@ signal get_game_timer(timer: Timer)
 signal game_end(dados: Array) 
 
 func _ready() -> void:
+	crown_object = load("res://game/scenes/entities/crown/crown.tscn").instantiate()
+	crown_object.visible = false
+	$"../Entities".add_child(crown_object)
 	change_state(GameState.SETUP)
 
 func _process(delta: float) -> void:
@@ -55,7 +69,7 @@ func _enter_setup_state() -> void:
 	players = GameLogic.get_players()
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	start_timer.process_mode = Node.PROCESS_MODE_ALWAYS
-	general_timer.process_mode = Node.PROCESS_MODE_ALWAYS
+	general_timer.process_mode = Node.PROCESS_MODE_PAUSABLE
 	
 	spawn_points = get_tree().get_nodes_in_group('Spawn')
 	
@@ -63,17 +77,18 @@ func _enter_setup_state() -> void:
 		$"../Jogadores".add_child(players[x]['model'])
 		players[x]["model"].global_position = spawn_points[x].global_position
 	
-	create_ui_points(len(players))
-	
-	start_timer.start(3)
+	start_timer.start()
 	get_start_timer.emit(start_timer)
 
 func _on_timer_2_timeout() -> void:
 	change_state(GameState.PLAYING)
-
+	create_ui_points(len(players))
+	create_ui_itens((len(players)))
+	$"../CanvasLayer/round_timer".visible = true
+	
 func _enter_playing_state() -> void:
 	get_tree().paused = false
-	general_timer.start(1)
+	general_timer.start()
 	get_game_timer.emit(general_timer)
 
 func _process_playing_state(delta: float) -> void:
@@ -99,7 +114,12 @@ func _process_playing_state(delta: float) -> void:
 				players_points[2] += delta * 100
 			4:
 				players_points[3] += delta * 100
-		
+		crown_object.visible = true
+		crown_object.global_position = player_vencedor['model'].global_position
+		crown_object.global_position.y -= 30
+	else:
+		crown_object.visible = false
+			
 	get_players_points.emit(players_points)
 
 func _on_timer_timeout() -> void:
@@ -109,11 +129,16 @@ func _on_timer_timeout() -> void:
 func _enter_game_over_state() -> void:
 	get_tree().paused = true
 	
+	for player in players:
+		player['model'].process_mode = Node.PROCESS_MODE_DISABLED
+	
 	await get_tree().create_timer(1.5, true, false, true).timeout
 	
 	var placar = calculate_score()
 	
 	roundResults.go_to_score_state(placar)
+	$"../CanvasLayer/players".visible = false
+	$"../CanvasLayer/round_timer".visible = false
 	hide_ui_points()
 	game_end.emit(placar as Array)
 
@@ -122,17 +147,32 @@ func _enter_game_over_state() -> void:
 
 func create_ui_points(length: int) -> void:
 	var object = load("res://game/scenes/ui_principal/player_bar.tscn")
+
 	for i in range(length):
+		var player_portrait = players[i]['portrait']
 		var player_ui_score = object.instantiate()
+		player_ui_score.change_color(colors_dict[i])
 		$"../CanvasLayer/players".add_child(player_ui_score)
-		player_ui_score.change_player(i)
+		player_ui_score.change_player(i, player_portrait)
 		get_players_points.connect(player_ui_score.change_score)
+
+func create_ui_itens(length:int) -> void:
+	var object = load("res://game/scenes/ui_principal/item_ui.tscn")
+
+	for i in range(length):
+		var player_portrait = players[i]['portrait']
+		var player_ui_item = object.instantiate()
+		player_ui_item.change_color(colors_dict[i])
+		players[i]['model'].get_item.connect(player_ui_item.get_item)
+		players[i]['model'].use_item.connect(player_ui_item.remove_item)
+		$"../CanvasLayer/items".add_child(player_ui_item)
 
 func calculate_score() -> Array[Dictionary]:
 	var players_dict: Array[Dictionary] = []
 	for i in range(players.size()):
 		players_dict.append({
 			"id": i + 1,
+			"portrait": players[i]['portrait'],
 			"score": players_points[i],
 			"show": 0,
 			"pos": 0,
@@ -144,10 +184,11 @@ func calculate_score() -> Array[Dictionary]:
 	
 	var points : int = 7
 	for i in range(players_dict.size()):
+		var player_index : int = players_dict[i]["id"] - 1
 		players_dict[i]['scored'] = points
 		players_dict[i]["pos"] = i + 1
 		players_dict[i]["total_score"] = points + players[i]["score"]
-		GameLogic.update_player_total_points(i, points)
+		GameLogic.update_player_total_points(player_index, points)
 		points -= 2
 	
 	players_dict.sort_custom(func (a, b): return a['id'] < b['id'])
@@ -156,4 +197,5 @@ func calculate_score() -> Array[Dictionary]:
 
 func hide_ui_points() -> void:
 	$"../CanvasLayer/players".visible = false
+	$"../CanvasLayer/items".visible = false
 	return

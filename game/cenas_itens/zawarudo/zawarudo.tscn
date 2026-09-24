@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://dnnqg647jj51s"]
+
+[ext_resource type="Script" uid="uid://chdpuukejvffk" path="res://game/general_scripts/itens_script/item_base.gd" id="1_43up6"]
+[ext_resource type="Texture2D" uid="uid://dd2uiswboksbc" path="res://game/cenas_itens/zawarudo/jojopng-export.png" id="2_1ixfn"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0i88t"]
+
+[node name="zawarudo" type="Area2D" unique_id=712124619]
+collision_layer = 4
+collision_mask = 2
+script = ExtResource("1_43up6")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1860500395]
+texture = ExtResource("2_1ixfn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1139626160]
+shape = SubResource("RectangleShape2D_0i88t")

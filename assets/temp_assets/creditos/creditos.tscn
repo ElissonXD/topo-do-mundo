@@ -4,6 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bjs2512vwgpnc" path="res://assets/temp_assets/creditos/origbig.png" id="2_pyjv0"]
 [ext_resource type="AudioStream" uid="uid://dlfjpuwx2gu5i" path="res://assets/temp_assets/creditos/Three Red Hearts Modern Bits.ogg" id="3_pyjv0"]
 [ext_resource type="PackedScene" uid="uid://crfe5ulcvdawb" path="res://logos.tscn" id="4_6n4nk"]
+[ext_resource type="PackedScene" uid="uid://c6oysvu1lbpog" path="res://assets/temp_assets/Transicao.tscn" id="5_2d70f"]
 
 [node name="Creditos" type="Node2D" unique_id=630764899]
 script = ExtResource("1_15wa8")
@@ -35,3 +36,11 @@ parameters/looping = true
 
 [node name="Sprite2D2" parent="." unique_id=1093436457 instance=ExtResource("4_6n4nk")]
 position = Vector2(-43, 0)
+
+[node name="Control" parent="." unique_id=1610285260 instance=ExtResource("5_2d70f")]
+visible = false
+
+[node name="Timer" type="Timer" parent="Control" unique_id=74884905]
+wait_time = 3.0
+
+[connection signal="timeout" from="Control/Timer" to="." method="_on_timer_timeout"]

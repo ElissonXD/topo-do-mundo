@@ -63,6 +63,8 @@ size = Vector2(16, 5)
 collision_layer = 4
 gravity_scale = 0.0
 script = ExtResource("1_2b0y0")
+ACCEL = 500.0
+MAX_SPEED = 1000.0
 DURATION = 5.0
 POWER = 400.0
 
@@ -72,6 +74,7 @@ shape = SubResource("RectangleShape2D_mfnai")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=657456404]
 sprite_frames = SubResource("SpriteFrames_83sn4")
+autoplay = "default"
 frame_progress = 0.54621154
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1030711820]

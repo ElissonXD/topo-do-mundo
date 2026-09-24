@@ -67,6 +67,7 @@ shape = SubResource("RectangleShape2D_83sn4")
 position = Vector2(-4.7683716e-07, -4.7683716e-07)
 scale = Vector2(1.25, 1.25)
 sprite_frames = SubResource("SpriteFrames_83sn4")
+autoplay = "default"
 frame_progress = 0.90433395
 metadata/_aseprite_wizard_interface_config_ = {
 "pending_changes": {

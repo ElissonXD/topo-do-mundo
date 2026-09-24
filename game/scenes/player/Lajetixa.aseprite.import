@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://c6qgwhy2yi88h"
+path="res://.godot/imported/Lajetixa.aseprite-25d8cd19d02715d7bdcf7ab408be2257.res"
+
+[deps]
+
+source_file="res://game/scenes/player/Lajetixa.aseprite"
+dest_files=["res://.godot/imported/Lajetixa.aseprite-25d8cd19d02715d7bdcf7ab408be2257.res"]
+
+[params]
+

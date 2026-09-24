@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="jogador" format=3 uid="uid://dhcxkk0lm5yhh"]
+
+[ext_resource type="Script" uid="uid://cgmvkhv68atyw" path="res://game/general_scripts/Player_resources/Character_data.gd" id="1_way8d"]
+[ext_resource type="Script" uid="uid://dv58ncr6on8o0" path="res://assets/Resource/CharacterCatalog.gd" id="2_q6kq0"]
+
+[resource]
+script = ExtResource("2_q6kq0")

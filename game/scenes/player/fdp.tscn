@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bumovlmjcbvnx" path="res://game/scenes/player/player_model.gd" id="1_buh7r"]
 [ext_resource type="Shader" uid="uid://cr2wx16b0818h" path="res://game/scenes/player/Colorswt.gdshader" id="1_c8lnc"]
+[ext_resource type="Texture2D" uid="uid://dkuyawgavwcme" path="res://game/scenes/player/feldspato_slide.png" id="3_r7dpu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mm1n1"]
 resource_local_to_scene = true
@@ -170,6 +171,10 @@ region = Rect2(0, 252, 92, 63)
 [sub_resource type="AtlasTexture" id="AtlasTexture_e7ll1"]
 atlas = SubResource("PortableCompressedTexture2D_buh7r")
 region = Rect2(92, 252, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3grme"]
+atlas = ExtResource("3_r7dpu")
+region = Rect2(0, 0, 92, 63)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w13vm"]
 atlas = SubResource("PortableCompressedTexture2D_buh7r")
@@ -360,6 +365,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_3grme")
+}],
+"loop": 1,
+"name": &"Slide",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_w13vm")
 }, {
 "duration": 1.0,
@@ -452,8 +465,7 @@ shape = SubResource("RectangleShape2D_mm1n1")
 texture_filter = 1
 material = SubResource("ShaderMaterial_7met1")
 sprite_frames = SubResource("SpriteFrames_3grme")
-animation = &"Jump"
-frame_progress = 0.736009
+animation = &"Slide"
 offset = Vector2(12, 0)
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": false,

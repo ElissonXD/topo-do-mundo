@@ -23,9 +23,10 @@ game logic princiapl
 @export var maps : Dictionary = {
 	0: "res://game/scenes/test/test_2 da camera.tscn",
 	1: "res://game/scenes/test/test_2 da camera.tscn",
-	2: 'res://game/scenes/test/test_2 da camera.tscn'
+	2: 'res://game/scenes/test/test_2 da camera.tscn',
+	3: "res://game/scenes/ui_principal/resultados_finais.tscn"
 }
-@export var current_map : int = 1
+@export var current_map : int = 0
 
 # Controle do menu
 
@@ -37,16 +38,18 @@ Funções para controle de menu
 
 signal update_player;
 
-func add_player(player_model: PlayerModel, costume_index: int, control_schema: String):
-	if players_data.size() < 4:
-		players_data.append({
-			"model": player_model,
-			"costume_index": costume_index,
-			"control_schema": control_schema,
-			"score": 0,
-			"ready": false
-		})
-		update_player.emit()
+func add_player(id, player_model, costume_index, portrait, controls, ability = -1):
+	players_data.append({
+		"id": id,
+		"model": player_model,
+		"costume_index": costume_index,
+		"portrait": portrait,
+		"controls": controls,
+		"ability": ability,
+		"score": 0,
+		"ready": false
+	})
+	update_player.emit()
 
 func set_player_ready(player_index: int, ready: bool):
 	if player_index < players_data.size():
@@ -98,6 +101,7 @@ func get_players():
 		
 		active_players.append({
 			"id": data["id"],
+			"portrait": data['portrait'],
 			"model": node_instance,
 			"score": data["score"]
 		})
@@ -108,20 +112,66 @@ func update_player_total_points(id: int, points:int):
 	players_data[id]['score'] += points
 	return
 
+#func get_players():
+	##mock temporarário
+	#var players : Array[Dictionary] = []
+	#for x in range(4):
+		#var object = load("res://game/scenes/player/fdp.tscn").instantiate()
+		#object.ability = 3
+		#object.vivo = true
+		#object.control_schema = str(x+1)
+		#var player = {
+			#"id": x+1,
+			#"model": object
+		#}
+		#players.append(player)
+#
+	#return players
+
+func update_game_points(total_points : Array[int]):
+	var player_rank: Array[int] = range(total_points.size())
+
+	player_rank.sort_custom(func(a: int, b: int) -> bool:
+		return total_points[a] > total_points[b]
+	)
+	
+	
+	
+	# logica de calcular posição
+
+# Em game_logic.gd
+#func create_player_dict(player_model: PlayerModel, costume_index: int, controls: String, ability: int = 0) -> Dictionary:
+	#return {
+		#"model": player_model,
+		#"costume_index": costume_index,   # mantido para a cor
+		#"controls": controls,             # renomeado de control_schema
+		#"ability": ability,               # se vier do modelo, pode ser extraído
+		#"score": 0,
+		#"ready": false,
+		#"id": players_data.size() + 1     # ou use um ID incremental
+	#}
+func clear_players():
+	players_data.clear()
+	update_player.emit()
+	
+
 func go_to_next_map():
-	current_map = (current_map + 1) % 3 #temporariamente circular
+	current_map += 1
 	var map = maps[current_map]
 	get_tree().change_scene_to_file.call_deferred(map)
+	get_tree().paused = false
 	return
 
 
 func _ready() -> void:
+	"""
 	var players : Array[Dictionary]
-	for x in range(2):
-		var object = preload("res://game/scenes/player/fdp.tscn")
+	for x in range(4):
+		var object = preload("res://game/scenes/player/Lajetixa.tscn")
 		var player = {
 			"id": x+1,
 			"model": object,
+			"portrait": 'laje',
 			"ability": 3,
 			"controls": str(x+1),
 			"score": 0
@@ -129,6 +179,13 @@ func _ready() -> void:
 		players.append(player)
 	
 	players_data = players
+"""
+	pass
+
+func clear_and_go_back():
+	players_data = []
+	current_map = 0
+	get_tree().change_scene_to_file.call_deferred("res://game/scenes/main_menu.tscn")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
