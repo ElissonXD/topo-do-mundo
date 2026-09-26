@@ -1,7 +1,6 @@
 class_name ItemSpawnData
 extends Resource
-@export var item_scene: PackedScene
+@export var item_sprite: SpriteFrames
 @export var item_object : PackedScene
-@export var weight: float = 1.0
-@export var display_name: String = ""
 @export var texture: Texture
+@export var scale: Vector2 = Vector2(1.5, 1.5)

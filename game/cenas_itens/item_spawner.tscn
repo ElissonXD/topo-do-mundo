@@ -1,39 +1,63 @@
 [gd_scene format=3 uid="uid://t18vi224ryc7"]
 
 [ext_resource type="Script" uid="uid://dmymv86aui3n6" path="res://game/general_scripts/itens_script/item_spawner.gd" id="1_fm84c"]
-[ext_resource type="Script" uid="uid://d2nvjq6svo6dr" path="res://game/general_scripts/itens_script/item_spawn_data.gd" id="2_ojajv"]
-[ext_resource type="PackedScene" uid="uid://d2jlkb5orl772" path="res://game/cenas_itens/bazuca/bazuca.tscn" id="3_ytq0n"]
-[ext_resource type="PackedScene" uid="uid://cdb880s184gew" path="res://game/cenas_itens/objects/dardo_object.tscn" id="4_imwlo"]
-[ext_resource type="Texture2D" uid="uid://fcmil2k2urmd" path="res://game/cenas_itens/bazuca/png_ultra_realista_de_bazuca.jpeg" id="4_yskqv"]
-[ext_resource type="PackedScene" uid="uid://c0jm5bom0e7bs" path="res://game/cenas_itens/dardo/dardo.tscn" id="5_nhqkh"]
-[ext_resource type="PackedScene" uid="uid://dkbxerqx5p123" path="res://game/cenas_itens/objects/balao_object.tscn" id="6_imwlo"]
-[ext_resource type="Texture2D" uid="uid://dfufgcmukq0mq" path="res://assets/itens/dardo_text.png" id="7_dka5x"]
-[ext_resource type="PackedScene" uid="uid://rfuv6mgehc4p" path="res://game/cenas_itens/balão/balao.tscn" id="7_nhqkh"]
-[ext_resource type="Texture2D" uid="uid://dg748hslsdnkv" path="res://assets/itens/balao_text.png" id="10_sagxm"]
+[ext_resource type="Resource" uid="uid://d1jysbtnlmtft" path="res://game/cenas_itens/balão/balao.tres" id="2_iqf3o"]
+[ext_resource type="Script" uid="uid://n6dh65vj2ay5" path="res://game/general_scripts/itens_script/item_entry.gd" id="2_ytq0n"]
+[ext_resource type="Resource" uid="uid://bsswfu8id5xom" path="res://game/cenas_itens/bazuca/bazuca.tres" id="4_ytq0n"]
+[ext_resource type="Resource" uid="uid://ccv31s50l35yc" path="res://game/cenas_itens/dardo/dardo.tres" id="5_nhqkh"]
+[ext_resource type="Resource" uid="uid://d2k3iwehkf5lh" path="res://game/cenas_itens/soco/soco.tres" id="6_yskqv"]
+[ext_resource type="Resource" uid="uid://c7dqyhctg7wp5" path="res://game/cenas_itens/zawarudo/zawarudo.tres" id="7_dka5x"]
+
+[sub_resource type="Resource" id="Resource_ojajv"]
+script = ExtResource("2_ytq0n")
+item = ExtResource("2_iqf3o")
+metadata/_custom_type_script = "uid://n6dh65vj2ay5"
+
+[sub_resource type="Resource" id="Resource_ytq0n"]
+script = ExtResource("2_ytq0n")
+item = ExtResource("4_ytq0n")
+metadata/_custom_type_script = "uid://n6dh65vj2ay5"
+
+[sub_resource type="Resource" id="Resource_imwlo"]
+script = ExtResource("2_ytq0n")
+item = ExtResource("5_nhqkh")
+metadata/_custom_type_script = "uid://n6dh65vj2ay5"
+
+[sub_resource type="Resource" id="Resource_nhqkh"]
+script = ExtResource("2_ytq0n")
+item = ExtResource("6_yskqv")
+metadata/_custom_type_script = "uid://n6dh65vj2ay5"
 
 [sub_resource type="Resource" id="Resource_yskqv"]
-script = ExtResource("2_ojajv")
-item_scene = ExtResource("3_ytq0n")
+script = ExtResource("2_ytq0n")
+item = ExtResource("7_dka5x")
 weight = 0.0
-texture = ExtResource("4_yskqv")
-metadata/_custom_type_script = "uid://d2nvjq6svo6dr"
+metadata/_custom_type_script = "uid://n6dh65vj2ay5"
 
-[sub_resource type="Resource" id="Resource_uhs8t"]
-script = ExtResource("2_ojajv")
-item_scene = ExtResource("5_nhqkh")
-item_object = ExtResource("4_imwlo")
-texture = ExtResource("7_dka5x")
-metadata/_custom_type_script = "uid://d2nvjq6svo6dr"
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_83sn4"]
+size = Vector2(34, 32)
 
-[sub_resource type="Resource" id="Resource_dka5x"]
-script = ExtResource("2_ojajv")
-item_scene = ExtResource("7_nhqkh")
-item_object = ExtResource("6_imwlo")
-texture = ExtResource("10_sagxm")
-metadata/_custom_type_script = "uid://d2nvjq6svo6dr"
+[sub_resource type="SpriteFrames" id="SpriteFrames_83sn4"]
 
-[node name="ItemSpawner" type="Node" unique_id=396564027]
+[node name="ItemSpawner" type="Node2D" unique_id=1166428446 node_paths=PackedStringArray("TIMER")]
 script = ExtResource("1_fm84c")
-possible_items = Array[ExtResource("2_ojajv")]([SubResource("Resource_yskqv"), SubResource("Resource_uhs8t"), SubResource("Resource_dka5x")])
-spawn_chance_per_tick = 0.5
-max_items_alive = 1
+ITEMS = Array[ExtResource("2_ytq0n")]([SubResource("Resource_ojajv"), SubResource("Resource_ytq0n"), SubResource("Resource_imwlo"), SubResource("Resource_nhqkh"), SubResource("Resource_yskqv")])
+COOLDOWN = 10.0
+TIMER = NodePath("cooldown")
+
+[node name="hitbox" type="Area2D" parent="." unique_id=1967134573]
+collision_layer = 4
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox" unique_id=214346712]
+shape = SubResource("RectangleShape2D_83sn4")
+
+[node name="cooldown" type="Timer" parent="." unique_id=2057311172]
+wait_time = 10.0
+one_shot = true
+
+[node name="item_sprite" type="AnimatedSprite2D" parent="." unique_id=214556030]
+sprite_frames = SubResource("SpriteFrames_83sn4")
+
+[connection signal="body_entered" from="hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="cooldown" to="." method="_on_cooldown_timeout"]

@@ -1,32 +1,32 @@
-[gd_scene format=3 uid="uid://rfuv6mgehc4p"]
+[gd_resource type="Resource" script_class="ItemSpawnData" format=3 uid="uid://d1jysbtnlmtft"]
 
-[ext_resource type="Script" uid="uid://chdpuukejvffk" path="res://game/general_scripts/itens_script/item_base.gd" id="1_1vaoa"]
-[ext_resource type="Texture2D" uid="uid://br614nlfx35a0" path="res://game/cenas_itens/balão/balao-Sheet.png" id="2_1vaoa"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_83sn4"]
+[ext_resource type="Script" uid="uid://d2nvjq6svo6dr" path="res://game/general_scripts/itens_script/item_spawn_data.gd" id="1_ckfgn"]
+[ext_resource type="PackedScene" uid="uid://dkbxerqx5p123" path="res://game/cenas_itens/objects/balao_object.tscn" id="1_f3ahc"]
+[ext_resource type="Texture2D" uid="uid://br614nlfx35a0" path="res://game/cenas_itens/balão/balao-Sheet.png" id="2_t51fg"]
+[ext_resource type="Texture2D" uid="uid://dg748hslsdnkv" path="res://assets/itens/balao_text.png" id="4_ir7pa"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t3n0h"]
-atlas = ExtResource("2_1vaoa")
+atlas = ExtResource("2_t51fg")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_oo8ky"]
-atlas = ExtResource("2_1vaoa")
+atlas = ExtResource("2_t51fg")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3kckl"]
-atlas = ExtResource("2_1vaoa")
+atlas = ExtResource("2_t51fg")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_etb08"]
-atlas = ExtResource("2_1vaoa")
+atlas = ExtResource("2_t51fg")
 region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_13f8k"]
-atlas = ExtResource("2_1vaoa")
+atlas = ExtResource("2_t51fg")
 region = Rect2(64, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v3c8l"]
-atlas = ExtResource("2_1vaoa")
+atlas = ExtResource("2_t51fg")
 region = Rect2(80, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_83sn4"]
@@ -55,17 +55,9 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="balao" type="Area2D" unique_id=580157209]
-collision_layer = 4
-collision_mask = 2
-script = ExtResource("1_1vaoa")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=15894328]
-shape = SubResource("RectangleShape2D_83sn4")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=225826526]
-position = Vector2(0, -0.5000005)
-scale = Vector2(2, 2.112)
-sprite_frames = SubResource("SpriteFrames_83sn4")
-autoplay = "default"
-frame_progress = 0.54549813
+[resource]
+script = ExtResource("1_ckfgn")
+item_sprite = SubResource("SpriteFrames_83sn4")
+item_object = ExtResource("1_f3ahc")
+texture = ExtResource("4_ir7pa")
+scale = Vector2(1.5, 1.5)
