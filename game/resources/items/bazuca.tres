@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="ItemSpawnData" format=3 uid="uid://bsswfu8id5xom"]
+
+[ext_resource type="PackedScene" uid="uid://ceestqctraafx" path="res://game/scenes/items/objects/bazuca_object.tscn" id="1_uckso"]
+[ext_resource type="Texture2D" uid="uid://fcmil2k2urmd" path="res://assets/sprites/itens/sprites/png_ultra_realista_de_bazuca.jpeg" id="2_ik034"]
+[ext_resource type="Script" uid="uid://d2nvjq6svo6dr" path="res://game/scripts/items_script/spawner/item_spawn_data.gd" id="3_5wr1y"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ty13e"]
+atlas = ExtResource("2_ik034")
+region = Rect2(0, 0, 740, 276)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_83sn4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ty13e")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("3_5wr1y")
+item_sprite = SubResource("SpriteFrames_83sn4")
+item_object = ExtResource("1_uckso")
+texture = ExtResource("2_ik034")
+scale = Vector2(0.1, 0.1)

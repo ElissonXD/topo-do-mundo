@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://b0mrvehw7ul4v"]
+
+[ext_resource type="Script" uid="uid://bmjwwuoo3f7oy" path="res://game/scripts/ui_scripts/round_ui/item_ui.gd" id="1_x6ci2"]
+[ext_resource type="Texture2D" uid="uid://fcmil2k2urmd" path="res://assets/sprites/itens/sprites/png_ultra_realista_de_bazuca.jpeg" id="2_lnldu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_83sn4"]
+bg_color = Color(0, 0, 0, 0.19607843)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Item_UI" type="Control" unique_id=1412092961 node_paths=PackedStringArray("texture_rect", "panel_container")]
+layout_mode = 3
+anchor_right = 0.030000001
+anchor_bottom = 0.052
+offset_right = 54.44
+offset_bottom = 33.304
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_x6ci2")
+texture_rect = NodePath("PanelContainer/MarginContainer/TextureRect")
+panel_container = NodePath("PanelContainer")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1885234257]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 0.43800002
+anchor_bottom = 0.5
+offset_right = 61.017998
+offset_bottom = 66.5
+theme_override_styles/panel = SubResource("StyleBoxFlat_83sn4")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer" unique_id=2053155011]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="TextureRect" type="TextureRect" parent="PanelContainer/MarginContainer" unique_id=1046055446]
+layout_mode = 2
+texture = ExtResource("2_lnldu")
+expand_mode = 2
+stretch_mode = 5

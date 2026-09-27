@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://bvue80epc713t"]
+
+[ext_resource type="Texture2D" uid="uid://cwe8yh4dj2f2i" path="res://assets/sprites/entities/Pointer topo do mundo.png" id="1_tqnm2"]
+[ext_resource type="Script" uid="uid://bjwg7cxlnbcmp" path="res://game/scripts/entities_scripts/cursor.gd" id="2_otpgv"]
+
+[node name="P1" type="TextureRect" unique_id=1021154722]
+modulate = Color(0, 0.95000005, 1, 1)
+offset_left = 339.0
+offset_top = 128.0
+offset_right = 339.0
+offset_bottom = 128.0
+texture = ExtResource("1_tqnm2")
+script = ExtResource("2_otpgv")
