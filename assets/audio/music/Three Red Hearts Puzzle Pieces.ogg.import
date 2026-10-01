@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://mdecjpwg5mqm"
+path="res://.godot/imported/Three Red Hearts Puzzle Pieces.ogg-4d0f0682077d3a977d9c14c99b97b248.oggvorbisstr"
+
+[deps]
+
+source_file="res://assets/audio/music/Three Red Hearts Puzzle Pieces.ogg"
+dest_files=["res://.godot/imported/Three Red Hearts Puzzle Pieces.ogg-4d0f0682077d3a977d9c14c99b97b248.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

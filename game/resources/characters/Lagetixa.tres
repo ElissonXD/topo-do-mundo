@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="CharacterData" format=3 uid="uid://dajef0pu2y41r"]
+
+[ext_resource type="Script" uid="uid://cgmvkhv68atyw" path="res://game/scripts/character_scripts/Character_data.gd" id="1_klwbe"]
+[ext_resource type="PackedScene" uid="uid://m33aaq6kxcij" path="res://game/scenes/player/characters/Lajetixa.tscn" id="1_uregt"]
+[ext_resource type="Texture2D" uid="uid://cjp7w6vhb3igk" path="res://assets/sprites/players/portraits/Lajetixa_idle.png" id="2_213r4"]
+
+[resource]
+script = ExtResource("1_klwbe")
+character_name = "Lajetixa"
+portrait = ExtResource("2_213r4")
+model = ExtResource("1_uregt")
+metadata/_custom_type_script = "uid://cgmvkhv68atyw"

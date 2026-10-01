@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://crfe5ulcvdawb"]
+
+[ext_resource type="Texture2D" uid="uid://v1npt0kght24" path="res://assets/images/SMB.png" id="1_dtnp1"]
+[ext_resource type="Texture2D" uid="uid://bukrebr403wjl" path="res://assets/images/LajeWhite.png" id="2_be2y3"]
+
+[node name="Sprite2D" type="Sprite2D" unique_id=1093436457]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=605750634]
+position = Vector2(947, 155)
+scale = Vector2(0.18575911, 0.1889692)
+texture = ExtResource("1_dtnp1")
+
+[node name="Sprite2D2" type="Sprite2D" parent="." unique_id=1870344837]
+position = Vector2(952, 435.00003)
+scale = Vector2(0.6524999, 0.6613333)
+texture = ExtResource("2_be2y3")
