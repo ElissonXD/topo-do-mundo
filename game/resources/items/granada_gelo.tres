@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dnf855pvw7edy" path="res://game/scenes/items/objects/Granada gelo.tscn" id="1_apcon"]
 [ext_resource type="Texture2D" uid="uid://dfv7skl08livh" path="res://assets/sprites/itens/sprites/Granada GELADA-Sheet.png" id="2_0ky1i"]
 [ext_resource type="Script" uid="uid://d2nvjq6svo6dr" path="res://game/scripts/items_script/spawner/item_spawn_data.gd" id="3_dvsq6"]
+[ext_resource type="Texture2D" uid="uid://clxagbo0oi521" path="res://assets/sprites/itens/icons/gelo_icon.png" id="4_0ky1i"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d5n2h"]
 atlas = ExtResource("2_0ky1i")
@@ -58,4 +59,4 @@ animations = [{
 script = ExtResource("3_dvsq6")
 item_sprite = SubResource("SpriteFrames_bhunq")
 item_object = ExtResource("1_apcon")
-texture = ExtResource("2_0ky1i")
+texture = ExtResource("4_0ky1i")
