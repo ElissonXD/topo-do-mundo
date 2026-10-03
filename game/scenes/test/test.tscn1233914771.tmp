@@ -1,0 +1,90 @@
+[gd_scene format=3 uid="uid://cvuwnekt1g7s6"]
+
+[ext_resource type="PackedScene" uid="uid://t18vi224ryc7" path="res://game/scenes/items/spawner/item_spawner.tscn" id="1_ehljc"]
+[ext_resource type="Script" uid="uid://n6dh65vj2ay5" path="res://game/scripts/items_script/spawner/item_entry.gd" id="5_nb3nn"]
+[ext_resource type="Resource" uid="uid://d1jysbtnlmtft" path="res://game/resources/items/balao.tres" id="6_k0ovm"]
+[ext_resource type="PackedScene" uid="uid://bf6gqxe7r3mqm" path="res://game/scenes/player/characters/fdp.tscn" id="7_dgugv"]
+[ext_resource type="Resource" uid="uid://bsswfu8id5xom" path="res://game/resources/items/bazuca.tres" id="7_vfsnp"]
+[ext_resource type="Resource" uid="uid://ccv31s50l35yc" path="res://game/resources/items/dardo.tres" id="8_r63ru"]
+[ext_resource type="PackedScene" uid="uid://883kieocyryb" path="res://game/scenes/player/characters/Pero.tscn" id="9_3hpeo"]
+[ext_resource type="Resource" uid="uid://d2k3iwehkf5lh" path="res://game/resources/items/soco.tres" id="9_awprr"]
+[ext_resource type="Resource" uid="uid://c7dqyhctg7wp5" path="res://game/resources/items/zawarudo.tres" id="10_4srd4"]
+[ext_resource type="PackedScene" uid="uid://dxum70k0in2bm" path="res://game/scenes/player/characters/Dave.tscn" id="10_nb3nn"]
+[ext_resource type="Resource" uid="uid://davyngcee5gb6" path="res://game/resources/items/granada_gelo.tres" id="11_5t7ab"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_e6i8i"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_64la1"]
+size = Vector2(1158, 87)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h7c7b"]
+size = Vector2(87, 555)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x1k3w"]
+size = Vector2(81.125, 433)
+
+[sub_resource type="Resource" id="Resource_ojajv"]
+script = ExtResource("5_nb3nn")
+item = ExtResource("6_k0ovm")
+
+[sub_resource type="Resource" id="Resource_ytq0n"]
+script = ExtResource("5_nb3nn")
+item = ExtResource("7_vfsnp")
+
+[sub_resource type="Resource" id="Resource_imwlo"]
+script = ExtResource("5_nb3nn")
+item = ExtResource("8_r63ru")
+
+[sub_resource type="Resource" id="Resource_nhqkh"]
+script = ExtResource("5_nb3nn")
+item = ExtResource("9_awprr")
+
+[sub_resource type="Resource" id="Resource_yskqv"]
+script = ExtResource("5_nb3nn")
+item = ExtResource("10_4srd4")
+
+[sub_resource type="Resource" id="Resource_4ne33"]
+script = ExtResource("5_nb3nn")
+item = ExtResource("11_5t7ab")
+weight = 11.0
+metadata/_custom_type_script = "uid://n6dh65vj2ay5"
+
+[node name="test2" type="Node2D" unique_id=866233104]
+
+[node name="1" type="StaticBody2D" parent="." unique_id=1875221178]
+physics_material_override = SubResource("PhysicsMaterial_e6i8i")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="1" unique_id=1928078175]
+position = Vector2(582, 603.5)
+shape = SubResource("RectangleShape2D_64la1")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=563824624 groups=["Camera"]]
+position = Vector2(585, 319)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="." unique_id=1693796154]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D" unique_id=2028229618]
+position = Vector2(45, 282)
+shape = SubResource("RectangleShape2D_h7c7b")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=313663964]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=841083756]
+position = Vector2(199, 223)
+shape = SubResource("RectangleShape2D_x1k3w")
+
+[node name="PlayerModel2" parent="." unique_id=1604375750 instance=ExtResource("7_dgugv")]
+position = Vector2(701, 490)
+
+[node name="PlayerModel3" parent="." unique_id=1120389457 instance=ExtResource("9_3hpeo")]
+position = Vector2(905, 454)
+control_schema = "2"
+
+[node name="PlayerModel4" parent="." unique_id=503117395 instance=ExtResource("10_nb3nn")]
+position = Vector2(396, 480)
+control_schema = "2"
+
+[node name="ItemSpawner2" parent="." unique_id=1166428446 instance=ExtResource("1_ehljc")]
+position = Vector2(221, 535)
+ITEMS = Array[ExtResource("5_nb3nn")]([SubResource("Resource_ojajv"), SubResource("Resource_ytq0n"), SubResource("Resource_imwlo"), SubResource("Resource_nhqkh"), SubResource("Resource_yskqv"), SubResource("Resource_4ne33")])
+COOLDOWN = 1.0

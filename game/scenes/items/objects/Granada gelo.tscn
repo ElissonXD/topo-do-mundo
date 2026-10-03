@@ -55,11 +55,27 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="RigidBody2D" type="RigidBody2D" unique_id=247062250]
+[sub_resource type="CircleShape2D" id="CircleShape2D_83sn4"]
+radius = 9.0
+
+[node name="RigidBody2D" type="RigidBody2D" unique_id=247062250 groups=["Item"]]
+collision_layer = 4
 script = ExtResource("1_pm7n6")
+POWER = 300.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=994775106]
 shape = SubResource("CircleShape2D_bhunq")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=430971685]
 sprite_frames = SubResource("SpriteFrames_bhunq")
+autoplay = "default"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=96972388]
+collision_layer = 4
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=953060093]
+shape = SubResource("CircleShape2D_83sn4")
+
+[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

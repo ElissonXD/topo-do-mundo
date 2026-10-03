@@ -7,6 +7,7 @@
 [ext_resource type="Resource" uid="uid://ccv31s50l35yc" path="res://game/resources/items/dardo.tres" id="5_ex5my"]
 [ext_resource type="Resource" uid="uid://d2k3iwehkf5lh" path="res://game/resources/items/soco.tres" id="6_ex5my"]
 [ext_resource type="Resource" uid="uid://c7dqyhctg7wp5" path="res://game/resources/items/zawarudo.tres" id="7_ex5my"]
+[ext_resource type="Resource" uid="uid://davyngcee5gb6" path="res://game/resources/items/granada_gelo.tres" id="8_gyexv"]
 
 [sub_resource type="Resource" id="Resource_ojajv"]
 script = ExtResource("2_ytq0n")
@@ -27,7 +28,11 @@ item = ExtResource("6_ex5my")
 [sub_resource type="Resource" id="Resource_yskqv"]
 script = ExtResource("2_ytq0n")
 item = ExtResource("7_ex5my")
-weight = 0.0
+
+[sub_resource type="Resource" id="Resource_fhlr4"]
+script = ExtResource("2_ytq0n")
+item = ExtResource("8_gyexv")
+metadata/_custom_type_script = "uid://n6dh65vj2ay5"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_83sn4"]
 size = Vector2(34, 32)
@@ -36,7 +41,7 @@ size = Vector2(34, 32)
 
 [node name="ItemSpawner" type="Node2D" unique_id=1166428446 node_paths=PackedStringArray("TIMER")]
 script = ExtResource("1_fm84c")
-ITEMS = Array[ExtResource("2_ytq0n")]([SubResource("Resource_ojajv"), SubResource("Resource_ytq0n"), SubResource("Resource_imwlo"), SubResource("Resource_nhqkh"), SubResource("Resource_yskqv")])
+ITEMS = Array[ExtResource("2_ytq0n")]([SubResource("Resource_ojajv"), SubResource("Resource_ytq0n"), SubResource("Resource_imwlo"), SubResource("Resource_nhqkh"), SubResource("Resource_yskqv"), SubResource("Resource_fhlr4")])
 COOLDOWN = 10.0
 TIMER = NodePath("cooldown")
 

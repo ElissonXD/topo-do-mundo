@@ -7,7 +7,6 @@ var players : Array
 var focused : Node2D
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var vision: Area2D = $vision
-var direction_knockback : int = -1
 
 func _ready() -> void:
 	animated_sprite_2d.flip_h = AUTHOR.animation.flip_h	
@@ -18,7 +17,6 @@ func _ready() -> void:
 	if AUTHOR.aim.position.x < 0:
 		direction = -1
 		rotation_degrees = 180
-		direction_knockback = 1
 	linear_velocity.x = (MAX_SPEED / 2) * direction
 	
 
@@ -49,7 +47,9 @@ func _on_body_entered(body: Node) -> void:
 		
 	if body.is_in_group("Player"):
 		if body.can_be_hurt():
-			body.apply_knockback(self, POWER, direction_knockback)
+			var dir_x = sign(linear_velocity.x)
+			var knockback_dir = Vector2(dir_x, -0.5).normalized()
+			body.apply_knockback(knockback_dir, POWER)
 			body.go_to_hurt_state()
 		else:
 			return

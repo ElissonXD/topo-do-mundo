@@ -5,13 +5,13 @@
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_83sn4"]
 
-[node name="zawarudo_object" type="RigidBody2D" unique_id=1600818337]
+[node name="zawarudo_object" type="RigidBody2D" unique_id=1600818337 groups=["Item"]]
 collision_layer = 0
 collision_mask = 0
 sleeping = true
 lock_rotation = true
 script = ExtResource("1_2mepx")
-DURATION = 10.0
+DURATION = 3.0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1709084562]
 shape = SubResource("RectangleShape2D_83sn4")
