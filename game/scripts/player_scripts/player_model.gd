@@ -78,7 +78,8 @@ enum PlayerState {
 	slide,
 	climb,
 	glide,
-	flying
+	flying,
+	freeze
 }
 
 var state: PlayerState
@@ -149,14 +150,15 @@ func _physics_process(delta: float) -> void:
 		
 		if iframes_timer <= 0:
 			animation_player.stop()
-	if state != PlayerState.flying: # exçeção
-		if use_dash(): #o dash pode ser utilizado em qualquer estado
+	if state != PlayerState.flying and state != PlayerState.freeze and state != PlayerState.hurt: # exçeção
+		if use_dash(): #o dash pode ser utilizado em quase qualquer estado
 			go_to_dash_state()
 		
 		if use_glide(): # o glide pode ser usado em qualquer estado
 			go_to_glide_state()
 	if current_item != null and Input.is_action_just_pressed(interact_control): 
-		use_current_item() #item pode ser usado em qualquer estado
+		if state != PlayerState.hurt and state != PlayerState.freeze:
+			use_current_item() #item pode ser usado em quase qualquer estado
 	#print(wall_slide_direction)
 	
 	match state:
@@ -182,6 +184,8 @@ func _physics_process(delta: float) -> void:
 			glide_state(delta, direction)
 		PlayerState.flying:
 			flying_state(delta, direction)
+		PlayerState.freeze:
+			freeze_state(delta, direction)
 	
 	move_and_slide()
 
@@ -275,6 +279,13 @@ func go_to_flying_state():
 	state = PlayerState.flying
 	animation.play('Fall')
 	velocity.y
+	return
+
+func go_to_freeze_state(duration : float):
+	state = PlayerState.freeze
+	hurt_timer = duration
+	normal_hitbox()
+	animation.play('freeze')
 	return
 
 # funções de PERMANÊNCIA
@@ -383,7 +394,7 @@ func wall_slide_state(delta:float, direction: int):
 func hurt_state(delta:float, direction:int):
 	# nesse estado ele nao vai poder se mover, apenas sendo
 	# refém do knockback
-	get_movement(delta, 0)
+	velocity.x = move_toward(velocity.x, 0.0, delta * MOMENTUM_CONSERVATION)
 	
 	hurt_timer -= delta
 	
@@ -501,6 +512,25 @@ func flying_state(delta: float, direction: int):
 	
 	return
 
+func freeze_state(delta: float, direction: int):
+	get_movement(delta, 0) # vai ficar refem do congelamento
+	
+	if hurt_timer > 0:
+		hurt_timer -= delta
+		
+		if hurt_timer <= 0:
+			coyote_timer = COYOTE_TIME # dando uma chance de pular
+			iframes_timer = IFRAMES # evitar ser molestado
+			animation_player.play("invencible")
+			if velocity.x != 0:
+				go_to_walk_state()
+				return
+			else:
+				go_to_idle_state()
+				return
+	
+	return
+
 # funções de SAÍDA
 
 
@@ -516,6 +546,9 @@ func get_movement(delta: float, direction: int):
 		
 		elif sign(velocity.x) == direction and abs(velocity.x) > MAX_SPEED:
 			current_accel = MOMENTUM_CONSERVATION
+		
+	if state == PlayerState.freeze:
+		current_accel = 100
 		
 	velocity.x = move_toward(velocity.x, target_speed, delta * current_accel)
 
@@ -597,15 +630,17 @@ func use_current_item() -> void:
 	item_instance.set_author(self)
 	item_instance.position = aim.global_position # nem sempre
 	get_tree().current_scene.add_child(item_instance)
+	# gambiarra pra gelo
+	if 'gelo' in current_item.resource_path:
+		var dir : Vector2
+		if animation.flip_h: dir = Vector2(-1, -0.4)
+		else: dir = Vector2(1, -0.4)
+		item_instance.throw(dir)
 	current_item = null
 	use_item.emit() 
 
-func apply_knockback(body: Node2D, POWER: float, direction: int) -> void:
-	
-	var knockback = -(POWER*direction)
-	
-	velocity.x = knockback
-	velocity.y = -(POWER * 0.4)
+func apply_knockback(source_vector: Vector2, POWER: float) -> void:
+	velocity = source_vector * POWER
 	return
 
 func can_be_hurt() -> bool:
@@ -621,7 +656,9 @@ func detect_left_collision(body: Node2D):
 	if state == PlayerState.slide and not up.is_colliding():
 		if body.is_in_group("Player") and body != self: # será player
 			if body.can_be_hurt():
-				body.apply_knockback(self, SLIDE_POWER, 1)
+				var dir_x = sign(velocity.x)
+				var knockback_dir = Vector2(dir_x, -0.5).normalized()
+				body.apply_knockback(knockback_dir, SLIDE_POWER)
 				body.go_to_hurt_state();
 
 func detect_right_collision(body: Node2D):
@@ -631,8 +668,11 @@ func detect_right_collision(body: Node2D):
 	if state == PlayerState.slide and not up.is_colliding():
 		if body.is_in_group("Player") and body != self: # será player
 			if body.can_be_hurt():
-				body.apply_knockback(self, SLIDE_POWER, -1)
+				var dir_x = sign(velocity.x)
+				var knockback_dir = Vector2(dir_x, -0.5).normalized()
+				body.apply_knockback(knockback_dir, SLIDE_POWER)
 				body.go_to_hurt_state();
+
 
 func die():
 	vivo = false

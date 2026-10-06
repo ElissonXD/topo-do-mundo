@@ -1,0 +1,62 @@
+[gd_resource type="Resource" script_class="ItemSpawnData" format=3 uid="uid://davyngcee5gb6"]
+
+[ext_resource type="PackedScene" uid="uid://dnf855pvw7edy" path="res://game/scenes/items/objects/Granada gelo.tscn" id="1_apcon"]
+[ext_resource type="Texture2D" uid="uid://dfv7skl08livh" path="res://assets/sprites/itens/sprites/Granada GELADA-Sheet.png" id="2_0ky1i"]
+[ext_resource type="Script" uid="uid://d2nvjq6svo6dr" path="res://game/scripts/items_script/spawner/item_spawn_data.gd" id="3_dvsq6"]
+[ext_resource type="Texture2D" uid="uid://clxagbo0oi521" path="res://assets/sprites/itens/icons/gelo_icon.png" id="4_0ky1i"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d5n2h"]
+atlas = ExtResource("2_0ky1i")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dk53w"]
+atlas = ExtResource("2_0ky1i")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7yy4a"]
+atlas = ExtResource("2_0ky1i")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_23qmm"]
+atlas = ExtResource("2_0ky1i")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_twnkv"]
+atlas = ExtResource("2_0ky1i")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_to4bn"]
+atlas = ExtResource("2_0ky1i")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhunq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d5n2h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dk53w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7yy4a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_23qmm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_twnkv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_to4bn")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[resource]
+script = ExtResource("3_dvsq6")
+item_sprite = SubResource("SpriteFrames_bhunq")
+item_object = ExtResource("1_apcon")
+texture = ExtResource("4_0ky1i")

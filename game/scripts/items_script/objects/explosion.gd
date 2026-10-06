@@ -67,8 +67,10 @@ func _apply_explosion_to(body: Node) -> void:
 	var closeness: float = 1.0 - clamp(distance / explosion_radius, 0.0, 1.0)
 	var knockback_power: float = lerp(min_knockback_power, max_knockback_power, closeness)
 	var stun_time: float = lerp(min_stun_time, max_stun_time, closeness)
-	var horizontal_direction: int = 1 if offset.x >= 0 else -1
+	var knockback_dir = global_position.direction_to(body.global_position)
+	knockback_dir.y = clamp(knockback_dir.y, -2, -0.5)
+	knockback_dir = knockback_dir.normalized()
 	
-	body.apply_knockback(self, knockback_power, -horizontal_direction)
+	body.apply_knockback(knockback_dir, knockback_power)
 	body.go_to_hurt_state()
 	body.hurt_timer = stun_time
