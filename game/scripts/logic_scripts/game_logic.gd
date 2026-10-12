@@ -164,10 +164,10 @@ func go_to_next_map():
 
 
 func _ready() -> void:
-	"""
+	
 	var players : Array[Dictionary]
 	for x in range(4):
-		var object = preload("res://game/scenes/player/Lajetixa.tscn")
+		var object = preload("res://game/scenes/player/characters/Lajetixa.tscn")
 		var player = {
 			"id": x+1,
 			"model": object,
@@ -179,7 +179,7 @@ func _ready() -> void:
 		players.append(player)
 	
 	players_data = players
-"""
+	
 	pass
 
 func clear_and_go_back():

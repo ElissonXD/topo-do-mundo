@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://bmafvc3sob5o6"]
 
+[ext_resource type="Shader" uid="uid://dba3cqi5krfk3" path="res://assets/shaders/greyscale.gdshader" id="1_fu2s4"]
 [ext_resource type="Texture2D" uid="uid://bbf3xp0f75t2m" path="res://assets/tilemaps/NV_NEVE/Parallac/2.png" id="2_gn03m"]
 [ext_resource type="Script" uid="uid://8msp505ubm61" path="res://game/scripts/camera_scripts/Camera somadora.gd" id="2_qs0h8"]
 [ext_resource type="Texture2D" uid="uid://b5vfmwixwymqy" path="res://assets/tilemaps/NV_NEVE/winter_.png" id="3_o7as8"]
@@ -12,6 +13,19 @@
 [ext_resource type="PackedScene" uid="uid://dq2krkscdnpoj" path="res://game/scenes/ui/round_ui/timer_ui.tscn" id="10_pcf16"]
 [ext_resource type="PackedScene" uid="uid://dls45famuwmj8" path="res://game/scenes/ui/round_ui/round_timer.tscn" id="11_183dl"]
 [ext_resource type="PackedScene" uid="uid://t18vi224ryc7" path="res://game/scenes/items/spawner/item_spawner.tscn" id="12_ii72q"]
+[ext_resource type="Script" uid="uid://n6dh65vj2ay5" path="res://game/scripts/items_script/spawner/item_entry.gd" id="13_f6un0"]
+[ext_resource type="Resource" uid="uid://d1jysbtnlmtft" path="res://game/resources/items/balao.tres" id="14_fu2s4"]
+[ext_resource type="Resource" uid="uid://bsswfu8id5xom" path="res://game/resources/items/bazuca.tres" id="15_yiqrb"]
+[ext_resource type="Resource" uid="uid://ccv31s50l35yc" path="res://game/resources/items/dardo.tres" id="16_wuqfg"]
+[ext_resource type="Resource" uid="uid://d2k3iwehkf5lh" path="res://game/resources/items/soco.tres" id="17_8wwtn"]
+[ext_resource type="Resource" uid="uid://c7dqyhctg7wp5" path="res://game/resources/items/zawarudo.tres" id="18_hpe34"]
+[ext_resource type="Resource" uid="uid://davyngcee5gb6" path="res://game/resources/items/granada_gelo.tres" id="19_nxyrx"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fu2s4"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_83sn4"]
+shader = ExtResource("1_fu2s4")
+shader_parameter/intensity = 0.0
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bhunq"]
 
@@ -310,6 +324,33 @@ func _process(delta: float) -> void:
 	pass
 "
 
+[sub_resource type="Resource" id="Resource_3a8cn"]
+script = ExtResource("13_f6un0")
+item = ExtResource("14_fu2s4")
+
+[sub_resource type="Resource" id="Resource_7wst0"]
+script = ExtResource("13_f6un0")
+item = ExtResource("15_yiqrb")
+weight = 5.0
+
+[sub_resource type="Resource" id="Resource_iu5oe"]
+script = ExtResource("13_f6un0")
+item = ExtResource("16_wuqfg")
+
+[sub_resource type="Resource" id="Resource_bhs4e"]
+script = ExtResource("13_f6un0")
+item = ExtResource("17_8wwtn")
+
+[sub_resource type="Resource" id="Resource_avgf1"]
+script = ExtResource("13_f6un0")
+item = ExtResource("18_hpe34")
+
+[sub_resource type="Resource" id="Resource_ad2sq"]
+script = ExtResource("13_f6un0")
+item = ExtResource("19_nxyrx")
+weight = 5.0
+metadata/_custom_type_script = "uid://n6dh65vj2ay5"
+
 [node name="test" type="Node2D" unique_id=866233104]
 
 [node name="Fundo" type="Node2D" parent="." unique_id=381131237]
@@ -325,6 +366,7 @@ scroll_scale = Vector2(0.3, 0.1)
 scroll_offset = Vector2(616, 395.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="Fundo/Parallax2D" unique_id=2098612506]
+material = SubResource("ShaderMaterial_fu2s4")
 texture = ExtResource("2_gn03m")
 
 [node name="Parallax2D2" type="Parallax2D" parent="Fundo" unique_id=1142744222]
@@ -350,6 +392,14 @@ scroll_offset = Vector2(616, 395.5)
 
 [node name="Sprite2D" type="Sprite2D" parent="Fundo/Parallax2D4" unique_id=1935796472]
 texture = ExtResource("5_ii72q")
+
+[node name="ColorRect" type="ColorRect" parent="Fundo" unique_id=762102252 groups=["color_rect"]]
+z_index = 4
+material = SubResource("ShaderMaterial_83sn4")
+offset_left = -178.0
+offset_top = -79.0
+offset_right = 1399.0
+offset_bottom = 872.0
 
 [node name="Jogadores" type="Node2D" parent="." unique_id=575433225]
 position = Vector2(-82, 220)
@@ -378,8 +428,8 @@ general_timer = NodePath("Timer")
 start_timer = NodePath("Timer2")
 roundResults = NodePath("../CanvasLayer/RoundResults")
 
-[node name="Timer" type="Timer" parent="RoundManager" unique_id=1617015737]
-wait_time = 10.0
+[node name="Timer" type="Timer" parent="RoundManager" unique_id=1617015737 groups=["Game_Timer"]]
+wait_time = 30.0
 one_shot = true
 
 [node name="Timer2" type="Timer" parent="RoundManager" unique_id=1598500682]
@@ -432,7 +482,7 @@ offset_bottom = 40.547974
 visible = false
 timer_display = NodePath("../../RoundManager/Timer2")
 
-[node name="round_timer" parent="CanvasLayer" unique_id=1722227797 node_paths=PackedStringArray("display_timer") instance=ExtResource("11_183dl")]
+[node name="round_timer" parent="CanvasLayer" unique_id=1722227797 node_paths=PackedStringArray("display_timer") groups=["Game_Timer"] instance=ExtResource("11_183dl")]
 visible = false
 offset_left = 971.0
 offset_top = 27.0
@@ -444,6 +494,7 @@ display_timer = NodePath("../../RoundManager/Timer")
 
 [node name="ItemSpawner" parent="." unique_id=396564027 instance=ExtResource("12_ii72q")]
 position = Vector2(189, 556)
+ITEMS = Array[ExtResource("13_f6un0")]([SubResource("Resource_3a8cn"), SubResource("Resource_7wst0"), SubResource("Resource_iu5oe"), SubResource("Resource_bhs4e"), SubResource("Resource_avgf1"), SubResource("Resource_ad2sq")])
 COOLDOWN = 2.0
 
 [connection signal="game_end" from="RoundManager" to="CanvasLayer/RoundResults" method="go_to_score_state"]

@@ -69,7 +69,6 @@ func _enter_setup_state() -> void:
 	players = GameLogic.get_players()
 	process_mode = Node.PROCESS_MODE_ALWAYS
 	start_timer.process_mode = Node.PROCESS_MODE_ALWAYS
-	general_timer.process_mode = Node.PROCESS_MODE_PAUSABLE
 	
 	spawn_points = get_tree().get_nodes_in_group('Spawn')
 	
@@ -128,9 +127,6 @@ func _on_timer_timeout() -> void:
 
 func _enter_game_over_state() -> void:
 	get_tree().paused = true
-	
-	for player in players:
-		player['model'].process_mode = Node.PROCESS_MODE_DISABLED
 	
 	await get_tree().create_timer(1.5, true, false, true).timeout
 	

@@ -37,6 +37,9 @@ Player=""
 Spawn=""
 ItemSpawn=""
 Camera=""
+Item=""
+Game_Timer=""
+color_rect=""
 
 [gui]
 
