@@ -1,106 +1,131 @@
 # cursor.gd
 class_name CharacterCursor
-extends Control   # OU TextureRect (se quiser usar como imagem)
+extends Control
 
 enum Mode { CHAR, SKILL }
 
-var player_id: int = 1
-var grid: GridContainer          # grid de personagens
-var skill_grid: GridContainer    # grid de skills
-var columns: int = 4
-var rows: int = 3
-var skill_columns: int = 4
-var skill_rows: int = 1
-
-var current_grid_pos: Vector2i = Vector2i.ZERO
-var current_skill_pos: Vector2i = Vector2i.ZERO
-var mode: Mode = Mode.CHAR
-var current_costume_index: int = 0
-var selected_character: int = 0
-var selected_skill: int = 0
-
 signal cursor_moved(player_index: int, character_index: int)
 signal skill_moved(player_index: int, skill_index: int)
-signal mode_changed(player_index: int, new_mode: int)
 signal confirm_pressed(player_index: int)
 signal cancel_pressed(player_index: int)
 signal costume_changed(player_index: int, costume_index: int)
 
-func _process(delta):
-	var left_action = "left_%d" % player_id
-	var right_action = "right_%d" % player_id
-	var up_action = "up_%d" % player_id
-	var down_action = "down_%d" % player_id
-	var toggle_action = "toggle_mode_%d" % player_id
-	var accept_action = "ui_accept"
-	var cancel_action = "ui_cancel"
+# Ações do Mapa de Entrada. O sufixo _1.._4 é adicionado automaticamente.
+const ACT_LEFT := "left"
+const ACT_RIGHT := "right"
+const ACT_UP := "up"
+const ACT_DOWN := "down"
+const ACT_CONFIRM := "use_ability"
+const ACT_CANCEL := "interact"
+const ACT_COSTUME := "jump"
 
-	# Alternar modo
-	if Input.is_action_just_pressed(toggle_action):
-		set_mode(Mode.SKILL if mode == Mode.CHAR else Mode.CHAR)
+# Afasta um pouco os cursores de jogadores diferentes no mesmo slot
+const STAGGER := Vector2(14, 14)
 
-	# Movimento
-	var direction = Vector2i.ZERO
-	if Input.is_action_just_pressed(left_action):
-		direction = Vector2i(-1, 0)
-	elif Input.is_action_just_pressed(right_action):
-		direction = Vector2i(1, 0)
-	elif Input.is_action_just_pressed(up_action):
-		direction = Vector2i(0, -1)
-	elif Input.is_action_just_pressed(down_action):
-		direction = Vector2i(0, 1)
+var player_id: int = 1               # 1..4
+var grid: GridContainer              # grid de personagens
+var skill_grid: GridContainer        # grid de habilidades
+var costume_count: int = 6
+var current_costume_index: int = 0
+var mode: Mode = Mode.CHAR
 
-	if direction != Vector2i.ZERO:
-		move_cursor(direction)
+# active = false ignora todo input (usado no frame em que o jogador entra)
+var active := true
+# locked = true só aceita "cancelar" (jogador já está pronto)
+var locked := false
 
-	# Confirmação / Cancelamento
-	if Input.is_action_just_pressed(accept_action):
-		emit_signal("confirm_pressed", player_id - 1)
-	if Input.is_action_just_pressed(cancel_action):
-		emit_signal("cancel_pressed", player_id - 1)
+var _char_pos := Vector2i.ZERO
+var _skill_pos := Vector2i.ZERO
+var _tween: Tween
 
-	# Troca de cor (pode usar use_ability_N ou jump_N)
-	if Input.is_action_just_pressed("use_ability_%d" % player_id):
-		current_costume_index += 1
-		emit_signal("costume_changed", player_id - 1, current_costume_index)
-	elif Input.is_action_just_pressed("jump_%d" % player_id):
-		current_costume_index -= 1
-		emit_signal("costume_changed", player_id - 1, current_costume_index)
 
-func set_mode(new_mode: Mode):
+func _process(_delta: float) -> void:
+	if not active:
+		return
+
+	var sfx := "_%d" % player_id
+
+	if Input.is_action_just_pressed(ACT_CANCEL + sfx):
+		cancel_pressed.emit(player_id - 1)
+
+	if locked:
+		return
+
+	var dir := Vector2i.ZERO
+	if Input.is_action_just_pressed(ACT_LEFT + sfx):
+		dir = Vector2i.LEFT
+	elif Input.is_action_just_pressed(ACT_RIGHT + sfx):
+		dir = Vector2i.RIGHT
+	elif Input.is_action_just_pressed(ACT_UP + sfx):
+		dir = Vector2i.UP
+	elif Input.is_action_just_pressed(ACT_DOWN + sfx):
+		dir = Vector2i.DOWN
+	if dir != Vector2i.ZERO:
+		move_cursor(dir)
+
+	if Input.is_action_just_pressed(ACT_CONFIRM + sfx):
+		confirm_pressed.emit(player_id - 1)
+
+	if mode == Mode.CHAR and Input.is_action_just_pressed(ACT_COSTUME + sfx):
+		change_costume(1)
+
+
+func set_mode(new_mode: Mode) -> void:
 	mode = new_mode
-	update_cursor_position()
-	emit_signal("mode_changed", player_id - 1, mode)
+	if mode == Mode.SKILL:
+		_skill_pos = Vector2i.ZERO
+		skill_moved.emit(player_id - 1, 0)
+	update_position()
 
-func move_cursor(direction: Vector2i):
+
+func change_costume(step: int) -> void:
+	current_costume_index = posmod(current_costume_index + step, costume_count)
+	costume_changed.emit(player_id - 1, current_costume_index)
+
+
+func get_character_index() -> int:
+	return _char_pos.y * grid.columns + _char_pos.x
+
+
+func get_skill_index() -> int:
+	return _skill_pos.y * skill_grid.columns + _skill_pos.x
+
+
+func move_cursor(dir: Vector2i) -> void:
+	var g := _current_grid()
+	if g == null:
+		return
+	var pos := _char_pos if mode == Mode.CHAR else _skill_pos
+	var new_pos := pos + dir
+	var idx := new_pos.y * g.columns + new_pos.x
+	if new_pos.x < 0 or new_pos.x >= g.columns or new_pos.y < 0 or idx >= g.get_child_count():
+		return
 	if mode == Mode.CHAR:
-		var new_pos = current_grid_pos + direction
-		if new_pos.x < 0 or new_pos.x >= columns or new_pos.y < 0 or new_pos.y >= rows:
-			return
-		current_grid_pos = new_pos
-		selected_character = new_pos.y * columns + new_pos.x
-		emit_signal("cursor_moved", player_id - 1, selected_character)
+		_char_pos = new_pos
+		cursor_moved.emit(player_id - 1, idx)
 	else:
-		var new_pos = current_skill_pos + direction
-		if new_pos.x < 0 or new_pos.x >= skill_columns or new_pos.y < 0 or new_pos.y >= skill_rows:
-			return
-		current_skill_pos = new_pos
-		selected_skill = new_pos.y * skill_columns + new_pos.x
-		emit_signal("skill_moved", player_id - 1, selected_skill)
-	update_cursor_position()
+		_skill_pos = new_pos
+		skill_moved.emit(player_id - 1, idx)
+	update_position()
 
-func update_cursor_position():
-	if mode == Mode.CHAR and grid:
-		var child_index = current_grid_pos.y * columns + current_grid_pos.x
-		if child_index < grid.get_child_count():
-			var target = grid.get_child(child_index)
-			# Calcula o centro do alvo e subtrai metade do tamanho do cursor
-			var target_center = target.global_position + target.size * 0.5
-			global_position = target_center - size * 0.5
-	elif mode == Mode.SKILL and skill_grid:
-		var child_index = current_skill_pos.y * skill_columns + current_skill_pos.x
-		if child_index < skill_grid.get_child_count():
-			var target = skill_grid.get_child(child_index)
-			# Mesma lógica para o grid de skills
-			var target_center = target.global_position + target.size * 0.5
-			global_position = target_center - size * 0.5
+
+func update_position(animated := true) -> void:
+	var g := _current_grid()
+	if g == null:
+		return
+	var idx := get_character_index() if mode == Mode.CHAR else get_skill_index()
+	if idx >= g.get_child_count():
+		return
+	var target := g.get_child(idx) as Control
+	var dest := target.global_position + target.size * 0.5 - size * 0.5 + STAGGER * (player_id - 1)
+	if _tween:
+		_tween.kill()
+	if animated:
+		_tween = create_tween()
+		_tween.tween_property(self, "global_position", dest, 0.08)
+	else:
+		global_position = dest
+
+
+func _current_grid() -> GridContainer:
+	return grid if mode == Mode.CHAR else skill_grid
