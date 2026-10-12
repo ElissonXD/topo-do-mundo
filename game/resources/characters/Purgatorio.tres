@@ -8,6 +8,6 @@
 script = ExtResource("1_003s1")
 character_name = "Feldspato"
 portrait = ExtResource("1_nccjj")
-scene_path = "res://game/scenes/player/fdp.tscn"
+scene_path = "res://game/scenes/player/characters/fdp.tscn"
 model = ExtResource("1_kstcp")
 metadata/_custom_type_script = "uid://cgmvkhv68atyw"

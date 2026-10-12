@@ -1,13 +1,5 @@
 extends Control
 
-# portraits
-@export var portraits : Dictionary = {
-	'fdp':load("res://assets/sprites/players/portraits/Purgatorio_portrait.png"),
-	'pero': load("res://assets/sprites/players/portraits/Pero_portrait.png"),
-	'dave': load("res://assets/sprites/players/portraits/Dave_portrait.png"),
-	'laje': load("res://assets/sprites/players/portraits/Lajetixa_idle.png")
-}
-
 # conteudo de cada player
 @onready var timervolta: Label = $timervolta
 
@@ -167,8 +159,7 @@ func change_and_sort() -> void:
 		
 		# Procura o TextureRect dentro do container da posição para alterar o retrato
 		var portrait_node = slot["container"].get_node_or_null("TextureRect")
-		if portrait_node and portraits.has(data["portrait"]):
-			portrait_node.texture = portraits[data["portrait"]]
+		portrait_node.texture = data['portrait']
 	
 
 

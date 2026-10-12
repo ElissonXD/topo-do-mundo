@@ -16,6 +16,12 @@
 [ext_resource type="Texture2D" uid="uid://djdvprbkfgopj" path="res://addons/at-icons/node2d/Slide.svg" id="10_t55d2"]
 [ext_resource type="AudioStream" uid="uid://cmd1aie2ybuu1" path="res://assets/audio/music/Three Red Hearts Penguins vs Rabbits.ogg" id="15_gusky"]
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_83sn4"]
+bg_color = Color(0.4724152, 0.4724152, 0.4724151, 1)
+border_width_top = 1
+border_width_bottom = 1
+border_color = Color(1, 0, 0, 1)
+
 [node name="Control" type="Control" unique_id=1105589059]
 layout_mode = 3
 anchors_preset = 15
@@ -28,6 +34,7 @@ size_flags_vertical = 3
 script = ExtResource("1_550ul")
 characters = Array[ExtResource("2_meyjq")]([ExtResource("3_0brrk"), ExtResource("4_ylpxa"), ExtResource("5_ybkdl"), ExtResource("6_i5fkx")])
 skill_icons = Array[Texture2D]([ExtResource("7_i373e"), ExtResource("8_gusky"), ExtResource("9_x0n37"), ExtResource("10_t55d2")])
+skill_names = Array[String](["Dash", "Glide", "Climb", "Slide"])
 slot_scene = ExtResource("3_8vufk")
 cursor_scene = ExtResource("8_i373e")
 costume_shader = ExtResource("9_0brrk")
@@ -66,6 +73,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 160)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 columns = 4
 
 [node name="SkillGrid" type="GridContainer" parent="Layout/Topo" unique_id=2090784456]
@@ -73,6 +81,7 @@ unique_name_in_owner = true
 custom_minimum_size = Vector2(120, 160)
 layout_mode = 2
 size_flags_horizontal = 3
+size_flags_vertical = 4
 columns = 4
 
 [node name="PlayerPanels" type="HBoxContainer" parent="Layout" unique_id=104208512]
@@ -95,3 +104,14 @@ mouse_filter = 2
 stream = ExtResource("15_gusky")
 volume_db = -8.925
 autoplay = true
+
+[node name="ready" type="Label" parent="." unique_id=797712776]
+visible = false
+layout_mode = 0
+offset_top = 205.0
+offset_right = 1152.0
+offset_bottom = 240.0
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_83sn4")
+text = "Jogo começando em: "
+horizontal_alignment = 1

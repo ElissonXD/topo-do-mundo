@@ -31,13 +31,13 @@ var mode: Mode = Mode.CHAR
 
 # active = false ignora todo input (usado no frame em que o jogador entra)
 var active := true
+var two_presses = 2 # gambiarra para não selecionar automaticamente
 # locked = true só aceita "cancelar" (jogador já está pronto)
 var locked := false
 
 var _char_pos := Vector2i.ZERO
 var _skill_pos := Vector2i.ZERO
 var _tween: Tween
-
 
 func _process(_delta: float) -> void:
 	if not active:
@@ -64,7 +64,10 @@ func _process(_delta: float) -> void:
 		move_cursor(dir)
 
 	if Input.is_action_just_pressed(ACT_CONFIRM + sfx):
-		confirm_pressed.emit(player_id - 1)
+		two_presses -= 1
+		
+		if two_presses <= 0:
+			confirm_pressed.emit(player_id - 1)
 
 	if mode == Mode.CHAR and Input.is_action_just_pressed(ACT_COSTUME + sfx):
 		change_costume(1)

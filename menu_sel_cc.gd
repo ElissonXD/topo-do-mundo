@@ -8,11 +8,12 @@ enum Stage { CHAR, SKILL, READY }
 const MAX_PLAYERS := 4
 const COSTUME_COUNT := 6
 const JOIN_ACTION := "use_ability"     # mesma ação de confirmar do cursor
-const START_DELAY := 1.5               # segundos após todos ficarem prontos
+const START_DELAY := 3         # segundos após todos ficarem prontos
 const PLAYER_COLORS := [Color.RED, Color.DODGER_BLUE, Color.LIME_GREEN, Color.YELLOW]
 
 @export var characters: Array[CharacterData] = []
 @export var skill_icons: Array[Texture2D] = []
+@export var skill_names: Array[String] = []
 @export var slot_scene: PackedScene
 @export var cursor_scene: PackedScene
 @export var costume_shader: Shader     # troca_cor.gdshader
@@ -21,6 +22,9 @@ const PLAYER_COLORS := [Color.RED, Color.DODGER_BLUE, Color.LIME_GREEN, Color.YE
 @onready var skill_grid: GridContainer = %SkillGrid
 @onready var panels_container: HBoxContainer = %PlayerPanels
 @onready var cursors_layer: Control = %Cursors
+@onready var ready_label: Label = $ready
+var start_timer: float = -1.0
+
 
 var slots: Array[CharacterSlot] = []
 var panels: Array[Dictionary] = []
@@ -39,20 +43,52 @@ func _ready() -> void:
 		slot.setup(c)
 		slots.append(slot)
 
-	for tex in skill_icons:
+	for i in skill_icons.size():
+		var tex = skill_icons[i]
+		
+		var box := VBoxContainer.new()
+		box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+		box.size_flags_vertical = Control.SIZE_EXPAND_FILL
+		
 		var icon := TextureRect.new()
 		icon.texture = tex
 		icon.custom_minimum_size = Vector2(48, 48)
-		icon.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 		icon.size_flags_vertical = Control.SIZE_EXPAND_FILL
 		icon.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 		icon.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
-		skill_grid.add_child(icon)
+		box.add_child(icon)
+		
+		var label := Label.new()
+		label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+		label.text = skill_names[i]
+		box.add_child(label)
+		
+		
+		
+		skill_grid.add_child(box)
 
 	for p in MAX_PLAYERS:
 		_build_panel(p)
 		_refresh_panel(p)
 
+# ---------- Processamento ----------
+
+func _process(_delta: float) -> void:
+	var blink_alpha = (sin(Time.get_ticks_msec() * 0.005) * 0.4) + 0.6 
+	
+	for p in MAX_PLAYERS:
+		if panels[p].status.text in ['Pronto!', 'Aperte para entrar']:
+			panels[p].status.modulate.a = blink_alpha
+		else:
+			panels[p].status.modulate.a = 1.0
+	
+	if start_timer > 0:
+		start_timer -= _delta
+		ready_label.text = "Iniciando em " + str(int(ceil(start_timer))) + '...' 
+		
+		if start_timer <= 0:
+			start_timer = -1.0
+			_finish()
 
 # ---------- Entrada de jogadores ----------
 
@@ -139,6 +175,8 @@ func _on_confirm(p: int) -> void:
 
 
 func _on_cancel(p: int) -> void:
+	start_timer = -1.0
+	ready_label.visible = false
 	var st: Dictionary = players[p]
 	_countdown_id += 1                 # cancela a contagem de início
 	match st.stage:
@@ -181,16 +219,16 @@ func _resolve_costume(p: int) -> void:
 
 
 func _check_all_ready() -> void:
-	if players.is_empty():
+	if len(players) < 2:
 		return
 	for p in players:
 		if players[p].stage != Stage.READY:
 			return
+	
 	_countdown_id += 1
 	var id := _countdown_id
-	await get_tree().create_timer(START_DELAY).timeout
-	if id == _countdown_id:
-		_finish()
+	ready_label.visible = true
+	start_timer = START_DELAY
 
 
 func _finish() -> void:
@@ -200,13 +238,14 @@ func _finish() -> void:
 	for p in ids:
 		var st: Dictionary = players[p]
 		var c: CharacterData = characters[st.character]
-		result.append({
+		GameLogic.players_data.append({
 			"id": p + 1,
 			"model": c.scene_path,
 			"costume_index": st.costume,
 			"portrait": c.portrait,
 			"controls": str(p + 1),
 			"ability": st.skill,
+			"score": 0
 		})
 	selection_finished.emit(result)
 	get_tree().change_scene_to_file("res://game/scenes/test/test_2 da camera.tscn")
@@ -223,6 +262,7 @@ func _build_panel(p: int) -> void:
 	var box := PanelContainer.new()
 	box.size_flags_horizontal = Control.SIZE_EXPAND_FILL
 	var v := VBoxContainer.new()
+	v.add_theme_constant_override("separation", 30)
 	box.add_child(v)
 
 	var title := Label.new()
@@ -239,19 +279,34 @@ func _build_panel(p: int) -> void:
 	mat.shader = costume_shader
 	portrait.material = mat
 	v.add_child(portrait)
+	
+	var char_name := Label.new()
+	char_name.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	v.add_child(char_name)
 
 	var skill := TextureRect.new()
 	skill.custom_minimum_size = Vector2(48, 48)
 	skill.expand_mode = TextureRect.EXPAND_IGNORE_SIZE
 	skill.stretch_mode = TextureRect.STRETCH_KEEP_ASPECT_CENTERED
 	v.add_child(skill)
+	
+	var skill_label := Label.new()
+	skill_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	skill_label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	skill_label.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	v.add_child(skill_label)
 
 	var status := Label.new()
 	status.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	status.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
+	status.size_flags_horizontal = Control.SIZE_EXPAND_FILL
+	status.size_flags_vertical = Control.SIZE_EXPAND_FILL
+	status.autowrap_mode = TextServer.AUTOWRAP_WORD_SMART
+	status.custom_minimum_size = Vector2(100, 40)
 	v.add_child(status)
 
 	panels_container.add_child(box)
-	panels.append({ "portrait": portrait, "skill": skill, "status": status, "material": mat })
+	panels.append({ "portrait": portrait, "char_name": char_name, "skill": skill, "skill_label": skill_label, "status": status, "material": mat })
 
 
 func _refresh_panel(p: int) -> void:
@@ -259,17 +314,22 @@ func _refresh_panel(p: int) -> void:
 	if not players.has(p):
 		panel.portrait.texture = null
 		panel.skill.texture = null
+		panel.skill_label.text = ''
+		panel.char_name.text = ''
 		panel.status.text = "Aperte para entrar"
 		return
 
 	var st: Dictionary = players[p]
 	panel.portrait.texture = characters[st.character].portrait
 	panel.material.set_shader_parameter("hue_shift", float(st.costume) / COSTUME_COUNT)
-
+	panel.char_name.text = characters[st.character].character_name
+	
 	if st.stage != Stage.CHAR and st.skill < skill_icons.size():
 		panel.skill.texture = skill_icons[st.skill]
+		panel.skill_label.text = skill_names[st.skill]
 	else:
 		panel.skill.texture = null
+		panel.skill_label.text = ''
 
 	match st.stage:
 		Stage.CHAR:

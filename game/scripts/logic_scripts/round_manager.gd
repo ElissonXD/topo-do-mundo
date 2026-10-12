@@ -156,7 +156,6 @@ func create_ui_itens(length:int) -> void:
 	var object = load("res://game/scenes/ui/round_ui/item_ui.tscn")
 
 	for i in range(length):
-		var player_portrait = players[i]['portrait']
 		var player_ui_item = object.instantiate()
 		player_ui_item.change_color(colors_dict[i])
 		players[i]['model'].get_item.connect(player_ui_item.get_item)

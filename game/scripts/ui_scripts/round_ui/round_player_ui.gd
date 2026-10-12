@@ -1,12 +1,5 @@
 extends Control
 
-@export var portraits : Dictionary = {
-	'fdp':load("res://assets/sprites/players/portraits/Purgatorio_portrait.png"),
-	'pero': load("res://assets/sprites/players/portraits/Pero_portrait.png"),
-	'dave': load("res://assets/sprites/players/portraits/Dave_portrait.png"),
-	'laje': load("res://assets/sprites/players/portraits/Lajetixa_idle.png")
-}
-
 
 # Seções para mostrar
 @onready var panel_container: PanelContainer = $PanelContainer
@@ -32,10 +25,10 @@ extends Control
 func _ready() -> void:
 	pass
 
-func show_details(player : String, portrait: String) -> void:
+func show_details(player : String, texture: Texture2D) -> void:
 	round_player.visible = true
 	playername.text = player
-	texture_rect.texture = portraits[portrait]
+	texture_rect.texture = texture
 	var current_style = panel_container.get_theme_stylebox("panel") as StyleBoxFlat
 	var new_style = current_style.duplicate() as StyleBoxFlat
 	if '1' in player:

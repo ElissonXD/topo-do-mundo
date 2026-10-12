@@ -94,7 +94,9 @@ func get_players():
 	var active_players: Array[Dictionary] = []
 	
 	for data in players_data:
-		var node_instance = data['model'].instantiate()
+		var instance = load(data['model'])
+		
+		var node_instance = instance.instantiate()
 		
 		node_instance.ability = data['ability']
 		node_instance.control_schema = data['controls']
@@ -164,7 +166,7 @@ func go_to_next_map():
 
 
 func _ready() -> void:
-	
+	return
 	var players : Array[Dictionary]
 	for x in range(4):
 		var object = preload("res://game/scenes/player/characters/Lajetixa.tscn")
@@ -179,8 +181,6 @@ func _ready() -> void:
 		players.append(player)
 	
 	players_data = players
-	
-	pass
 
 func clear_and_go_back():
 	players_data = []
