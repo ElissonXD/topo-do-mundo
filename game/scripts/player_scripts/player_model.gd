@@ -29,6 +29,7 @@ var interact_control : String;
 @export var GRAVITY : float = 1000
 @export var MAX_FALL_SPEED : float = 600
 @export var MAX_WALL_SLIDE_SPEED : float = 300
+@export var ANIMATION_CLIMB_FIX : bool = false
 @onready var animation: AnimatedSprite2D = $AnimatedSprite2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var aim: Marker2D = $aim
@@ -217,12 +218,12 @@ func go_to_wall_slide_state():
 	state = PlayerState.wall_slide
 	velocity.y = 0
 	wall_timer = WALL_DETACH
-	animation.play("wall_jump")
+	animation.play("Wall Slide")
 	return
 
 func go_to_hurt_state():
 	state = PlayerState.hurt
-	animation.play('hurt')
+	animation.play('Hurt')
 	normal_hitbox()
 	hurt_timer = HURT_TIME
 	
@@ -232,7 +233,7 @@ func go_to_hurt_state():
 
 func go_to_dash_state():
 	state = PlayerState.dash
-	animation.play('Jump')
+	animation.play('Dash')
 	has_dash = false
 	dash_timer = DASH_TIME
 	dash_direction = Input.get_vector(left_control, right_control, 
@@ -241,9 +242,15 @@ func go_to_dash_state():
 	if dash_direction == Vector2.ZERO:
 		dash_direction = Vector2.UP
 	velocity = DASH_POWER * dash_direction
-	if dash_direction == Vector2.UP: 
+	if dash_direction == Vector2.UP:
 		# não é a forma ideial de resolver mas é oq tem
 		velocity *= 0.7
+	
+	# fix para animação
+	if dash_direction.y < 0:
+		animation.rotation_degrees = -90
+	elif dash_direction.y > 0:
+		animation.rotation_degrees = 90
 	
 	if camera.has_method('shake_camera'):
 		camera.shake_camera(30, 10)
@@ -268,7 +275,7 @@ func go_to_climb_state():
 
 func go_to_glide_state():
 	state = PlayerState.glide
-	animation.play('glide')
+	animation.play('Glide')
 	glide_timer = GLIDE_TIME
 	can_glide = false
 	velocity.y = 0
@@ -285,7 +292,7 @@ func go_to_freeze_state(duration : float):
 	state = PlayerState.freeze
 	hurt_timer = duration
 	normal_hitbox()
-	animation.play('freeze')
+	animation.play('Freeze')
 	return
 
 # funções de PERMANÊNCIA
@@ -364,6 +371,8 @@ func falling_state(delta: float, direction: int):
 			return
 
 func wall_slide_state(delta:float, direction: int):
+	flip_sprite(-wall_slide_direction)
+	
 	if Input.is_action_just_pressed(jump_control):
 		wall_jump(delta, wall_slide_direction)
 		go_to_jump_state()
@@ -418,6 +427,7 @@ func dash_state(delta:float, direction: int):
 		return
 	
 	if dash_timer < 0:
+		animation.rotation_degrees = 0
 		
 		if is_on_floor():
 			if velocity.x != 0:
@@ -475,29 +485,43 @@ func glide_state(delta: float, direction: int):
 		return
 
 func climb_state(delta: float, direction: int):
+	flip_sprite(wall_slide_direction)
 	var vertical_input = Input.get_axis(up_control, down_control)
 	
 	if vertical_input != 0:
 		velocity.y = vertical_input * CLIMB_POWER
+		if velocity.y < 0:
+			animation.play()
+		elif velocity.y > 0:
+			animation.play_backwards()
 	else:
 		velocity.y = 0
+		animation.pause()
+	
+	# fix de animação para LAJETIXA
+
+	if ANIMATION_CLIMB_FIX:
+		if wall_slide_direction > 0:
+			animation.offset.x = 6
+		elif wall_slide_direction < 0:
+			animation.offset.x = -6
+		
 	
 	velocity.x = 0  # fixo na parede
 	
-	# Flip do sprite
-	if wall_slide_direction != 0:
-		animation.flip_h = (wall_slide_direction < 0)
-	
 	if not is_on_wall() or Input.is_action_just_pressed(ability_control):
 		go_to_falling_state()
+		animation.flip_v = false
 		return
 	
 	if Input.is_action_just_pressed(jump_control):
+		animation.flip_v = false
 		wall_jump(delta, wall_slide_direction)
 		go_to_jump_state()
 		return
 	
 	if is_on_floor():
+		animation.flip_v = false
 		if velocity.x != 0:
 			go_to_walk_state()
 		else:
@@ -553,6 +577,7 @@ func get_movement(delta: float, direction: int):
 	velocity.x = move_toward(velocity.x, target_speed, delta * current_accel)
 
 func flip_sprite(direction: int):
+	
 	if direction > 0:
 		animation.flip_h = false
 		animation.offset.x = 12
@@ -561,6 +586,9 @@ func flip_sprite(direction: int):
 		animation.flip_h = true
 		animation.offset.x = -12
 		aim.position.x = -13
+	
+
+	
 	return
 
 func wall_jump(delta: float, direction: int):
