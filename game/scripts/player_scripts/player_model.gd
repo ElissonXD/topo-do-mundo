@@ -44,7 +44,7 @@ var interact_control : String;
 @onready var colission: CollisionShape2D = $Colission
 @onready var rightcollision: CollisionShape2D = $right/rightcollision
 @onready var leftcollision: CollisionShape2D = $left/leftcollision
-
+@onready var sfx_player: AudioStreamPlayer = $AudioStreamPlayer
 
 # timers
 @export_category("General Timers")
@@ -115,6 +115,18 @@ var can_slide : bool = true
 @export var GLIDE_TIME : float = 0.5
 var glide_timer : float
 var can_glide : bool = true
+
+#SFX em dicionario
+var state_sfx: Dictionary = {
+	"Hurt": preload("res://assets/resources/audio/SFX_Hurt.tres"),
+	"Slide": preload("res://assets/resources/audio/SFX_Throw.tres"),
+	"jump": preload("res://assets/resources/audio/SFX_Pulo.tres"),
+	"Dash": preload("res://assets/resources/audio/SFX_Dash.tres"),
+	"Glide": preload("res://assets/resources/audio/SFX_Fly.tres"),
+	"Climb": preload("res://assets/resources/audio/SFX_Climb.tres"),
+	"Freeze": preload("res://assets/resources/audio/SFX_Freeze.tres"),
+	"Death": preload("res://assets/resources/audio/SFX_Death.tres"),
+}
 
 # Funções de física
 
@@ -204,6 +216,7 @@ func go_to_walk_state():
 	return
 
 func go_to_jump_state():
+	play_sfx("Jump") 
 	state = PlayerState.jump
 	animation.play("Jump")
 	velocity.y = JUMP_VELOCITY
@@ -222,6 +235,7 @@ func go_to_wall_slide_state():
 	return
 
 func go_to_hurt_state():
+	play_sfx("Hurt") 
 	state = PlayerState.hurt
 	animation.play('Hurt')
 	normal_hitbox()
@@ -232,6 +246,7 @@ func go_to_hurt_state():
 	return
 
 func go_to_dash_state():
+	play_sfx("Dash") 
 	state = PlayerState.dash
 	animation.play('Dash')
 	has_dash = false
@@ -258,6 +273,7 @@ func go_to_dash_state():
 	return
 
 func go_to_slide_state(direction: int):
+	play_sfx("Slide") 
 	state = PlayerState.slide
 	animation.play("Slide")
 	low_hitbox()
@@ -267,6 +283,7 @@ func go_to_slide_state(direction: int):
 	return
 
 func go_to_climb_state():
+	play_sfx("Climb") 
 	state = PlayerState.climb
 	animation.play('Climb')
 	velocity.y = 0
@@ -274,6 +291,7 @@ func go_to_climb_state():
 	return
 
 func go_to_glide_state():
+	play_sfx("Glide") 
 	state = PlayerState.glide
 	animation.play('Glide')
 	glide_timer = GLIDE_TIME
@@ -289,6 +307,7 @@ func go_to_flying_state():
 	return
 
 func go_to_freeze_state(duration : float):
+	play_sfx("Freeze") 
 	state = PlayerState.freeze
 	hurt_timer = duration
 	normal_hitbox()
@@ -703,8 +722,15 @@ func detect_right_collision(body: Node2D):
 
 
 func die():
+	play_sfx("Death") 
 	vivo = false
 	process_mode = Node.PROCESS_MODE_DISABLED
 
 func is_alive():
 	return vivo #mudar dps com as condicoes futuras
+
+func play_sfx(sfx_name: String) -> void:
+	if not state_sfx.has(sfx_name):
+		return
+	sfx_player.stream = state_sfx[sfx_name]
+	sfx_player.play()

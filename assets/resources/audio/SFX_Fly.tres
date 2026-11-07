@@ -1,0 +1,11 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://c6fq3xxbwaxtc"]
+
+[ext_resource type="AudioStream" uid="uid://g5njci5gny1o" path="res://assets/audio/SFX/Fly.wav" id="1_a2yky"]
+[ext_resource type="AudioStream" uid="uid://cgrwllwpcg324" path="res://assets/audio/SFX/Fly2.wav" id="2_l60wf"]
+[ext_resource type="AudioStream" uid="uid://casxo3oxajyjb" path="res://assets/audio/SFX/Fly3.wav" id="3_nghcj"]
+
+[resource]
+streams_count = 3
+stream_0/stream = ExtResource("1_a2yky")
+stream_1/stream = ExtResource("2_l60wf")
+stream_2/stream = ExtResource("3_nghcj")
