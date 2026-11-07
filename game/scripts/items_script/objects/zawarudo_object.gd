@@ -31,7 +31,8 @@ func _ready() -> void:
 	for time in timer_affected:
 		time.process_mode = Node.PROCESS_MODE_DISABLED
 	
-	color_rect.material.set_shader_parameter("intensity", 1.0)
+	if color_rect:
+		color_rect.material.set_shader_parameter("intensity", 1.0)
 	PhysicsServer2D.set_active(true)
 	
 	#aplicar algum efeito de shader e efeitos sonoros aqui
@@ -53,7 +54,8 @@ func _end_effect() -> void:
 			item.process_mode = Node.PROCESS_MODE_PAUSABLE
 	for time in timer_affected:
 		time.process_mode = Node.PROCESS_MODE_PAUSABLE
-	color_rect.material.set_shader_parameter("intensity", 0.0)
+	if color_rect:
+		color_rect.material.set_shader_parameter("intensity", 0.0)
 	AUTHOR.z_index = 0
 	queue_free()
 
