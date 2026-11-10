@@ -137,6 +137,7 @@ vertical_alignment = 1
 stream = ExtResource("5_881bh")
 volume_db = -20.567
 autoplay = true
+parameters/looping = false
 
 [node name="ColorRect" parent="." unique_id=1489075585 instance=ExtResource("6_7uhc5")]
 visible = false

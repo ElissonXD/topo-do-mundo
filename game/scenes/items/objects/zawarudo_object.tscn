@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://doeq2leytxu74" path="res://game/scripts/items_script/objects/zawarudo_object.gd" id="1_2mepx"]
 [ext_resource type="Texture2D" uid="uid://dd2uiswboksbc" path="res://assets/sprites/itens/sprites/jojopng-export.png" id="2_2mepx"]
+[ext_resource type="AudioStream" uid="uid://dknq6bmem1sd3" path="res://assets/audio/Itens/za-warudo-sfx-no-voice.wav" id="3_c10a5"]
+[ext_resource type="AudioStream" uid="uid://dddf15p6fajn" path="res://assets/audio/Itens/star-platinum-za-warudo-star-platinum-the-world-time-resume_Vr8OMdD.wav" id="4_b0bwm"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_83sn4"]
 
@@ -18,3 +20,9 @@ shape = SubResource("RectangleShape2D_83sn4")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=374271220]
 texture = ExtResource("2_2mepx")
+
+[node name="AudioStreamPlayerComeco" type="AudioStreamPlayer" parent="." unique_id=2015202783]
+stream = ExtResource("3_c10a5")
+
+[node name="AudioStreamPlayerFim" type="AudioStreamPlayer" parent="." unique_id=1430934904]
+stream = ExtResource("4_b0bwm")

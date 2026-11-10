@@ -1,0 +1,18 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://brtxvherpgvkr"]
+
+[ext_resource type="AudioStream" uid="uid://ddf5pctg3u4fy" path="res://assets/audio/Itens/hotline-miami-punch.wav" id="1_5qn3b"]
+[ext_resource type="AudioStream" uid="uid://dmll5tddtgatc" path="res://assets/audio/Itens/jojo-punch.wav" id="2_rkfxa"]
+[ext_resource type="AudioStream" uid="uid://bkhoab5rf34xm" path="res://assets/audio/Itens/punch-gaming-sound-effect-hd_RzlG1GE.wav" id="3_d7mcu"]
+[ext_resource type="AudioStream" uid="uid://c84oad1gusbt4" path="res://assets/audio/Itens/punch_u4LmMsr.wav" id="4_xcyvm"]
+[ext_resource type="AudioStream" uid="uid://drxn08udxbn4s" path="res://assets/audio/Itens/strongpunch.wav" id="5_qork1"]
+
+[resource]
+streams_count = 5
+stream_0/stream = ExtResource("1_5qn3b")
+stream_0/weight = 2.0
+stream_1/stream = ExtResource("2_rkfxa")
+stream_2/stream = ExtResource("3_d7mcu")
+stream_2/weight = 2.0
+stream_3/stream = ExtResource("4_xcyvm")
+stream_3/weight = 2.0
+stream_4/stream = ExtResource("5_qork1")

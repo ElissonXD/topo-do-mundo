@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://blgeplrncfgsl" path="res://game/scripts/items_script/objects/soco_object.gd" id="1_4n3f5"]
 [ext_resource type="Texture2D" uid="uid://ct7wu2xkesh21" path="res://assets/sprites/itens/sprites/images.jpeg" id="2_7cnhy"]
+[ext_resource type="AudioStream" uid="uid://brtxvherpgvkr" path="res://assets/resources/audio/SFX_Punch.tres" id="3_usnxk"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mfnai"]
 size = Vector2(16, 5)
@@ -31,5 +32,9 @@ shape = SubResource("RectangleShape2D_qky2f")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1345802751]
 scale = Vector2(0.08, 0.08)
 texture = ExtResource("2_7cnhy")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2096499116]
+stream = ExtResource("3_usnxk")
+bus = &"Sfx"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

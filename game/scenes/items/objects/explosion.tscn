@@ -167,3 +167,5 @@ metadata/_aseprite_wizard_interface_config_ = {
 }
 
 [node name="Explosion" type="Node2D" parent="." unique_id=377534618]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2138243587]

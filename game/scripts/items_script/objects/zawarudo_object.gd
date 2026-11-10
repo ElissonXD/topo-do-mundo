@@ -5,7 +5,8 @@ var players_affected: Array[Node]
 var items_affected: Array[Node]
 var timer_affected: Array[Node]
 var color_rect : ColorRect
-
+@onready var Sfx_inicio : AudioStreamPlayer = $AudioStreamPlayerComeco
+@onready var Sfx_Fim : AudioStreamPlayer = $AudioStreamPlayerFim
 
 func _ready() -> void:
 	
@@ -33,7 +34,7 @@ func _ready() -> void:
 	
 	color_rect.material.set_shader_parameter("intensity", 1.0)
 	PhysicsServer2D.set_active(true)
-	
+	Sfx_inicio.play()
 	#aplicar algum efeito de shader e efeitos sonoros aqui
 
 
@@ -55,6 +56,7 @@ func _end_effect() -> void:
 		time.process_mode = Node.PROCESS_MODE_PAUSABLE
 	color_rect.material.set_shader_parameter("intensity", 0.0)
 	AUTHOR.z_index = 0
+	Sfx_Fim.play()
 	queue_free()
 
 
