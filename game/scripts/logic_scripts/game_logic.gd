@@ -115,20 +115,21 @@ func update_player_total_points(id: int, points:int):
 	return
 
 #func get_players():
-	##mock temporarário
-	#var players : Array[Dictionary] = []
-	#for x in range(4):
-		#var object = load("res://game/scenes/player/fdp.tscn").instantiate()
-		#object.ability = 3
-		#object.vivo = true
-		#object.control_schema = str(x+1)
-		#var player = {
-			#"id": x+1,
-			#"model": object
-		#}
-		#players.append(player)
+#	##mock temporarário
+#	var players : Array[Dictionary] = []
+#	for x in range(4):
+#		var object = load("res://game/scenes/player/characters/fdp.tscn").instantiate()
+#		object.ability = 3
+#		object.vivo = true
+#		object.control_schema = str(x+1)
+#		var player = {
+#			"id": x+1,
+#			"model": object,
+#			"portrait": "laje" 
+#		}
+#		players.append(player)
 #
-	#return players
+#	return players
 
 func update_game_points(total_points : Array[int]):
 	var player_rank: Array[int] = range(total_points.size())
@@ -166,7 +167,6 @@ func go_to_next_map():
 
 
 func _ready() -> void:
-	return
 	var players : Array[Dictionary]
 	for x in range(4):
 		var object = preload("res://game/scenes/player/characters/Lajetixa.tscn")

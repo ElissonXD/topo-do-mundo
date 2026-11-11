@@ -142,7 +142,7 @@ func _enter_game_over_state() -> void:
 # utils
 
 func create_ui_points(length: int) -> void:
-	var object = load("res://game/scenes/ui/round_ui/player_bar.tscn")
+	var object = load("res://assets/images/LajeWhite.png")
 
 	for i in range(length):
 		var player_portrait = players[i]['portrait']
