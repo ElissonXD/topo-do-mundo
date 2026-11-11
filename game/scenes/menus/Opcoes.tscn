@@ -215,6 +215,7 @@ stream = ExtResource("12_16y30")
 volume_db = 0.005
 autoplay = true
 bus = &"Music"
+parameters/looping = false
 
 [connection signal="pressed" from="MarginContainer/VBoxContainer/TextureButton" to="." method="_on_texture_button_pressed"]
 [connection signal="timeout" from="ColorRect/Timer" to="." method="_on_timer_timeout"]

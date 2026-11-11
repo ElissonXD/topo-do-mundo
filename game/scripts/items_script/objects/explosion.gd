@@ -11,7 +11,7 @@ extends Area2D
 @export var fallback_lifetime: float = 1.0
  
 @onready var animated_sprite: AnimatedSprite2D = get_node_or_null("AnimatedSprite2D")
- 
+@onready var audio : AudioStreamPlayer = $AudioStreamPlayer
 var _author: Node2D = null
 var _already_hit: Array = []
  
@@ -23,6 +23,7 @@ func setup(author: Node2D) -> void:
 func _ready() -> void:
 	if animated_sprite != null and animated_sprite.sprite_frames != null:
 		animated_sprite.play("default")
+		audio.play()
 
 	body_entered.connect(_on_body_entered)
 	

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bumovlmjcbvnx" path="res://game/scripts/player_scripts/player_model.gd" id="1_r01cm"]
 [ext_resource type="Shader" uid="uid://cr2wx16b0818h" path="res://assets/shaders/Colorswt.gdshader" id="2_4aryg"]
-[ext_resource type="Texture2D" uid="uid://daut1mrfrqibh" path="res://assets/sprites/players/sprites/Dave_slide.png" id="3_4aryg"]
+[ext_resource type="Texture2D" uid="uid://dkqrl7rk5xuqy" path="res://assets/sprites/players/sprites/Dave_openday_gamejam_backup-Sheet.png" id="3_hpgfa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mm1n1"]
 resource_local_to_scene = true
@@ -44,9 +44,61 @@ region = Rect2(276, 378, 92, 63)
 atlas = SubResource("PortableCompressedTexture2D_r01cm")
 region = Rect2(368, 378, 92, 63)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_rcjwp"]
+atlas = ExtResource("3_hpgfa")
+region = Rect2(460, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmdky"]
+atlas = ExtResource("3_hpgfa")
+region = Rect2(552, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l41k1"]
+atlas = ExtResource("3_hpgfa")
+region = Rect2(644, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbjb2"]
+atlas = ExtResource("3_hpgfa")
+region = Rect2(0, 441, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bohe7"]
+atlas = ExtResource("3_hpgfa")
+region = Rect2(92, 441, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpgfa"]
+atlas = ExtResource("3_hpgfa")
+region = Rect2(460, 189, 92, 63)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_nxluu"]
 atlas = SubResource("PortableCompressedTexture2D_r01cm")
 region = Rect2(368, 315, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5mg4"]
+atlas = ExtResource("3_hpgfa")
+region = Rect2(460, 315, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ji0vi"]
+atlas = ExtResource("3_hpgfa")
+region = Rect2(552, 315, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p267b"]
+atlas = ExtResource("3_hpgfa")
+region = Rect2(644, 315, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfvoh"]
+atlas = ExtResource("3_hpgfa")
+region = Rect2(0, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uyjqj"]
+atlas = ExtResource("3_hpgfa")
+region = Rect2(92, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jun6r"]
+atlas = ExtResource("3_hpgfa")
+region = Rect2(184, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wq5eq"]
+atlas = ExtResource("3_hpgfa")
+region = Rect2(368, 378, 92, 63)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hpa1k"]
 atlas = SubResource("PortableCompressedTexture2D_r01cm")
@@ -164,6 +216,10 @@ region = Rect2(0, 252, 92, 63)
 atlas = SubResource("PortableCompressedTexture2D_r01cm")
 region = Rect2(92, 252, 92, 63)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_bgvr7"]
+atlas = ExtResource("3_hpgfa")
+region = Rect2(184, 441, 92, 63)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_2jpic"]
 atlas = SubResource("PortableCompressedTexture2D_r01cm")
 region = Rect2(276, 63, 92, 63)
@@ -204,6 +260,10 @@ region = Rect2(368, 126, 92, 63)
 atlas = SubResource("PortableCompressedTexture2D_r01cm")
 region = Rect2(460, 126, 92, 63)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_tcsin"]
+atlas = ExtResource("3_hpgfa")
+region = Rect2(276, 378, 92, 63)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_muwlf"]
 animations = [{
 "frames": [{
@@ -234,6 +294,34 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_rcjwp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rmdky")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l41k1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xbjb2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bohe7")
+}],
+"loop": 1,
+"name": &"Climb",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hpgfa")
+}],
+"loop": 1,
+"name": &"Dash",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_nxluu")
 }, {
 "duration": 1.0,
@@ -245,6 +333,42 @@ animations = [{
 "loop": 1,
 "name": &"Fall",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c5mg4")
+}],
+"loop": 1,
+"name": &"Freeze",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ji0vi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p267b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfvoh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uyjqj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jun6r")
+}],
+"loop": 1,
+"name": &"Glide",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wq5eq")
+}],
+"loop": 1,
+"name": &"Hurt",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -353,7 +477,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_4aryg")
+"texture": SubResource("AtlasTexture_bgvr7")
 }],
 "loop": 1,
 "name": &"Slide",
@@ -393,6 +517,14 @@ animations = [{
 "loop": 1,
 "name": &"Walk",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tcsin")
+}],
+"loop": 1,
+"name": &"Wall Slide",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hi634"]
@@ -444,7 +576,28 @@ _data = {
 z_index = 1
 collision_layer = 2
 script = ExtResource("1_r01cm")
+vivo = null
+control_schema = null
+MAX_SPEED = null
+ACEL = null
+FRICTION = null
+MOMENTUM_CONSERVATION = null
+JUMP_VELOCITY = null
+GRAVITY = null
+MAX_FALL_SPEED = null
+MAX_WALL_SLIDE_SPEED = null
+ANIMATION_CLIMB_FIX = null
 ability = 3
+WALL_DETACH = null
+COYOTE_TIME = null
+HURT_TIME = null
+IFRAMES = null
+DASH_POWER = null
+DASH_TIME = null
+SLIDE_POWER = null
+SLIDE_TIME = null
+CLIMB_POWER = null
+GLIDE_TIME = null
 
 [node name="Colission" type="CollisionShape2D" parent="." unique_id=2035951123]
 position = Vector2(0, -0.5)
@@ -455,7 +608,7 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_7met1")
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_muwlf")
-animation = &"Slide"
+animation = &"ATK"
 offset = Vector2(12, 0)
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": false,

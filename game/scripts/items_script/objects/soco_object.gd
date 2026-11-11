@@ -3,7 +3,7 @@ extends Item
 var direction: int = 1
 var OFFSET: float = 20
 @onready var sprite_2d: Sprite2D = $Sprite2D
-
+@onready var Sfx : AudioStreamPlayer =$AudioStreamPlayer
 
 func _ready() -> void:
 	direction = 1
@@ -34,6 +34,7 @@ func _on_body_entered(body: Node) -> void:
 	
 	if not body.can_be_hurt():
 		return
+	Sfx.play()
 	var knockback_dir = Vector2(direction, -0.2).normalized()
 	body.apply_knockback(knockback_dir, POWER)
 	body.go_to_hurt_state()

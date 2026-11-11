@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bumovlmjcbvnx" path="res://game/scripts/player_scripts/player_model.gd" id="1_buh7r"]
 [ext_resource type="Shader" uid="uid://cr2wx16b0818h" path="res://assets/shaders/Colorswt.gdshader" id="1_c8lnc"]
-[ext_resource type="Texture2D" uid="uid://dkuyawgavwcme" path="res://assets/sprites/players/sprites/feldspato_slide.png" id="3_r7dpu"]
+[ext_resource type="Texture2D" uid="uid://ciix2yn1c2a15" path="res://assets/sprites/players/sprites/Full_FDP-Sheet.png" id="3_tlkwe"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mm1n1"]
 resource_local_to_scene = true
@@ -44,6 +44,30 @@ region = Rect2(460, 378, 92, 63)
 atlas = SubResource("PortableCompressedTexture2D_buh7r")
 region = Rect2(552, 378, 92, 63)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ik2e"]
+atlas = ExtResource("3_tlkwe")
+region = Rect2(368, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjkrg"]
+atlas = ExtResource("3_tlkwe")
+region = Rect2(460, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a3dkd"]
+atlas = ExtResource("3_tlkwe")
+region = Rect2(552, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lbsaf"]
+atlas = ExtResource("3_tlkwe")
+region = Rect2(644, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1436"]
+atlas = ExtResource("3_tlkwe")
+region = Rect2(0, 441, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2r0wt"]
+atlas = ExtResource("3_tlkwe")
+region = Rect2(0, 378, 92, 63)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_740f4"]
 atlas = SubResource("PortableCompressedTexture2D_buh7r")
 region = Rect2(460, 315, 92, 63)
@@ -55,6 +79,34 @@ region = Rect2(368, 315, 92, 63)
 [sub_resource type="AtlasTexture" id="AtlasTexture_ic6ex"]
 atlas = SubResource("PortableCompressedTexture2D_buh7r")
 region = Rect2(552, 315, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e726g"]
+atlas = ExtResource("3_tlkwe")
+region = Rect2(184, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hpn88"]
+atlas = ExtResource("3_tlkwe")
+region = Rect2(92, 441, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qcr3a"]
+atlas = ExtResource("3_tlkwe")
+region = Rect2(184, 441, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2e6fw"]
+atlas = ExtResource("3_tlkwe")
+region = Rect2(276, 441, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ik6lm"]
+atlas = ExtResource("3_tlkwe")
+region = Rect2(368, 441, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q3c65"]
+atlas = ExtResource("3_tlkwe")
+region = Rect2(460, 441, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ha14u"]
+atlas = ExtResource("3_tlkwe")
+region = Rect2(276, 378, 92, 63)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0ire5"]
 atlas = SubResource("PortableCompressedTexture2D_buh7r")
@@ -172,9 +224,9 @@ region = Rect2(0, 252, 92, 63)
 atlas = SubResource("PortableCompressedTexture2D_buh7r")
 region = Rect2(92, 252, 92, 63)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3grme"]
-atlas = ExtResource("3_r7dpu")
-region = Rect2(0, 0, 92, 63)
+[sub_resource type="AtlasTexture" id="AtlasTexture_qp2cu"]
+atlas = ExtResource("3_tlkwe")
+region = Rect2(92, 378, 92, 63)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w13vm"]
 atlas = SubResource("PortableCompressedTexture2D_buh7r")
@@ -216,6 +268,10 @@ region = Rect2(368, 126, 92, 63)
 atlas = SubResource("PortableCompressedTexture2D_buh7r")
 region = Rect2(460, 126, 92, 63)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_fbo7t"]
+atlas = ExtResource("3_tlkwe")
+region = Rect2(92, 315, 92, 63)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_3grme"]
 animations = [{
 "frames": [{
@@ -246,6 +302,34 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_6ik2e")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gjkrg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a3dkd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lbsaf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1436")
+}],
+"loop": 1,
+"name": &"Climb",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2r0wt")
+}],
+"loop": 1,
+"name": &"Dash",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_740f4")
 }, {
 "duration": 1.0,
@@ -257,6 +341,42 @@ animations = [{
 "loop": 1,
 "name": &"Fall",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e726g")
+}],
+"loop": 1,
+"name": &"Freeze",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hpn88")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qcr3a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2e6fw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ik6lm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q3c65")
+}],
+"loop": 1,
+"name": &"Glide",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ha14u")
+}],
+"loop": 1,
+"name": &"Hurt",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -365,7 +485,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3grme")
+"texture": SubResource("AtlasTexture_qp2cu")
 }],
 "loop": 1,
 "name": &"Slide",
@@ -405,6 +525,14 @@ animations = [{
 "loop": 1,
 "name": &"Walk",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fbo7t")
+}],
+"loop": 1,
+"name": &"Wall Slide",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hi634"]
@@ -466,12 +594,14 @@ shape = SubResource("RectangleShape2D_mm1n1")
 texture_filter = 1
 material = SubResource("ShaderMaterial_7met1")
 sprite_frames = SubResource("SpriteFrames_3grme")
-animation = &"Slide"
+animation = &"Wall Slide"
 offset = Vector2(12, 0)
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": false,
 "layer_section": false,
-"pending_changes": {}
+"pending_changes": {
+"source": "res://assets/sprites/players/sprites/laje openday gamejam.aseprite"
+}
 }
 metadata/_aseprite_wizard_config_ = {
 "embed_tex": true,

@@ -1,0 +1,9 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://mmhjmr0wf5u5"]
+
+[ext_resource type="AudioStream" uid="uid://b247aclwfy5jl" path="res://assets/audio/SFX/Climbwav.wav" id="1_58qqf"]
+[ext_resource type="AudioStream" uid="uid://jxpbr55ltaux" path="res://assets/audio/SFX/Climbwav2.wav" id="2_jkj5o"]
+
+[resource]
+streams_count = 2
+stream_0/stream = ExtResource("1_58qqf")
+stream_1/stream = ExtResource("2_jkj5o")

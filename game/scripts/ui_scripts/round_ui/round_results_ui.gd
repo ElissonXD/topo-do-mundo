@@ -1,5 +1,5 @@
 extends Control
-
+@onready var Sfx: AudioStreamPlayer = $AudioStreamPlayer
 # players
 @export var round_player: Control 
 @export var round_player_2: Control 
@@ -45,7 +45,7 @@ func _ready() -> void:
 	var players = GameLogic.get_players()
 	number_players = len(players)
 	players_array = [round_player, round_player_2, round_player_3, round_player_4]
-
+	Sfx.play()
 
 
 func _process(delta: float) -> void:
