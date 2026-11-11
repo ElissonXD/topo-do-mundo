@@ -472,6 +472,7 @@ script = ExtResource("11_3454k")
 stream = ExtResource("12_tj48x")
 volume_db = -14.641
 autoplay = true
+parameters/looping = true
 
 [node name="Control" parent="." unique_id=1610285260 instance=ExtResource("13_8wql4")]
 visible = false

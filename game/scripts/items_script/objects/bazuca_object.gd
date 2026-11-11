@@ -8,7 +8,7 @@ var _exploded: bool = false
 
 
 @onready var sprite: Sprite2D = get_node_or_null("Sprite2D")
-
+@onready var sfx : AudioStreamPlayer = $AudioStreamPlayer
 
 func _ready() -> void:
 	direction = 1
@@ -30,7 +30,7 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node) -> void:
 	if body == AUTHOR:
 		return
-	
+	sfx.play() #se der algo errado,olhe aqui
 	_explode()
 
 

@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://ce0ofkg6a7beo" path="res://game/scripts/items_script/objects/bazuca_object.gd" id="1_rwvct"]
 [ext_resource type="PackedScene" uid="uid://b5uuq36qnh2qg" path="res://game/scenes/items/objects/explosion.tscn" id="2_jrct2"]
 [ext_resource type="Texture2D" uid="uid://c3o610j8fydha" path="res://assets/sprites/itens/sprites/missel png.jpg" id="3_jrct2"]
+[ext_resource type="AudioStream" uid="uid://ddj4a4j2cfuqb" path="res://assets/audio/Itens/tiro.wav" id="4_d8xjy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mfnai"]
 size = Vector2(16, 5)
@@ -33,5 +34,9 @@ shape = SubResource("RectangleShape2D_qky2f")
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=499355539]
 scale = Vector2(0.04, 0.04)
 texture = ExtResource("3_jrct2")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=85173839]
+stream = ExtResource("4_d8xjy")
+bus = &"Sfx"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_body_entered"]

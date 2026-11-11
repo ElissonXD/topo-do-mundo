@@ -1,0 +1,11 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://l2vkfsycr1av"]
+
+[ext_resource type="AudioStream" uid="uid://cwqtfw4gw0lcb" path="res://assets/audio/Itens/Boom2.wav" id="1_srfvx"]
+[ext_resource type="AudioStream" uid="uid://biovpkirc6jka" path="res://assets/audio/Itens/Boom3.wav" id="2_stg85"]
+[ext_resource type="AudioStream" uid="uid://2njmbakal1ju" path="res://assets/audio/Itens/Boom.wav" id="3_4nqql"]
+
+[resource]
+streams_count = 3
+stream_0/stream = ExtResource("1_srfvx")
+stream_1/stream = ExtResource("2_stg85")
+stream_2/stream = ExtResource("3_4nqql")
