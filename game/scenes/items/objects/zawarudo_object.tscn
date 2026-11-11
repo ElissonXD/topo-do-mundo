@@ -23,6 +23,8 @@ texture = ExtResource("2_2mepx")
 
 [node name="AudioStreamPlayerComeco" type="AudioStreamPlayer" parent="." unique_id=2015202783]
 stream = ExtResource("3_c10a5")
+bus = &"Sfx"
 
 [node name="AudioStreamPlayerFim" type="AudioStreamPlayer" parent="." unique_id=1430934904]
 stream = ExtResource("4_b0bwm")
+bus = &"Sfx"

@@ -42,10 +42,12 @@ func _process(delta: float) -> void:
 	DURATION -= delta
 	
 	if DURATION <= 0:
+		Sfx_Fim.play()
 		_end_effect()
 
 
 func _end_effect() -> void:
+	
 	for player in players_affected:
 		if player != AUTHOR:
 			player.process_mode = Node.PROCESS_MODE_PAUSABLE
@@ -56,7 +58,7 @@ func _end_effect() -> void:
 		time.process_mode = Node.PROCESS_MODE_PAUSABLE
 	color_rect.material.set_shader_parameter("intensity", 0.0)
 	AUTHOR.z_index = 0
-	Sfx_Fim.play()
+	
 	queue_free()
 
 

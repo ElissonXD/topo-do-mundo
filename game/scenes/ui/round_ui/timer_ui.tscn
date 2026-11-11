@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://dq2krkscdnpoj"]
 
 [ext_resource type="Script" uid="uid://bqi5igvgw5md7" path="res://game/scripts/ui_scripts/round_ui/timer_ui.gd" id="1_yyunv"]
+[ext_resource type="AudioStream" uid="uid://vmymw5ujetx3" path="res://assets/audio/SFX/countdown-3-2-1-go.wav" id="2_rxjwl"]
 
 [node name="timer_ui" type="Control" unique_id=655387506]
 layout_mode = 3
@@ -35,3 +36,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 50
 text = "x"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=2049375950]
+stream = ExtResource("2_rxjwl")
+bus = &"Sfx"
