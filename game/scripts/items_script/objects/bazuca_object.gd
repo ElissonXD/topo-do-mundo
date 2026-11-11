@@ -31,7 +31,9 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node) -> void:
 	if body == AUTHOR:
 		return
-	sfx.play() #se der algo errado,olhe aqui
+	sfx.reparent(get_tree().current_scene)
+	sfx.play()
+	sfx.finished.connect(sfx.queue_free)
 	_explode()
 
 
@@ -40,6 +42,8 @@ func _explode() -> void:
 		return
 	_exploded = true
 	sfx2.play()
+	sfx2.reparent(get_tree().current_scene)
+	sfx2.finished.connect(sfx2.queue_free)
 	if explosion_scene != null:
 		var explosion := explosion_scene.instantiate()
 		get_tree().current_scene.add_child(explosion)

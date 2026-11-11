@@ -43,7 +43,9 @@ func _process(delta: float) -> void:
 	DURATION -= delta
 	
 	if DURATION <= 0:
+		Sfx_Fim.reparent(get_tree().current_scene)
 		Sfx_Fim.play()
+		Sfx_Fim.finished.connect(Sfx_Fim.queue_free)
 		_end_effect()
 
 

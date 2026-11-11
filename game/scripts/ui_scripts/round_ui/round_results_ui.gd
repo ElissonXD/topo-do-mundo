@@ -45,7 +45,6 @@ func _ready() -> void:
 	var players = GameLogic.get_players()
 	number_players = len(players)
 	players_array = [round_player, round_player_2, round_player_3, round_player_4]
-	Sfx.play()
 
 
 func _process(delta: float) -> void:
@@ -63,6 +62,7 @@ func _process(delta: float) -> void:
 # funções de entrada
 
 func go_to_score_state(results : Array):
+	Sfx.play()
 	state = RoundState.score
 	visible = true
 	process_mode = Node.PROCESS_MODE_ALWAYS

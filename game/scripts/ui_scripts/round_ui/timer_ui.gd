@@ -7,9 +7,9 @@ extends Control
 func _ready() -> void:
 	visible = true
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	sfx.play(0.69)
 
 func _process(delta: float) -> void:
-	sfx.play()
 	# vai começar do 5, então subtrair 1 pq delays
 	label.text = str(int(timer_display.time_left) - 1) + '...'
 	
