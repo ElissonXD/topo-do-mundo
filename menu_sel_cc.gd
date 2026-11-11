@@ -248,7 +248,7 @@ func _finish() -> void:
 			"score": 0
 		})
 	selection_finished.emit(result)
-	get_tree().change_scene_to_file("res://game/scenes/test/test_2 da camera.tscn")
+	get_tree().change_scene_to_file("res://game/scenes/maps/mapa_arena.tscn")
 
 
 # ---------- Visual ----------

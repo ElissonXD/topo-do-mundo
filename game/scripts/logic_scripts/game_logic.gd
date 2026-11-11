@@ -21,9 +21,9 @@ game logic princiapl
 @export var players_data: Array[Dictionary] = []
 @export var total_players : int = 1
 @export var maps : Dictionary = {
-	0: "res://game/scenes/test/test_2 da camera.tscn",
-	1: "res://game/scenes/test/test_2 da camera.tscn",
-	2: 'res://game/scenes/test/test_2 da camera.tscn',
+	0: "res://game/scenes/maps/mapa_arena.tscn",
+	1: "res://game/scenes/maps/mapa_escada.tscn",
+	2: 'res://game/scenes/maps/mapa_torre.tscn',
 	3: "res://game/scenes/menus/resultados_finais.tscn"
 }
 @export var current_map : int = 0
@@ -167,6 +167,7 @@ func go_to_next_map():
 
 
 func _ready() -> void:
+	return
 	var players : Array[Dictionary]
 	for x in range(4):
 		var object = preload("res://game/scenes/player/characters/Lajetixa.tscn")
