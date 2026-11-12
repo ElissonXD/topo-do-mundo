@@ -21,9 +21,9 @@ game logic princiapl
 @export var players_data: Array[Dictionary] = []
 @export var total_players : int = 1
 @export var maps : Dictionary = {
-	0: "res://game/scenes/test/test_2 da camera.tscn",
-	1: "res://game/scenes/test/test_2 da camera.tscn",
-	2: 'res://game/scenes/test/test_2 da camera.tscn',
+	0: "res://game/scenes/maps/mapa_arena.tscn",
+	1: "res://game/scenes/maps/mapa_escada.tscn",
+	2: 'res://game/scenes/maps/mapa_torre.tscn',
 	3: "res://game/scenes/menus/resultados_finais.tscn"
 }
 @export var current_map : int = 0
@@ -115,20 +115,21 @@ func update_player_total_points(id: int, points:int):
 	return
 
 #func get_players():
-	##mock temporarário
-	#var players : Array[Dictionary] = []
-	#for x in range(4):
-		#var object = load("res://game/scenes/player/fdp.tscn").instantiate()
-		#object.ability = 3
-		#object.vivo = true
-		#object.control_schema = str(x+1)
-		#var player = {
-			#"id": x+1,
-			#"model": object
-		#}
-		#players.append(player)
+#	##mock temporarário
+#	var players : Array[Dictionary] = []
+#	for x in range(4):
+#		var object = load("res://game/scenes/player/characters/fdp.tscn").instantiate()
+#		object.ability = 3
+#		object.vivo = true
+#		object.control_schema = str(x+1)
+#		var player = {
+#			"id": x+1,
+#			"model": object,
+#			"portrait": "laje" 
+#		}
+#		players.append(player)
 #
-	#return players
+#	return players
 
 func update_game_points(total_points : Array[int]):
 	var player_rank: Array[int] = range(total_points.size())

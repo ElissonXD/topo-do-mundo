@@ -411,4 +411,4 @@ func start_game():
 	$Control/AnimationPlayer.play("Transicao")
 	await get_tree().create_timer(0.5).timeout
 	# Mude para a cena do jogo
-	get_tree().change_scene_to_file("res://game/scenes/test/test_2 da camera.tscn") # COLOQUE O CAMINHO DA SUA FASE AQUI
+	get_tree().change_scene_to_file("res://game/scenes/maps/mapa_arena.tscn") # COLOQUE O CAMINHO DA SUA FASE AQUI
