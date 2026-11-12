@@ -19,6 +19,7 @@
 [ext_resource type="Resource" uid="uid://d2k3iwehkf5lh" path="res://game/resources/items/soco.tres" id="17_8wwtn"]
 [ext_resource type="Resource" uid="uid://c7dqyhctg7wp5" path="res://game/resources/items/zawarudo.tres" id="18_hpe34"]
 [ext_resource type="Resource" uid="uid://davyngcee5gb6" path="res://game/resources/items/granada_gelo.tres" id="19_nxyrx"]
+[ext_resource type="AudioStream" uid="uid://4cwgjkd1xe2y" path="res://assets/audio/music/Fases/Three Red Hearts Deep Blue.ogg" id="20_63uf5"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_83sn4"]
 shader = ExtResource("1_fu2s4")
@@ -352,14 +353,15 @@ tile_map_data = PackedByteArray("AAARAAEAAAAAABEAAAARAAIAAAAAABIAAAARAAMAAAAAABI
 tile_set = SubResource("TileSet_riqys")
 use_kinematic_bodies = true
 
-[node name="RoundManager" type="Node" parent="." unique_id=1886654352 node_paths=PackedStringArray("general_timer", "start_timer", "roundResults")]
+[node name="RoundManager" type="Node" parent="." unique_id=1886654352 node_paths=PackedStringArray("general_timer", "start_timer", "roundResults", "BGM")]
 script = ExtResource("9_gn03m")
 general_timer = NodePath("Timer")
 start_timer = NodePath("Timer2")
 roundResults = NodePath("../CanvasLayer/RoundResults")
+BGM = NodePath("../AudioStreamPlayer2D")
 
 [node name="Timer" type="Timer" parent="RoundManager" unique_id=1617015737 groups=["Game_Timer"]]
-wait_time = 5.0
+wait_time = 90.0
 one_shot = true
 
 [node name="Timer2" type="Timer" parent="RoundManager" unique_id=1598500682]
@@ -486,6 +488,9 @@ COOLDOWN = 4.0
 position = Vector2(891, 270)
 ITEMS = Array[ExtResource("13_f6un0")]([SubResource("Resource_3a8cn"), SubResource("Resource_7wst0"), SubResource("Resource_iu5oe"), SubResource("Resource_bhs4e"), SubResource("Resource_avgf1"), SubResource("Resource_ad2sq")])
 COOLDOWN = 4.0
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer" parent="." unique_id=128502886]
+stream = ExtResource("20_63uf5")
 
 [connection signal="game_end" from="RoundManager" to="CanvasLayer/RoundResults" method="go_to_score_state"]
 [connection signal="timeout" from="RoundManager/Timer" to="RoundManager" method="_on_timer_timeout"]

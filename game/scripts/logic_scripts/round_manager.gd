@@ -12,6 +12,7 @@ extends Node
 @export var players : Array[Dictionary]
 @export var players_points : Array[int] = [0,0,0,0]
 @export var roundResults : Control
+@export var BGM : AudioStreamPlayer
 var crown_object : Node2D
 
 var colors_dict : Dictionary = {
@@ -87,6 +88,9 @@ func _on_timer_2_timeout() -> void:
 	
 func _enter_playing_state() -> void:
 	get_tree().paused = false
+	if BGM:
+		BGM.play()
+		
 	general_timer.start()
 	get_game_timer.emit(general_timer)
 
@@ -129,6 +133,9 @@ func _enter_game_over_state() -> void:
 	get_tree().paused = true
 	
 	await get_tree().create_timer(1.5, true, false, true).timeout
+	
+	if BGM:
+		BGM.stop()
 	
 	var placar = calculate_score()
 	
