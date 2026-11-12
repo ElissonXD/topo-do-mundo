@@ -1,0 +1,7 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://c3ecg5lq74w2i"]
+
+[ext_resource type="AudioStream" uid="uid://c41mrdav4so0d" path="res://assets/audio/SFX/Dash.wav" id="1_lg33d"]
+
+[resource]
+streams_count = 1
+stream_0/stream = ExtResource("1_lg33d")

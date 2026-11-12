@@ -2,7 +2,7 @@
 
 [ext_resource type="Shader" uid="uid://cr2wx16b0818h" path="res://assets/shaders/Colorswt.gdshader" id="1_ogwj7"]
 [ext_resource type="Script" uid="uid://bumovlmjcbvnx" path="res://game/scripts/player_scripts/player_model.gd" id="2_c5ssw"]
-[ext_resource type="Texture2D" uid="uid://c6kjad7w0yxot" path="res://assets/sprites/players/sprites/Pero_slide.png" id="3_c5ssw"]
+[ext_resource type="Texture2D" uid="uid://dx77nxdrlvfar" path="res://assets/sprites/players/sprites/Pero_openday_gamejam-Sheet.png" id="3_ad6jy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mm1n1"]
 resource_local_to_scene = true
@@ -44,6 +44,30 @@ region = Rect2(0, 378, 92, 63)
 atlas = SubResource("PortableCompressedTexture2D_ogwj7")
 region = Rect2(92, 378, 92, 63)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_2lm5v"]
+atlas = ExtResource("3_ad6jy")
+region = Rect2(460, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_47nca"]
+atlas = ExtResource("3_ad6jy")
+region = Rect2(552, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3khag"]
+atlas = ExtResource("3_ad6jy")
+region = Rect2(644, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dfmo8"]
+atlas = ExtResource("3_ad6jy")
+region = Rect2(0, 441, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1o2cb"]
+atlas = ExtResource("3_ad6jy")
+region = Rect2(92, 441, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c6lou"]
+atlas = ExtResource("3_ad6jy")
+region = Rect2(552, 441, 92, 63)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_q6sa1"]
 atlas = SubResource("PortableCompressedTexture2D_ogwj7")
 region = Rect2(0, 315, 92, 63)
@@ -55,6 +79,26 @@ region = Rect2(92, 315, 92, 63)
 [sub_resource type="AtlasTexture" id="AtlasTexture_0usci"]
 atlas = SubResource("PortableCompressedTexture2D_ogwj7")
 region = Rect2(184, 315, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a4ehn"]
+atlas = ExtResource("3_ad6jy")
+region = Rect2(184, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ugpuf"]
+atlas = ExtResource("3_ad6jy")
+region = Rect2(184, 441, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qcdy"]
+atlas = ExtResource("3_ad6jy")
+region = Rect2(276, 441, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wmeeo"]
+atlas = ExtResource("3_ad6jy")
+region = Rect2(368, 441, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0o0t0"]
+atlas = ExtResource("3_ad6jy")
+region = Rect2(276, 378, 92, 63)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3euae"]
 atlas = SubResource("PortableCompressedTexture2D_ogwj7")
@@ -176,9 +220,9 @@ region = Rect2(368, 189, 92, 63)
 atlas = SubResource("PortableCompressedTexture2D_ogwj7")
 region = Rect2(460, 189, 92, 63)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_81the"]
-atlas = ExtResource("3_c5ssw")
-region = Rect2(0, 0, 92, 63)
+[sub_resource type="AtlasTexture" id="AtlasTexture_kahtr"]
+atlas = ExtResource("3_ad6jy")
+region = Rect2(460, 441, 92, 63)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rhxde"]
 atlas = SubResource("PortableCompressedTexture2D_ogwj7")
@@ -220,6 +264,10 @@ region = Rect2(184, 126, 92, 63)
 atlas = SubResource("PortableCompressedTexture2D_ogwj7")
 region = Rect2(276, 126, 92, 63)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_cfs4m"]
+atlas = ExtResource("3_ad6jy")
+region = Rect2(368, 378, 92, 63)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_81the"]
 animations = [{
 "frames": [{
@@ -250,6 +298,34 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_2lm5v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_47nca")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3khag")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dfmo8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1o2cb")
+}],
+"loop": 1,
+"name": &"Climb",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c6lou")
+}],
+"loop": 1,
+"name": &"Dash",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_q6sa1")
 }, {
 "duration": 1.0,
@@ -261,6 +337,36 @@ animations = [{
 "loop": 1,
 "name": &"Fall",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a4ehn")
+}],
+"loop": 1,
+"name": &"Freeze",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ugpuf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qcdy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wmeeo")
+}],
+"loop": 1,
+"name": &"Glide",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0o0t0")
+}],
+"loop": 1,
+"name": &"Hurt",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -369,7 +475,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_81the")
+"texture": SubResource("AtlasTexture_kahtr")
 }],
 "loop": 1,
 "name": &"Slide",
@@ -409,6 +515,14 @@ animations = [{
 "loop": 1,
 "name": &"Walk",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cfs4m")
+}],
+"loop": 1,
+"name": &"Wall Slide",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hi634"]
@@ -460,6 +574,7 @@ _data = {
 z_index = 1
 collision_layer = 2
 script = ExtResource("2_c5ssw")
+ANIMATION_CLIMB_FIX = true
 ability = 3
 
 [node name="Colission" type="CollisionShape2D" parent="." unique_id=2035951123]
@@ -470,12 +585,14 @@ shape = SubResource("RectangleShape2D_mm1n1")
 texture_filter = 1
 material = SubResource("ShaderMaterial_4fcqj")
 sprite_frames = SubResource("SpriteFrames_81the")
-animation = &"Slide"
+animation = &"Dash"
 offset = Vector2(12, 0)
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": false,
 "layer_section": false,
-"pending_changes": {}
+"pending_changes": {
+"source": "res://assets/sprites/players/sprites/Pero openday gamejam.aseprite"
+}
 }
 metadata/_aseprite_wizard_config_ = {
 "embed_tex": true,

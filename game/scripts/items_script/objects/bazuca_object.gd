@@ -8,7 +8,8 @@ var _exploded: bool = false
 
 
 @onready var sprite: Sprite2D = get_node_or_null("Sprite2D")
-
+@onready var sfx : AudioStreamPlayer = $AudioStreamPlayer
+@onready var sfx2 : AudioStreamPlayer = $AudioStreamPlayer2
 
 func _ready() -> void:
 	direction = 1
@@ -30,7 +31,9 @@ func _physics_process(delta: float) -> void:
 func _on_body_entered(body: Node) -> void:
 	if body == AUTHOR:
 		return
-	
+	sfx.reparent(get_tree().current_scene)
+	sfx.play()
+	sfx.finished.connect(sfx.queue_free)
 	_explode()
 
 
@@ -38,7 +41,9 @@ func _explode() -> void:
 	if _exploded:
 		return
 	_exploded = true
-	
+	sfx2.play()
+	sfx2.reparent(get_tree().current_scene)
+	sfx2.finished.connect(sfx2.queue_free)
 	if explosion_scene != null:
 		var explosion := explosion_scene.instantiate()
 		get_tree().current_scene.add_child(explosion)

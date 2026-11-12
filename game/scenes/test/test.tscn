@@ -1,13 +1,14 @@
 [gd_scene format=3 uid="uid://cvuwnekt1g7s6"]
 
 [ext_resource type="PackedScene" uid="uid://t18vi224ryc7" path="res://game/scenes/items/spawner/item_spawner.tscn" id="1_ehljc"]
+[ext_resource type="PackedScene" uid="uid://m33aaq6kxcij" path="res://game/scenes/player/characters/Lajetixa.tscn" id="4_nb3nn"]
 [ext_resource type="Script" uid="uid://n6dh65vj2ay5" path="res://game/scripts/items_script/spawner/item_entry.gd" id="5_nb3nn"]
 [ext_resource type="PackedScene" uid="uid://bf6gqxe7r3mqm" path="res://game/scenes/player/characters/fdp.tscn" id="7_dgugv"]
 [ext_resource type="Resource" uid="uid://bsswfu8id5xom" path="res://game/resources/items/bazuca.tres" id="7_vfsnp"]
 [ext_resource type="Resource" uid="uid://ccv31s50l35yc" path="res://game/resources/items/dardo.tres" id="8_r63ru"]
 [ext_resource type="PackedScene" uid="uid://883kieocyryb" path="res://game/scenes/player/characters/Pero.tscn" id="9_3hpeo"]
 [ext_resource type="Resource" uid="uid://d2k3iwehkf5lh" path="res://game/resources/items/soco.tres" id="9_awprr"]
-[ext_resource type="Resource" uid="uid://c7dqyhctg7wp5" path="res://game/resources/items/zawarudo.tres" id="10_3hpeo"]
+[ext_resource type="Resource" uid="uid://d1jysbtnlmtft" path="res://game/resources/items/balao.tres" id="10_3hpeo"]
 [ext_resource type="PackedScene" uid="uid://dxum70k0in2bm" path="res://game/scenes/player/characters/Dave.tscn" id="10_nb3nn"]
 [ext_resource type="Resource" uid="uid://davyngcee5gb6" path="res://game/resources/items/granada_gelo.tres" id="11_5t7ab"]
 
@@ -25,25 +26,27 @@ size = Vector2(81.125, 433)
 [sub_resource type="Resource" id="Resource_ytq0n"]
 script = ExtResource("5_nb3nn")
 item = ExtResource("7_vfsnp")
+weight = 0.0
 
 [sub_resource type="Resource" id="Resource_imwlo"]
 script = ExtResource("5_nb3nn")
 item = ExtResource("8_r63ru")
+weight = 5.0
 
 [sub_resource type="Resource" id="Resource_nhqkh"]
 script = ExtResource("5_nb3nn")
 item = ExtResource("9_awprr")
+weight = 0.0
 
 [sub_resource type="Resource" id="Resource_4ne33"]
 script = ExtResource("5_nb3nn")
 item = ExtResource("11_5t7ab")
-weight = 0.0
 metadata/_custom_type_script = "uid://n6dh65vj2ay5"
 
-[sub_resource type="Resource" id="Resource_30k88"]
+[sub_resource type="Resource" id="Resource_ehljc"]
 script = ExtResource("5_nb3nn")
 item = ExtResource("10_3hpeo")
-weight = 3.0
+weight = 5.0
 metadata/_custom_type_script = "uid://n6dh65vj2ay5"
 
 [node name="test2" type="Node2D" unique_id=866233104]
@@ -76,12 +79,39 @@ position = Vector2(701, 490)
 [node name="PlayerModel3" parent="." unique_id=1120389457 instance=ExtResource("9_3hpeo")]
 position = Vector2(905, 454)
 control_schema = "2"
+ability = 0
 
 [node name="PlayerModel4" parent="." unique_id=503117395 instance=ExtResource("10_nb3nn")]
 position = Vector2(396, 480)
+vivo = true
 control_schema = "2"
+MAX_SPEED = 250.0
+ACEL = 1000.0
+FRICTION = 800.0
+MOMENTUM_CONSERVATION = 300.0
+JUMP_VELOCITY = -250.0
+GRAVITY = 1000.0
+MAX_FALL_SPEED = 600.0
+MAX_WALL_SLIDE_SPEED = 300.0
+ANIMATION_CLIMB_FIX = false
+ability = 2
+WALL_DETACH = 0.1
+COYOTE_TIME = 0.1
+HURT_TIME = 0.3
+IFRAMES = 1.5
+DASH_POWER = 350.0
+DASH_TIME = 0.1
+SLIDE_POWER = 400.0
+SLIDE_TIME = 0.2
+CLIMB_POWER = 150.0
+GLIDE_TIME = 0.5
+
+[node name="PlayerModel" parent="." unique_id=1305856846 instance=ExtResource("4_nb3nn")]
+position = Vector2(508, 507)
+control_schema = "2"
+ability = 2
 
 [node name="ItemSpawner2" parent="." unique_id=1166428446 instance=ExtResource("1_ehljc")]
 position = Vector2(221, 535)
-ITEMS = Array[ExtResource("5_nb3nn")]([SubResource("Resource_ytq0n"), SubResource("Resource_imwlo"), SubResource("Resource_nhqkh"), SubResource("Resource_4ne33"), SubResource("Resource_30k88")])
+ITEMS = Array[ExtResource("5_nb3nn")]([SubResource("Resource_ytq0n"), SubResource("Resource_imwlo"), SubResource("Resource_nhqkh"), SubResource("Resource_4ne33"), SubResource("Resource_ehljc")])
 COOLDOWN = 1.0

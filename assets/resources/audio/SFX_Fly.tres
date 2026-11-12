@@ -1,0 +1,7 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://c6fq3xxbwaxtc"]
+
+[ext_resource type="AudioStream" uid="uid://djsu6olske80o" path="res://assets/audio/SFX/8-bit-sound-effects.wav" id="1_gtfnc"]
+
+[resource]
+streams_count = 1
+stream_0/stream = ExtResource("1_gtfnc")

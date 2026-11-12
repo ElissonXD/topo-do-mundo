@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bumovlmjcbvnx" path="res://game/scripts/player_scripts/player_model.gd" id="1_tousn"]
 [ext_resource type="Shader" uid="uid://cr2wx16b0818h" path="res://assets/shaders/Colorswt.gdshader" id="2_nf368"]
+[ext_resource type="Texture2D" uid="uid://cbtw72s2a6nrc" path="res://assets/sprites/players/sprites/Lajetixa-Sheet2.png" id="3_k5fih"]
 [ext_resource type="AudioStream" uid="uid://ds75occ6ypqbw" path="res://assets/audio/SFX/jump1.wav" id="3_rkk0q"]
 [ext_resource type="AudioStream" uid="uid://bi2f8qydu2ygl" path="res://assets/audio/SFX/Throw1.wav" id="4_16ea1"]
 
@@ -45,6 +46,30 @@ region = Rect2(92, 378, 92, 63)
 atlas = SubResource("PortableCompressedTexture2D_tousn")
 region = Rect2(0, 0, 92, 63)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_o46n5"]
+atlas = ExtResource("3_k5fih")
+region = Rect2(368, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uspjt"]
+atlas = ExtResource("3_k5fih")
+region = Rect2(460, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v15rh"]
+atlas = ExtResource("3_k5fih")
+region = Rect2(552, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b6ili"]
+atlas = ExtResource("3_k5fih")
+region = Rect2(644, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x0dd1"]
+atlas = ExtResource("3_k5fih")
+region = Rect2(0, 441, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uaccu"]
+atlas = ExtResource("3_k5fih")
+region = Rect2(276, 441, 92, 63)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_7oi7t"]
 atlas = SubResource("PortableCompressedTexture2D_tousn")
 region = Rect2(0, 315, 92, 63)
@@ -56,6 +81,22 @@ region = Rect2(92, 315, 92, 63)
 [sub_resource type="AtlasTexture" id="AtlasTexture_x1an6"]
 atlas = SubResource("PortableCompressedTexture2D_tousn")
 region = Rect2(184, 315, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3tge3"]
+atlas = ExtResource("3_k5fih")
+region = Rect2(276, 378, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ocifv"]
+atlas = ExtResource("3_k5fih")
+region = Rect2(92, 441, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bgl74"]
+atlas = ExtResource("3_k5fih")
+region = Rect2(184, 441, 92, 63)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g580b"]
+atlas = ExtResource("3_k5fih")
+region = Rect2(184, 378, 92, 63)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_2uwbt"]
 atlas = SubResource("PortableCompressedTexture2D_tousn")
@@ -217,6 +258,10 @@ region = Rect2(184, 126, 92, 63)
 atlas = SubResource("PortableCompressedTexture2D_tousn")
 region = Rect2(276, 126, 92, 63)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_k5fih"]
+atlas = ExtResource("3_k5fih")
+region = Rect2(184, 315, 92, 63)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_3utm2"]
 animations = [{
 "frames": [{
@@ -247,6 +292,34 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_o46n5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uspjt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v15rh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b6ili")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x0dd1")
+}],
+"loop": 1,
+"name": &"Climb",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uaccu")
+}],
+"loop": 1,
+"name": &"Dash",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_7oi7t")
 }, {
 "duration": 1.0,
@@ -258,6 +331,33 @@ animations = [{
 "loop": 1,
 "name": &"Fall",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3tge3")
+}],
+"loop": 1,
+"name": &"Freeze",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ocifv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bgl74")
+}],
+"loop": 1,
+"name": &"Glide",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g580b")
+}],
+"loop": 1,
+"name": &"Hurt",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -406,6 +506,14 @@ animations = [{
 "loop": 1,
 "name": &"Walk",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_k5fih")
+}],
+"loop": 1,
+"name": &"Wall Slide",
+"speed": 5.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hi634"]
@@ -463,6 +571,7 @@ _data = {
 z_index = 1
 collision_layer = 2
 script = ExtResource("1_tousn")
+ANIMATION_CLIMB_FIX = true
 
 [node name="Colission" type="CollisionShape2D" parent="." unique_id=2035951123]
 position = Vector2(0, -0.5)
@@ -473,12 +582,14 @@ texture_filter = 1
 material = SubResource("ShaderMaterial_7met1")
 position = Vector2(-1, 16)
 sprite_frames = SubResource("SpriteFrames_3utm2")
-animation = &"Slide"
+animation = &"Wall Slide"
 offset = Vector2(14, -16)
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": false,
 "layer_section": false,
-"pending_changes": {}
+"pending_changes": {
+"source": "res://assets/sprites/players/sprites/Lajetixa.aseprite"
+}
 }
 metadata/_aseprite_wizard_config_ = {
 "embed_tex": true,

@@ -104,6 +104,7 @@ mouse_filter = 2
 stream = ExtResource("15_gusky")
 volume_db = -8.925
 autoplay = true
+parameters/looping = true
 
 [node name="ready" type="Label" parent="." unique_id=797712776]
 visible = false

@@ -2,10 +2,12 @@ extends Control
 
 @export var timer_display : Timer
 @onready var label: Label = $Panel/Label
+@onready var sfx: AudioStreamPlayer= $AudioStreamPlayer
 
 func _ready() -> void:
 	visible = true
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	sfx.play(0.69)
 
 func _process(delta: float) -> void:
 	# vai começar do 5, então subtrair 1 pq delays

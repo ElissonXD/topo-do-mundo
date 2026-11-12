@@ -1,5 +1,5 @@
 extends Control
-
+@onready var Sfx: AudioStreamPlayer = $AudioStreamPlayer
 # players
 @export var round_player: Control 
 @export var round_player_2: Control 
@@ -47,7 +47,6 @@ func _ready() -> void:
 	players_array = [round_player, round_player_2, round_player_3, round_player_4]
 
 
-
 func _process(delta: float) -> void:
 	
 	match state:
@@ -63,6 +62,7 @@ func _process(delta: float) -> void:
 # funções de entrada
 
 func go_to_score_state(results : Array):
+	Sfx.play()
 	state = RoundState.score
 	visible = true
 	process_mode = Node.PROCESS_MODE_ALWAYS

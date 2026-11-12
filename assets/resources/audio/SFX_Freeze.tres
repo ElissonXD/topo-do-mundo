@@ -1,0 +1,13 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://cx8tick0safoo"]
+
+[ext_resource type="AudioStream" uid="uid://b6k7t2lll1kqh" path="res://assets/audio/SFX/freeze.wav" id="1_14idj"]
+[ext_resource type="AudioStream" uid="uid://br5dy6t0ex50u" path="res://assets/audio/SFX/freeze2.wav" id="2_vbnb2"]
+[ext_resource type="AudioStream" uid="uid://mc8jhwqxu458" path="res://assets/audio/SFX/freeze3.wav" id="3_pgecw"]
+[ext_resource type="AudioStream" uid="uid://be886qmisjdmg" path="res://assets/audio/SFX/freeze4.wav" id="4_h4j5v"]
+
+[resource]
+streams_count = 4
+stream_0/stream = ExtResource("1_14idj")
+stream_1/stream = ExtResource("2_vbnb2")
+stream_2/stream = ExtResource("3_pgecw")
+stream_3/stream = ExtResource("4_h4j5v")

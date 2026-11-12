@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://byydq65tkmuqd" path="res://game/scripts/ui_scripts/final_results_ui/resultados_finais.gd" id="1_wcm85"]
 [ext_resource type="Texture2D" uid="uid://b815i6p46u5k" path="res://assets/sprites/players/portraits/Purgatorio_portrait.png" id="2_h1qbu"]
 [ext_resource type="PackedScene" uid="uid://bk4yyx7g8c03q" path="res://game/scenes/entities/crown.tscn" id="3_bhs11"]
+[ext_resource type="AudioStream" uid="uid://drvipitbbn4tr" path="res://assets/audio/music/show-da-fe-opening-theme-8-bit-by-eduardo-teodoro-4.wav" id="5_526wa"]
 
 [node name="resultados_finais" type="Control" unique_id=325009881 node_paths=PackedStringArray("timer")]
 layout_mode = 3
@@ -184,5 +185,10 @@ offset_bottom = 372.0
 size_flags_horizontal = 4
 theme_override_font_sizes/font_size = 32
 text = "Retornando em x..."
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=311052857]
+stream = ExtResource("5_526wa")
+autoplay = true
+bus = &"Music"
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

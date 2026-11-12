@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bs6adsl1lqkhc" path="res://game/scripts/ui_scripts/round_ui/round_results_ui.gd" id="1_803jg"]
 [ext_resource type="PackedScene" uid="uid://5l54dxcschsm" path="res://game/scenes/ui/round_ui/round_player.tscn" id="2_styvl"]
+[ext_resource type="AudioStream" uid="uid://dlfjpuwx2gu5i" path="res://assets/audio/music/Three Red Hearts Modern Bits.ogg" id="3_ctf3p"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qpayf"]
 bg_color = Color(0.09019608, 0.09019608, 0.09019608, 0.6)
@@ -76,3 +77,7 @@ layout_mode = 2
 
 [node name="RoundPlayer4" parent="PanelContainer/MarginContainer/VBoxContainer2/HBoxContainer" unique_id=983361844 instance=ExtResource("2_styvl")]
 layout_mode = 2
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="." unique_id=702680644]
+stream = ExtResource("3_ctf3p")
+bus = &"Music"
