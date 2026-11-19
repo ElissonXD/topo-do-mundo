@@ -454,19 +454,29 @@ position = Vector2(803, 546)
 script = SubResource("GDScript_ovyys")
 
 [node name="items" type="HBoxContainer" parent="CanvasLayer" unique_id=1390492214]
-offset_left = 199.0
-offset_top = 87.0
-offset_right = 1116.0
-offset_bottom = 87.0
+anchors_preset = -1
+anchor_left = 0.17300001
+anchor_top = 0.134
+anchor_right = 0.96900004
+anchor_bottom = 0.134
+offset_left = -0.29600525
+offset_top = 0.16799927
+offset_right = -0.28808594
+offset_bottom = 0.16799927
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 250
 
 [node name="players" type="HBoxContainer" parent="CanvasLayer" unique_id=758889202]
-offset_left = 115.0
-offset_top = 536.0
-offset_right = 865.0
-offset_bottom = 536.0
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.827
+anchor_right = 0.75100005
+anchor_bottom = 0.827
+offset_left = -0.20000458
+offset_top = 0.104003906
+offset_right = -0.15203857
+offset_bottom = 0.104003906
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 250

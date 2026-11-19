@@ -385,24 +385,6 @@ position = Vector2(1130, 492)
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2039428875]
 script = SubResource("GDScript_ovyys")
 
-[node name="items" type="HBoxContainer" parent="CanvasLayer" unique_id=1390492214]
-offset_left = 199.0
-offset_top = 87.0
-offset_right = 1116.0
-offset_bottom = 87.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 250
-
-[node name="players" type="HBoxContainer" parent="CanvasLayer" unique_id=758889202]
-offset_left = 115.0
-offset_top = 536.0
-offset_right = 865.0
-offset_bottom = 536.0
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/separation = 250
-
 [node name="RoundResults" parent="CanvasLayer" unique_id=1131514644 instance=ExtResource("9_pcf16")]
 visible = false
 offset_left = 103.0
@@ -416,11 +398,43 @@ timer_display = NodePath("../../RoundManager/Timer2")
 
 [node name="round_timer" parent="CanvasLayer" unique_id=1722227797 node_paths=PackedStringArray("display_timer") groups=["Game_Timer"] instance=ExtResource("11_183dl")]
 visible = false
-offset_left = 971.0
-offset_top = 27.0
-offset_right = 971.0
-offset_bottom = 27.0
+anchor_left = 0.84300005
+anchor_top = 0.042000003
+anchor_right = 1.0
+anchor_bottom = 0.083000004
+offset_left = -0.13604736
+offset_top = -0.21600151
+offset_right = -48.52002
+offset_bottom = 26.351997
 display_timer = NodePath("../../RoundManager/Timer")
+
+[node name="items" type="HBoxContainer" parent="CanvasLayer" unique_id=633819741]
+anchors_preset = -1
+anchor_left = 0.17300001
+anchor_top = 0.134
+anchor_right = 0.96900004
+anchor_bottom = 0.134
+offset_left = -0.29600525
+offset_top = 0.16799927
+offset_right = -0.28808594
+offset_bottom = 0.16799927
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 250
+
+[node name="players" type="HBoxContainer" parent="CanvasLayer" unique_id=2128837683]
+anchors_preset = -1
+anchor_left = 0.1
+anchor_top = 0.827
+anchor_right = 0.75100005
+anchor_bottom = 0.827
+offset_left = -0.20000458
+offset_top = 0.104003906
+offset_right = -0.15203857
+offset_bottom = 0.104003906
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 250
 
 [node name="Entities" type="Node" parent="." unique_id=461710596]
 
