@@ -42,17 +42,19 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Fundo" type="TextureRect" parent="." unique_id=788764061]
 layout_mode = 0
-offset_left = -626.0
-offset_top = 3.0
-offset_right = 1678.0
-offset_bottom = 1299.0
+anchor_left = -0.5434028
+anchor_top = 0.0046296297
+anchor_right = 1.4565972
+anchor_bottom = 2.0046296
 texture = ExtResource("1_7smjp")
+metadata/_edit_use_anchors_ = true
 
 [node name="Panel" type="Panel" parent="." unique_id=1675324659]
 layout_mode = 0
-offset_right = 1156.0
-offset_bottom = 214.0
+anchor_right = 1.0034722
+anchor_bottom = 0.33024693
 metadata/_edit_lock_ = true
+metadata/_edit_use_anchors_ = true
 
 [node name="Layout" type="VBoxContainer" parent="." unique_id=1434324825]
 layout_mode = 1
@@ -108,11 +110,16 @@ parameters/looping = true
 
 [node name="ready" type="Label" parent="." unique_id=797712776]
 visible = false
-layout_mode = 0
-offset_top = 205.0
-offset_right = 1152.0
-offset_bottom = 240.0
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.47685185
+anchor_right = 1.0
+anchor_bottom = 0.5231481
+offset_bottom = 3.0517578e-05
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_font_sizes/font_size = 32
 theme_override_styles/normal = SubResource("StyleBoxFlat_83sn4")
 text = "Jogo começando em: "
 horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
