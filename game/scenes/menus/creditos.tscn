@@ -6,18 +6,39 @@
 [ext_resource type="PackedScene" uid="uid://crfe5ulcvdawb" path="res://game/scenes/entities/logos.tscn" id="4_6n4nk"]
 [ext_resource type="PackedScene" uid="uid://c6oysvu1lbpog" path="res://game/scenes/menus/Transicao.tscn" id="5_2d70f"]
 
-[node name="Creditos" type="Node2D" unique_id=630764899]
+[node name="Creditos" type="Control" unique_id=39562858]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_15wa8")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=676029460]
-position = Vector2(577.00006, 324.00003)
+[node name="Sprite2D" type="TextureRect" parent="." unique_id=1112357456]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -332.99997
+offset_top = -168.99998
+offset_right = 2182.906
+offset_bottom = 1318.2598
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.51909727, 0.525463)
 texture = ExtResource("2_pyjv0")
 
 [node name="RichTextLabel" type="RichTextLabel" parent="." unique_id=1774544199]
-offset_left = 34.0
-offset_right = 1134.0
-offset_bottom = 606.0
+clip_contents = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 theme_override_font_sizes/normal_font_size = 47
 text = "
 Desenvolvedores:
@@ -39,6 +60,15 @@ position = Vector2(-43, 0)
 
 [node name="Control" parent="." unique_id=1610285260 instance=ExtResource("5_2d70f")]
 visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
 
 [node name="Timer" type="Timer" parent="Control" unique_id=74884905]
 wait_time = 3.0

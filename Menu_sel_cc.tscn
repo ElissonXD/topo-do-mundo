@@ -41,18 +41,25 @@ costume_shader = ExtResource("9_0brrk")
 metadata/_edit_use_anchors_ = true
 
 [node name="Fundo" type="TextureRect" parent="." unique_id=788764061]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 offset_left = -626.0
 offset_top = 3.0
-offset_right = 1678.0
-offset_bottom = 1299.0
+offset_right = 526.0
+offset_bottom = 651.0
 texture = ExtResource("1_7smjp")
 
 [node name="Panel" type="Panel" parent="." unique_id=1675324659]
-layout_mode = 0
-offset_right = 1156.0
-offset_bottom = 214.0
-metadata/_edit_lock_ = true
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.33
+offset_right = 4.0
+offset_bottom = 0.1599884
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Layout" type="VBoxContainer" parent="." unique_id=1434324825]
 layout_mode = 1

@@ -35,7 +35,7 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:material:shader_parameter/progress")
+tracks/0/path = NodePath("ColorRect2/ColorRect:material:shader_parameter/progress")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -51,7 +51,7 @@ length = 2.0333333
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("ColorRect:material:shader_parameter/progress")
+tracks/0/path = NodePath("ColorRect2/ColorRect:material:shader_parameter/progress")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -74,16 +74,24 @@ offset_right = 40.0
 offset_bottom = 40.0
 
 [node name="ColorRect2" type="ColorRect" parent="." unique_id=421727975]
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 1109.0
+offset_bottom = 604.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0.38039216, 0.36862746, 1, 1)
 
-[node name="ColorRect" type="ColorRect" parent="." unique_id=1489075585]
+[node name="ColorRect" type="ColorRect" parent="ColorRect2" unique_id=1489075585]
 material = SubResource("ShaderMaterial_bhunq")
-layout_mode = 0
-offset_right = 1152.0
-offset_bottom = 648.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 color = Color(0, 0, 0, 1)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1548651480]

@@ -40,44 +40,99 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 pivot_offset = Vector2(600, 300)
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_ikhvn")
 master_slider = NodePath("MarginContainer/VBoxContainer/HBoxContainer/Master")
 music_slider = NodePath("MarginContainer/VBoxContainer/HBoxContainer2/Musica")
 sfx_slider = NodePath("MarginContainer/VBoxContainer/HBoxContainer3/SFX")
 mute_button = NodePath("MarginContainer/VBoxContainer/HBoxContainer4/CheckButton")
 
-[node name="Bg desnecessario" type="Node2D" parent="." unique_id=433553083]
-position = Vector2(604, 307)
+[node name="Bg desnecessario" type="Control" parent="." unique_id=1257645713]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -686.3241
+offset_bottom = -396.96097
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(2.5983737, 2.732643)
 
-[node name="Sprite2D" type="Sprite2D" parent="Bg desnecessario" unique_id=780365742]
+[node name="Sprite2D" type="TextureRect" parent="Bg desnecessario" unique_id=1309977835]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("1_yedur")
+expand_mode = 1
 
-[node name="Sprite2D2" type="Sprite2D" parent="Bg desnecessario" unique_id=2141709100]
+[node name="Sprite2D2" type="TextureRect" parent="Bg desnecessario" unique_id=1571649083]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("2_ikhvn")
 
-[node name="Sprite2D3" type="Sprite2D" parent="Bg desnecessario" unique_id=1691243905]
+[node name="Sprite2D3" type="TextureRect" parent="Bg desnecessario" unique_id=1818238917]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("3_meuyl")
 
-[node name="Sprite2D5" type="Sprite2D" parent="Bg desnecessario" unique_id=1387294114]
+[node name="Sprite2D5" type="TextureRect" parent="Bg desnecessario" unique_id=852647195]
 material = SubResource("ShaderMaterial_bhunq")
-position = Vector2(0, -0.81152487)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("5_imxkn")
 
-[node name="Sprite2D9" type="Sprite2D" parent="Bg desnecessario" unique_id=405762046]
+[node name="Sprite2D9" type="TextureRect" parent="Bg desnecessario" unique_id=148577092]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("6_0vyl3")
 
-[node name="Sprite2D4" type="Sprite2D" parent="Bg desnecessario" unique_id=793049593]
+[node name="Sprite2D4" type="TextureRect" parent="Bg desnecessario" unique_id=852613430]
 material = SubResource("ShaderMaterial_tcw12")
-position = Vector2(0, -1.0978384)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("7_jipli")
 
-[node name="Sprite2D7" type="Sprite2D" parent="Bg desnecessario" unique_id=1863335275]
+[node name="Sprite2D7" type="TextureRect" parent="Bg desnecessario" unique_id=1241926189]
 material = SubResource("ShaderMaterial_xrcq3")
-position = Vector2(0, -1.0978384)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("8_g0dvr")
 
-[node name="Sprite2D8" type="Sprite2D" parent="Bg desnecessario" unique_id=1298693777]
+[node name="Sprite2D8" type="TextureRect" parent="Bg desnecessario" unique_id=1912188472]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("9_2rd2v")
 
 [node name="MarginContainer" type="MarginContainer" parent="." unique_id=693781588]
@@ -110,11 +165,13 @@ custom_minimum_size = Vector2(0, 145)
 layout_mode = 2
 
 [node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=1725287710]
+custom_minimum_size = Vector2(269, 0)
 layout_mode = 2
-size_flags_horizontal = 6
+size_flags_horizontal = 4
 theme_override_constants/outline_size = 12
 theme_override_font_sizes/font_size = 32
 text = "MASTER"
+horizontal_alignment = 1
 
 [node name="Master" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer" unique_id=682672954]
 custom_minimum_size = Vector2(269, 32)
@@ -206,7 +263,14 @@ vertical_alignment = 1
 
 [node name="ColorRect" parent="." unique_id=1610285260 instance=ExtResource("12_imxkn")]
 visible = false
-layout_mode = 0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Timer" type="Timer" parent="ColorRect" unique_id=1811451457]
 
