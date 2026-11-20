@@ -3,9 +3,12 @@ extends Control
 # labels
 @export var player: Label
 @export var score: Label
+@export var pts: Label
 var player_int : int = 0
 @export var texture_rect: TextureRect
 @export var panel_container: PanelContainer
+@export var x: AnimatedSprite2D
+var should_update_score = true
 
 # vai enviar o index do player
 func change_player(new_player : int, texture: Texture2D) -> void:
@@ -21,5 +24,16 @@ func change_color(color : Color):
 
 # isso aqui vai conectar com o round logic, recebendo o array
 func change_score(scores:Array[int]) -> void:
-	score.text = str(scores[player_int])
+	if should_update_score:
+		score.text = str(scores[player_int])
+	return
+
+func on_player_died() -> void:
+	should_update_score = false
+	x.visible = true
+	x.play('x') 
+	# adiiconar algo legal, por enquanto so texto
+	score.text = "Eliminado"
+	score.add_theme_color_override("font_color", Color.RED)
+	pts.visible = false
 	return

@@ -99,7 +99,9 @@ func _process_playing_state(delta: float) -> void:
 	var player_vencedor: Dictionary = {}
 	var empate: bool = false
 	
-	for player in players:
+	var alive_players = players.filter(func(player): return player['model'].vivo)
+	
+	for player in alive_players:
 		if int(player['model'].global_position.y) < menor_y:
 			menor_y = int(player['model'].global_position.y)
 			player_vencedor = player
@@ -121,13 +123,27 @@ func _process_playing_state(delta: float) -> void:
 		crown_object.global_position = player_vencedor['model'].global_position
 		crown_object.global_position.y -= 30
 	else:
-		crown_object.visible = false
-			
+		crown_object.visible = false			
+	for player in players:
+		if player not in alive_players:
+			match player['id']: # temporario
+				1:
+					players_points[0] = 0
+				2:
+					players_points[1] = 0
+				3:
+					players_points[2] = 0
+				4:
+					players_points[3] = 0		
+	
+	if len(alive_players) == 1: #encerrar jogo prematuramente
+		general_timer.stop()
+		change_state(GameState.GAME_OVER)
+	
 	get_players_points.emit(players_points)
 
 func _on_timer_timeout() -> void:
 	change_state(GameState.GAME_OVER)
-
 
 func _enter_game_over_state() -> void:
 	get_tree().paused = true
@@ -158,6 +174,7 @@ func create_ui_points(length: int) -> void:
 		$"../CanvasLayer/players".add_child(player_ui_score)
 		player_ui_score.change_player(i, player_portrait)
 		get_players_points.connect(player_ui_score.change_score)
+		players[i]['model'].player_died.connect(player_ui_score.on_player_died)
 
 func create_ui_itens(length:int) -> void:
 	var object = load("res://game/scenes/ui/round_ui/item_ui.tscn")

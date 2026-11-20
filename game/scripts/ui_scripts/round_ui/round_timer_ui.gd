@@ -15,3 +15,5 @@ func _process(delta: float) -> void:
 	
 	if minutes == 0 and seconds < 30:
 		label.add_theme_color_override("font_color", Color.RED)
+	else:
+		label.add_theme_color_override("font_color", Color.WHITE_SMOKE)

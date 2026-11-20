@@ -60,7 +60,8 @@ var iframes_timer : float
 # sinais
 
 signal get_item(item_text : Texture)
-signal use_item() 
+signal use_item()
+signal player_died()
 
 # camera
 
@@ -218,6 +219,7 @@ func go_to_walk_state():
 func go_to_jump_state():
 	play_sfx("Jump") 
 	state = PlayerState.jump
+	coyote_timer = 0
 	animation.play("Jump")
 	velocity.y = JUMP_VELOCITY
 	return
@@ -442,6 +444,7 @@ func dash_state(delta:float, direction: int):
 	dash_timer -= delta
 	
 	if want_to_wall_slide(direction):
+		animation.rotation_degrees = 0
 		go_to_wall_slide_state()
 		return
 	
@@ -616,9 +619,10 @@ func wall_jump(delta: float, direction: int):
 	return
 
 func want_to_wall_slide(direction: int):
-	if is_on_wall() and direction:
-		return true
-	return false 
+	if not is_on_wall() or direction == 0:
+		return false
+	var wall_normal = get_wall_normal()
+	return sign(direction) == -sign(wall_normal.x)
 
 func can_jump():
 	# alterar depois
@@ -725,6 +729,8 @@ func die():
 	play_sfx("Death") 
 	vivo = false
 	process_mode = Node.PROCESS_MODE_DISABLED
+	visible = false
+	player_died.emit()
 
 func is_alive():
 	return vivo #mudar dps com as condicoes futuras

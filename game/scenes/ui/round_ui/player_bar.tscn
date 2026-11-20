@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://cbv2d0fmor8w3" path="res://game/scripts/ui_scripts/round_ui/player_bar.gd" id="1_047qv"]
 [ext_resource type="Texture2D" uid="uid://bukrebr403wjl" path="res://assets/images/LajeWhite.png" id="1_u4fxp"]
+[ext_resource type="Texture2D" uid="uid://b3mmim4l5abv4" path="res://assets/sprites/entities/x..png" id="3_hxiph"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_183dl"]
 bg_color = Color(0, 0, 0, 0.23529412)
@@ -13,7 +14,50 @@ corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 corner_detail = 16
 
-[node name="PlayerBar" type="Control" unique_id=56221701 node_paths=PackedStringArray("player", "score", "texture_rect", "panel_container")]
+[sub_resource type="AtlasTexture" id="AtlasTexture_uw3aj"]
+atlas = ExtResource("3_hxiph")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3chrm"]
+atlas = ExtResource("3_hxiph")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6gocw"]
+atlas = ExtResource("3_hxiph")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3uwpe"]
+atlas = ExtResource("3_hxiph")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ypwp6"]
+atlas = ExtResource("3_hxiph")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_83sn4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uw3aj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3chrm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6gocw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3uwpe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ypwp6")
+}],
+"loop": 0,
+"name": &"x",
+"speed": 5.0
+}]
+
+[node name="PlayerBar" type="Control" unique_id=56221701 node_paths=PackedStringArray("player", "score", "pts", "texture_rect", "panel_container", "x")]
 layout_mode = 3
 anchor_right = 0.09913195
 anchor_bottom = 0.0784568
@@ -24,8 +68,10 @@ grow_vertical = 2
 script = ExtResource("1_047qv")
 player = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/player")
 score = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/score")
+pts = NodePath("PanelContainer/MarginContainer/HBoxContainer/VBoxContainer/HBoxContainer/pts")
 texture_rect = NodePath("PanelContainer/MarginContainer/HBoxContainer/TextureRect")
 panel_container = NodePath("PanelContainer")
+x = NodePath("X")
 metadata/_edit_use_anchors_ = true
 
 [node name="PanelContainer" type="PanelContainer" parent="." unique_id=997425048]
@@ -77,3 +123,10 @@ text = "0"
 layout_mode = 2
 theme_override_font_sizes/font_size = 9
 text = "pts."
+
+[node name="X" type="AnimatedSprite2D" parent="." unique_id=1532628021]
+visible = false
+position = Vector2(47, 41)
+scale = Vector2(3.4375, 3.7499998)
+sprite_frames = SubResource("SpriteFrames_83sn4")
+animation = &"x"

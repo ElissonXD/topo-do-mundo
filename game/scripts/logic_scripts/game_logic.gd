@@ -177,7 +177,7 @@ func _ready() -> void:
 			"costume_index": 0,
 			"portrait": load("res://assets/sprites/players/portraits/Lajetixa_idle.png"),
 			"controls": str(x + 1),
-			"ability": 3,
+			"ability": 0,
 			"score": 0,
 			"ready": true
 		}

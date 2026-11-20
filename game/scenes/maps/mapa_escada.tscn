@@ -344,12 +344,6 @@ editor_draw_limits = true
 editor_draw_drag_margin = true
 script = ExtResource("2_qs0h8")
 players_parent = NodePath("../Jogadores")
-margin = Vector2(100, 200)
-min_zoom = 1.0
-max_zoom = null
-smooth_factor = null
-lookahead_factor = null
-maximum_margin_per_player = 50.0
 
 [node name="TileMapLayer" type="TileMapLayer" parent="." unique_id=919988284]
 position = Vector2(35, 98)
