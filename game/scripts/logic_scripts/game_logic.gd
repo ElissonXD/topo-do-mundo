@@ -167,17 +167,19 @@ func go_to_next_map():
 
 
 func _ready() -> void:
-	return
+	
 	var players : Array[Dictionary]
 	for x in range(4):
 		var object = preload("res://game/scenes/player/characters/Lajetixa.tscn")
 		var player = {
-			"id": x+1,
-			"model": object,
-			"portrait": 'laje',
+			"id": x + 1,
+			"model": "res://game/scenes/player/characters/Lajetixa.tscn", # String para compatibilidade com load() em get_players()
+			"costume_index": 0,
+			"portrait": load("res://assets/sprites/players/portraits/Lajetixa_idle.png"),
+			"controls": str(x + 1),
 			"ability": 3,
-			"controls": str(x+1),
-			"score": 0
+			"score": 0,
+			"ready": true
 		}
 		players.append(player)
 	

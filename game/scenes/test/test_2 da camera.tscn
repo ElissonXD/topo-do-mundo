@@ -465,7 +465,7 @@ offset_right = -0.28808594
 offset_bottom = 0.16799927
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 250
+theme_override_constants/separation = 300
 
 [node name="players" type="HBoxContainer" parent="CanvasLayer" unique_id=758889202]
 anchors_preset = -1
@@ -479,7 +479,7 @@ offset_right = -0.15203857
 offset_bottom = 0.104003906
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/separation = 250
+theme_override_constants/separation = 300
 
 [node name="RoundResults" parent="CanvasLayer" unique_id=1131514644 instance=ExtResource("9_pcf16")]
 visible = false

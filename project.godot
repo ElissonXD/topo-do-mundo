@@ -23,6 +23,11 @@ buses/default_bus_layout="res://assets/resources/audio/default_bus_layout.tres"
 
 GameLogic="*uid://crius0fiewgx6"
 
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
+
 [dotnet]
 
 project/assembly_name="topo"
